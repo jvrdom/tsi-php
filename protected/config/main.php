@@ -16,6 +16,10 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.extensions.MongoYii.*',
+		'application.extensions.MongoYii.validators.*',
+		'application.extensions.MongoYii.behaviors.*',
+		'application.extensions.MongoYii.util.*'
 	),
 
 	'modules'=>array(
@@ -47,7 +51,7 @@ return array(
 			),
 		),
 		*/
-		'db'=>array(
+		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),
 		// uncomment the following to use a MySQL database
@@ -60,6 +64,13 @@ return array(
 			'charset' => 'utf8',
 		),
 		*/
+		// Settings for YiiMongo ORM
+		'mongodb' => array(
+			'class' => 'EMongoClient',
+			'server' => 'mongodb://localhost:27017',
+			'db' => 'tsi-php'
+		),
+
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',

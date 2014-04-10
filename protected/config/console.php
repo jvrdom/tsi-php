@@ -10,7 +10,7 @@ return array(
 	'preload'=>array('log'),
 
 	// application components
-	'components'=>array(
+	/*'components'=>array(
 		'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),
@@ -24,6 +24,12 @@ return array(
 			'charset' => 'utf8',
 		),
 		*/
+		'mongodb' => array(
+			'class' => 'EMongoClient',
+			'server' => 'mongodb://localhost:27017',
+			'db' => 'tsi-php'
+		),
+		
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
