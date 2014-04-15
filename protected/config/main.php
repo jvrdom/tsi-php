@@ -2,6 +2,7 @@
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
+// Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
@@ -10,7 +11,7 @@ return array(
 	'name'=>'My Web Application',
 
 	// preloading 'log' component
-	'preload'=>array('log'),
+	'preload'=>array('log','bootstrap'),
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -19,7 +20,7 @@ return array(
 		'application.extensions.MongoYii.*',
 		'application.extensions.MongoYii.validators.*',
 		'application.extensions.MongoYii.behaviors.*',
-		'application.extensions.MongoYii.util.*'
+		'application.extensions.MongoYii.util.*',
 	),
 
 	'modules'=>array(
@@ -40,6 +41,8 @@ return array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
+
+		'bootstrap' => array('class' => 'application.extensions.yiibooster.components.Bootstrap'),
 		// uncomment the following to enable URLs in path-format
 		/*
 		'urlManager'=>array(
