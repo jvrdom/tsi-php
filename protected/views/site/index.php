@@ -17,7 +17,7 @@ $this->pageTitle=Yii::app()->name;
     'bootstrap.widgets.TbButton',
 	    array(
 	        'label' => 'Highlighted',
-	        'type' => 'success',
+	        'type' => 'warning',
 	    )
 		);
 
