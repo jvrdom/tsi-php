@@ -21,6 +21,8 @@ return array(
 		'application.extensions.MongoYii.validators.*',
 		'application.extensions.MongoYii.behaviors.*',
 		'application.extensions.MongoYii.util.*',
+		'application.modules.rights.*',
+    'application.modules.rights.components.*',
 	),
 
 	'modules'=>array(
@@ -32,6 +34,12 @@ return array(
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			//'ipFilters'=>array('127.0.0.1','::1'),
 		),
+
+		'rights' => array(
+				'install' => false,
+				'userIdColumn' => 'id_usuario',
+				'debug' => true,
+		),
 		
 	),
 
@@ -39,6 +47,7 @@ return array(
 	'components'=>array(
 		'user'=>array(
 			// enable cookie-based authentication
+			'class' => 'RWebUser',
 			'allowAutoLogin'=>true,
 		),
 
@@ -63,8 +72,13 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=tsi-php',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'cero123',
+			'password' => '[PASSWORD_MYSQL]',
 			'charset' => 'utf8',
+		),
+
+		'authManager' => array(
+			'class' => 'RDbAuthManager',
+			'connectionID' => 'db',
 		),
 		/*
 		// Settings for YiiMongo ORM
@@ -78,7 +92,8 @@ return array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
 		),
-		'log'=>array(
+
+		/*'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
 				array(
@@ -86,11 +101,21 @@ return array(
 					'levels'=>'error, warning',
 				),
 				// uncomment the following to show log messages on web pages
-				/*
+				
 				array(
-					'class'=>'CWebLogRoute',
+					'class'=>'CWebLogRoute',	
 				),
-				*/
+				
+			),
+		),*/
+
+		'log' => array(
+			'class' => 'CLogRouter',
+			'routes' => array(
+				array(
+					'class' => 'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
+					'ipFilters' => array('127.0.0.1','198.168.1.215'),
+				),
 			),
 		),
 	),
