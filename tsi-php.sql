@@ -6,32 +6,25 @@ CREATE SCHEMA IF NOT EXISTS `tsi-php` DEFAULT CHARACTER SET utf8 COLLATE utf8_ge
 USE `tsi-php` ;
 
 -- -----------------------------------------------------
--- Table `tsi-php`.`tbl_roles`
+-- Table `tsi-php`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tsi-php`.`tbl_roles` (
-  `id_roles` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_roles`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `tsi-php`.`tbl_usuario`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tsi-php`.`tbl_usuario` (
+CREATE TABLE IF NOT EXISTS `tsi-php`.`user` (
   `id_usuario` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NOT NULL,
-  `tbl_roles_id_roles` INT NOT NULL,
-  PRIMARY KEY (`id_usuario`, `tbl_roles_id_roles`),
-  INDEX `fk_tbl_usuario_tbl_roles_idx` (`tbl_roles_id_roles` ASC),
-  CONSTRAINT `fk_tbl_usuario_tbl_roles`
-    FOREIGN KEY (`tbl_roles_id_roles`)
-    REFERENCES `tsi-php`.`tbl_roles` (`id_roles`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  `username` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id_usuario`))
 ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `tsi-php`.`user`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `tsi-php`;
+INSERT INTO `tsi-php`.`user` (`id_usuario`, `username`) VALUES (1, 'admin');
+
+COMMIT;
+
