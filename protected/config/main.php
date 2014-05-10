@@ -31,6 +31,7 @@ return array(
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'admin',
+			'generatorPaths' => array('bootstrap.gii'),
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			//'ipFilters'=>array('127.0.0.1','::1'),
 		),
@@ -51,7 +52,7 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 
-		'bootstrap' => array('class' => 'application.extensions.yiibooster.components.Bootstrap'),
+		'bootstrap' => array('class' => 'application.extensions.yiibooster.components.Bootstrap', 'responsiveCss' => true,),
 		// uncomment the following to enable URLs in path-format
 		
 		'urlManager'=>array(
@@ -72,7 +73,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=tsi-php',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => '[PASSWORD_MYSQL]',
+			'password' => 'cero123',
 			'charset' => 'utf8',
 		),
 
@@ -103,7 +104,7 @@ return array(
 				// uncomment the following to show log messages on web pages
 				
 				array(
-					'class'=>'CWebLogRoute',	
+					'class'=>'CWebLogRoute',
 				),
 				
 			),
