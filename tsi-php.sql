@@ -40,7 +40,7 @@ CREATE TABLE `AuthAssignment` (
 
 LOCK TABLES `AuthAssignment` WRITE;
 /*!40000 ALTER TABLE `AuthAssignment` DISABLE KEYS */;
-INSERT INTO `AuthAssignment` VALUES ('Admin','1',NULL,'N;');
+INSERT INTO `AuthAssignment` VALUES ('Admin','8',NULL,'N;'),('Authenticated','2',NULL,'N;'),('Authenticated','3',NULL,'N;');
 /*!40000 ALTER TABLE `AuthAssignment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,8 +132,9 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
+  `password` varchar(120) NOT NULL,
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,7 +143,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin');
+INSERT INTO `user` VALUES (8,'admin','$2a$13$gyjC2Se9PiQ9WUxyCligB.0xwJJmMUqT50IWU4D76qqDhJWoG4K4.');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -155,4 +156,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-09 12:19:12
+-- Dump completed on 2014-05-10 18:25:07
