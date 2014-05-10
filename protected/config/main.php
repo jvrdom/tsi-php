@@ -73,7 +73,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=tsi-php',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'cero123',
+			'password' => 'admin',
 			'charset' => 'utf8',
 		),
 
