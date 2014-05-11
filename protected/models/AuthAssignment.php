@@ -1,21 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "user".
+ * This is the model class for table "AuthAssignment".
  *
- * The followings are the available columns in table 'user':
- * @property integer $id_usuario
- * @property string $username
- * @property string $password
+ * The followings are the available columns in table 'AuthAssignment':
+ * @property string $itemname
+ * @property string $userid
+ * @property string $bizrule
+ * @property string $data
+ *
+ * The followings are the available model relations:
+ * @property AuthItem $itemname0
  */
-class User extends CActiveRecord
+class AuthAssignment extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'user';
+		return 'AuthAssignment';
 	}
 
 	/**
@@ -26,11 +30,12 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password', 'required'),
-			array('username, password', 'length', 'max'=>45),
+			array('itemname, userid', 'required'),
+			array('itemname, userid', 'length', 'max'=>64),
+			array('bizrule, data', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_usuario, username, password', 'safe', 'on'=>'search'),
+			array('itemname, userid, bizrule, data', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -42,6 +47,7 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'itemname0' => array(self::BELONGS_TO, 'AuthItem', 'itemname'),
 		);
 	}
 
@@ -51,9 +57,10 @@ class User extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_usuario' => 'Id Usuario',
-			'username' => 'Username',
-			'password' => 'Password',
+			'itemname' => 'Itemname',
+			'userid' => 'Userid',
+			'bizrule' => 'Bizrule',
+			'data' => 'Data',
 		);
 	}
 
@@ -75,9 +82,10 @@ class User extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id_usuario',$this->id_usuario);
-		$criteria->compare('username',$this->username,true);
-		$criteria->compare('password',$this->password,true);
+		$criteria->compare('itemname',$this->itemname,true);
+		$criteria->compare('userid',$this->userid,true);
+		$criteria->compare('bizrule',$this->bizrule,true);
+		$criteria->compare('data',$this->data,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -88,53 +96,10 @@ class User extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return User the static model class
+	 * @return AuthAssignment the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
-	}
-
-	/**
-	 * Checks if the given password is correct.
-	 * @param string the password to be validated
-	 * @return boolean whether the password is valid
-	 */
-	public function validatePassword($password)
-	{
-		var_dump($password);
-		var_dump($this->password);
-		return CPasswordHelper::verifyPassword($password,$this->password);
-
-	}
-
-	/**
-	 * Generates the password hash.
-	 * @param string password
-	 * @return string hash
-	 */
-	public function hashPassword($password)
-	{
-		return CPasswordHelper::hashPassword($password);
-	}
-
-	protected function beforeSave()
-	{
-	  $this->password = $this->hashPassword($this->password);
-	  return parent::beforeSave();
-	}
-
-	protected function afterSave()
-	{
-
-	  $model = new AuthAssignment();
-	  $model->itemname = "Authenticated";
-	  $model->userid = $this->id_usuario;
-	  $model->bizrule = null;
-	  $model->data = "N;";
-	  var_dump($model);
-	  $model->save();
-
-	  return parent::afterSave();
 	}
 }
