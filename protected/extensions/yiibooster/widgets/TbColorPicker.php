@@ -12,7 +12,7 @@
  *
  * ------------------------------------------------------------------------
  *   in yii  use this to register the necessary js and css files :
- *   <?php  $this->widget('bootstrap.widgets.TbColorPicker', array( )); ?>
+ *   <?php  $this->widget('booster.widgets.TbColorPicker', array( )); ?>
  *   and the rest usage you'd better refer the original plugin
  *
  * @see <http://www.eyecon.ro/bootstrap-colorpicker/>
@@ -20,8 +20,10 @@
  *
  * @package booster.widgets.forms.inputs
  */
-class TbColorPicker extends CInputWidget
-{
+
+Yii::import('booster.widgets.TbBaseInputWidget');
+
+class TbColorPicker extends TbBaseInputWidget {
 
 	/**
 	 * @var TbActiveForm when created via TbActiveForm.
@@ -86,10 +88,10 @@ class TbColorPicker extends CInputWidget
 	 *
 	 * @param string $id
 	 */
-	public function registerClientScript($id)
-	{
-        Bootstrap::getBooster()->registerAssetJs('bootstrap.colorpicker.js', CClientScript::POS_HEAD);
-        Bootstrap::getBooster()->registerAssetCss('bootstrap-colorpicker.css');
+	public function registerClientScript($id) {
+		
+        Booster::getBooster()->registerAssetJs('bootstrap.colorpicker.js', CClientScript::POS_HEAD);
+        Booster::getBooster()->registerAssetCss('bootstrap-colorpicker.css');
 
 		$options = !empty($this->format) ? CJavaScript::encode(array('format' => $this->format)) : '';
 

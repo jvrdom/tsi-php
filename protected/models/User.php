@@ -123,4 +123,18 @@ class User extends CActiveRecord
 	  $this->password = $this->hashPassword($this->password);
 	  return parent::beforeSave();
 	}
+
+	protected function afterSave()
+	{
+
+	  $model = new AuthAssignment();
+	  $model->itemname = "Authenticated";
+	  $model->userid = $this->id_usuario;
+	  $model->bizrule = null;
+	  $model->data = "N;";
+	  var_dump($model);
+	  $model->save();
+
+	  return parent::afterSave();
+	}
 }

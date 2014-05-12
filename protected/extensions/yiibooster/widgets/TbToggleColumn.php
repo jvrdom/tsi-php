@@ -172,7 +172,7 @@ class TbToggleColumn extends TbDataColumn
 		}
 
 		$this->button = array(
-			'url' => 'Yii::app()->controller->createUrl("' . $this->toggleAction . '",array("id"=>$data->primaryKey,"attribute"=>"' . $this->name . '"))',
+			'url' => 'Yii::app()->controller->createUrl("' . $this->toggleAction . '",array("pk"=>$data->primaryKey,"attribute"=>"' . $this->name . '"))',
 			'htmlOptions' => array('class' => $this->name . '_toggle' . $this->uniqueClassSuffix),
 		);
 
@@ -252,7 +252,7 @@ function() {
 			echo CHtml::link('<i class="' . $button['icon'] . '"></i>', $button['url'], $button['htmlOptions']);
 		} else {
 			$button['label'] = $this->getButtonLabel($checked);
-			$button['class'] = 'bootstrap.widgets.TbButton';
+			$button['class'] = 'booster.widgets.TbButton';
 			$widget = Yii::createComponent($button);
 			$widget->init();
 			$widget->run();
