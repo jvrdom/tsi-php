@@ -12,8 +12,8 @@
  * @since 1.0.3
  * @package booster.widgets.forms.inputs
  */
-class TbTimePicker extends CInputWidget
-{
+class TbTimePicker extends CInputWidget {
+	
 	/**
 	 * @var TbActiveForm If we're called from the form, here lies the reference to it.
 	 */
@@ -69,10 +69,11 @@ class TbTimePicker extends CInputWidget
 	/**
 	 * Runs the widget.
 	 */
-	public function run()
-	{
+	public function run() {
+		
 		list($name, $id) = $this->resolveNameID();
 
+		// TODO: what is this?
 		// Add a class of no-user-select to widget
 		$this->htmlOptions['class'] = empty($this->htmlOptions['class'])
 			? 'no-user-select'
@@ -80,14 +81,14 @@ class TbTimePicker extends CInputWidget
 
 		// We are overriding the result of $this->resolveNameID() here, because $id which it emits is not unique through the page.
 		if (empty($this->htmlOptions['id'])) {
-			$this->htmlOptions['id'] = $this->getId(true) . '-' . $id;
+			$this->htmlOptions['id'] = $id; // #716 this is stopping clientside error to appear - $this->getId(true) . '-' . $id;
 		}
 
 		// Adding essential class for timepicker to work.
 		$this->wrapperHtmlOptions = $this->injectClass($this->wrapperHtmlOptions, 'bootstrap-timepicker');
 
 		if (!$this->noAppend)
-			$this->wrapperHtmlOptions = $this->injectClass($this->wrapperHtmlOptions, 'input-append');
+			$this->wrapperHtmlOptions = $this->injectClass($this->wrapperHtmlOptions, 'input-group');
 
 
 		echo CHtml::openTag('div', $this->wrapperHtmlOptions);
@@ -114,7 +115,7 @@ class TbTimePicker extends CInputWidget
 	 */
 	public function registerClientScript($id)
 	{
-        Bootstrap::getBooster()->assetsRegistry->registerPackage('timepicker');
+        Booster::getBooster()->cs->registerPackage('timepicker');
 
 		$options = !empty($this->options) ? CJavaScript::encode($this->options) : '';
 
@@ -134,8 +135,8 @@ class TbTimePicker extends CInputWidget
 	 *
 	 * @return array
 	 */
-	private function injectClass($valueset, $className)
-	{
+	private function injectClass($valueset, $className) {
+		
 		if (array_key_exists('class', $valueset) and is_string($valueset['class'])) {
 			$valueset['class'] = implode(
 				' ',
@@ -154,8 +155,8 @@ class TbTimePicker extends CInputWidget
 		return $valueset;
 	}
 
-	private function echoAppend()
-	{
-		echo CHtml::tag('span', array('class' => 'add-on'), CHtml::tag('i', array('class' => 'icon-time'), ''));
+	private function echoAppend() {
+		
+		echo CHtml::tag('span', array('class' => 'input-group-addon'), CHtml::tag('i', array('class' => 'glyphicon glyphicon-time'), ''));
 	}
 }

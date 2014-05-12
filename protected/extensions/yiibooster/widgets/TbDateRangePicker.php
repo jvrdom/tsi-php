@@ -14,8 +14,11 @@
  *
  * @package booster.widgets.forms.inputs
  */
-class TbDateRangePicker extends CInputWidget
-{
+
+Yii::import('booster.widgets.TbBaseInputWidget');
+
+class TbDateRangePicker extends TbBaseInputWidget {
+	
 	/**
 	 * @var TbActiveForm when created via TbActiveForm.
 	 * this attribute is set to the form that renders the widget
@@ -48,20 +51,21 @@ class TbDateRangePicker extends CInputWidget
 	 *
 	 * Initializes the widget.
 	 */
-	public function init()
-	{
+	public function init() {
+		
 		$this->registerClientScript();
+		parent::init();
 	}
-
+	
 	/**
 	 *### .run()
 	 *
 	 * Runs the widget.
 	 */
-	public function run()
-	{
+	public function run() {
+		
 		if ($this->selector) {
-            Bootstrap::getBooster()->registerDateRangePlugin($this->selector, $this->options, $this->callback);
+            Booster::getBooster()->registerDateRangePlugin($this->selector, $this->options, $this->callback);
 		} else {
 			list($name, $id) = $this->resolveNameID();
 
@@ -77,7 +81,7 @@ class TbDateRangePicker extends CInputWidget
 			}
 
 			$this->setLocaleSettings();
-            Bootstrap::getBooster()->registerDateRangePlugin('#' . $id, $this->options, $this->callback);
+            Booster::getBooster()->registerDateRangePlugin('#' . $id, $this->options, $this->callback);
 		}
 
 	}
@@ -91,8 +95,8 @@ class TbDateRangePicker extends CInputWidget
 	 *
 	 *  This method works with the local properties directly, beware.
 	 */
-	private function setLocaleSettings()
-	{
+	private function setLocaleSettings() {
+		
 		$this->setDaysOfWeekNames();
 		$this->setMonthNames();
 	}
@@ -100,8 +104,8 @@ class TbDateRangePicker extends CInputWidget
 	/**
 	 *### .setDaysOfWeekNames()
 	 */
-	private function setDaysOfWeekNames()
-	{
+	private function setDaysOfWeekNames() {
+		
 		if (empty($this->options['locale']['daysOfWeek'])) {
 			$this->options['locale']['daysOfWeek'] = Yii::app()->locale->getWeekDayNames('narrow', true);
 		}
@@ -110,8 +114,8 @@ class TbDateRangePicker extends CInputWidget
 	/**
 	 *### .setMonthNames()
 	 */
-	private function setMonthNames()
-	{
+	private function setMonthNames() {
+		
 		if (empty($this->options['locale']['monthNames'])) {
 			$this->options['locale']['monthNames'] = array_values(
 				Yii::app()->locale->getMonthNames('wide', true)
@@ -124,9 +128,9 @@ class TbDateRangePicker extends CInputWidget
 	 *
 	 * Registers required css js files
 	 */
-	public function registerClientScript()
-	{
-        $booster = Bootstrap::getBooster();
+	public function registerClientScript() {
+		
+        $booster = Booster::getBooster();
         $booster->registerAssetCss('bootstrap-daterangepicker.css');
         $booster->registerAssetJs('bootstrap.daterangepicker.js');
         $booster->registerPackage('moment');
