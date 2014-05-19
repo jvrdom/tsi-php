@@ -35,6 +35,7 @@ $this->widget(
                 'class' => 'bootstrap.widgets.TbMenu',
                 'items' => array(
                     array('label' => 'Home', 'url' => 'http://localhost/tsi-php/index.php', 'active' => true),
+                    array('label'=> 'Permisos', 'url'=>array('/rights'),'visible' => Yii::app()->user->checkAccess('Admin')),
                 ),
             ),
             array(
