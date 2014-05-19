@@ -8,7 +8,7 @@
  * @since 0.9.10
  */
 
-Yii::import('booster.widgets.TbButton');
+Yii::import('bootstrap.widgets.TbButton');
 
 /**
  *## Bootstrap button group widget.
@@ -123,7 +123,7 @@ class TbButtonGroup extends CWidget
 			}
 
 			$this->controller->widget(
-				'booster.widgets.TbButton',
+				'bootstrap.widgets.TbButton',
 				array(
 					'buttonType' => isset($button['buttonType']) ? $button['buttonType'] : $this->buttonType,
 					'type' => isset($button['type']) ? $button['type'] : $this->type,
