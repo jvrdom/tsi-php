@@ -11,12 +11,12 @@
 /**
  * Bootstrap button widget.
  *
- * @see http://getbootstrap.com/css/#buttons
+ * @see http://twitter.github.com/bootstrap/base-css.html#buttons
  *
  * @package booster.widgets.forms.buttons
  */
-class TbButton extends CWidget {
-	
+class TbButton extends CWidget
+{
 	// Button callback types.
 	const BUTTON_LINK = 'link';
 	const BUTTON_BUTTON = 'button';
@@ -30,30 +30,30 @@ class TbButton extends CWidget {
 	const BUTTON_INPUTSUBMIT = 'inputSubmit';
 
 	// Button types.
-	const TYPE_DEFAULT = 'default';
 	const TYPE_PRIMARY = 'primary';
-	const TYPE_SUCCESS = 'success';
 	const TYPE_INFO = 'info';
+	const TYPE_SUCCESS = 'success';
 	const TYPE_WARNING = 'warning';
 	const TYPE_DANGER = 'danger';
+	const TYPE_INVERSE = 'inverse';
 	const TYPE_LINK = 'link';
 
 	// Button sizes.
-	const SIZE_LARGE = 'lg';
-	const SIZE_SMALL = 'sm';
-	const SIZE_EXTRA_SMALL = 'xs';
+	const SIZE_MINI = 'mini';
+	const SIZE_SMALL = 'small';
+	const SIZE_LARGE = 'large';
 
 	/**
 	 * @var string the button callback types.
 	 * Valid values are 'link', 'button', 'submit', 'submitLink', 'reset', 'ajaxLink', 'ajaxButton' and 'ajaxSubmit'.
 	 */
-	public $buttonType = self::BUTTON_BUTTON;
+	public $buttonType = self::BUTTON_LINK;
 
 	/**
 	 * @var string the button type.
 	 * Valid values are 'primary', 'info', 'success', 'warning', 'danger' and 'inverse'.
 	 */
-	public $type = self::TYPE_DEFAULT;
+	public $type;
 
 	/**
 	 * @var string the button size.
@@ -157,8 +157,8 @@ class TbButton extends CWidget {
 	 *
 	 * Initializes the widget.
 	 */
-	public function init() {
-		
+	public function init()
+	{
 		if (false === $this->visible) {
 			return;
 		}
@@ -166,24 +166,20 @@ class TbButton extends CWidget {
 		$classes = array('btn');
 
 		$validTypes = array(
-			self::TYPE_DEFAULT,
+			self::TYPE_LINK,
 			self::TYPE_PRIMARY,
-			self::TYPE_SUCCESS,
 			self::TYPE_INFO,
+			self::TYPE_SUCCESS,
 			self::TYPE_WARNING,
 			self::TYPE_DANGER,
-			self::TYPE_LINK,
+			self::TYPE_INVERSE
 		);
 
 		if (isset($this->type) && in_array($this->type, $validTypes)) {
 			$classes[] = 'btn-' . $this->type;
 		}
 
-		$validSizes = array(
-			self::SIZE_LARGE, 
-			self::SIZE_SMALL, 
-			self::SIZE_EXTRA_SMALL
-		);
+		$validSizes = array(self::SIZE_LARGE, self::SIZE_SMALL, self::SIZE_MINI);
 
 		if (isset($this->size) && in_array($this->size, $validSizes)) {
 			$classes[] = 'btn-' . $this->size;
@@ -243,13 +239,12 @@ class TbButton extends CWidget {
 			}
 		}
 
-		if (isset($this->icon)) { // no need for implode as newglyphicon only supports one icon
+		if (isset($this->icon)) {
 			if (strpos($this->icon, 'icon') === false && strpos($this->icon, 'fa') === false) {
-				$this->icon = 'glyphicon glyphicon-' . $this->icon; // implode(' glyphicon-', explode(' ', $this->icon));
-				$this->label = '<span class="' . $this->icon . '"></span> ' . $this->label;
-			} else { // to support font awesome icons
-				$this->label = '<i class="' . $this->icon . '"></i> ' . $this->label;
+				$this->icon = 'icon-' . implode(' icon-', explode(' ', $this->icon));
 			}
+
+			$this->label = '<i class="' . $this->icon . '"></i> ' . $this->label;
 		}
 
 		if (!isset($this->htmlOptions['id'])) {
@@ -293,19 +288,17 @@ class TbButton extends CWidget {
 	 *
 	 * Runs the widget.
 	 */
-	public function run() {
+	public function run()
+	{
 		if (false === $this->visible) {
 			return;
 		}
 
-		
+		echo $this->createButton();
+
 		if ($this->hasDropdown()) {
-			echo '<div class="btn-group">';
-			
-			echo $this->createButton();
-		
 			$this->controller->widget(
-				'booster.widgets.TbDropdown',
+				'bootstrap.widgets.TbDropdown',
 				array(
 					'encodeLabel' => $this->encodeLabel,
 					'items' => $this->items,
@@ -313,10 +306,6 @@ class TbButton extends CWidget {
 					'id' => isset($this->dropdownOptions['id']) ? $this->dropdownOptions['id'] : null,
 				)
 			);
-			
-			echo '</div>';
-		} else {
-			echo $this->createButton();
 		}
 	}
 
@@ -327,11 +316,11 @@ class TbButton extends CWidget {
 	 *
 	 * @return string the created button.
 	 */
-	protected function createButton() {
-		
+	protected function createButton()
+	{
 		switch ($this->buttonType) {
-			case self::BUTTON_LINK:
-				return CHtml::link($this->label, $this->url, $this->htmlOptions);
+			case self::BUTTON_BUTTON:
+				return CHtml::htmlButton($this->label, $this->htmlOptions);
 
 			case self::BUTTON_SUBMIT:
 				$this->htmlOptions['type'] = 'submit';
@@ -367,8 +356,8 @@ class TbButton extends CWidget {
 				return CHtml::button($this->label, $this->htmlOptions);
 
 			default:
-			case self::BUTTON_BUTTON:
-				return CHtml::htmlButton($this->label, $this->htmlOptions);
+			case self::BUTTON_LINK:
+				return CHtml::link($this->label, $this->url, $this->htmlOptions);
 		}
 	}
 
