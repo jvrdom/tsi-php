@@ -7,6 +7,10 @@
  * @property integer $id_usuario
  * @property string $username
  * @property string $password
+ *
+ * The followings are the available model relations:
+ * @property Inmueble[] $inmuebles
+ * @property Calendario[] $calendarios
  */
 class User extends CActiveRecord
 {
@@ -27,7 +31,8 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('username, password', 'required'),
-			array('username, password', 'length', 'max'=>45),
+			array('username', 'length', 'max'=>45),
+			array('password', 'length', 'max'=>120),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_usuario, username, password', 'safe', 'on'=>'search'),
@@ -42,6 +47,8 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'inmuebles' => array(self::MANY_MANY, 'Inmueble', 'administra(user_id_usuario, inmueble_id_inmueble)'),
+			'calendarios' => array(self::MANY_MANY, 'Calendario', 'user_calendario(user_id_usuario, calendario_id_calendario)'),
 		);
 	}
 
@@ -95,24 +102,23 @@ class User extends CActiveRecord
 		return parent::model($className);
 	}
 
-	/**
-	 * Checks if the given password is correct.
-	 * @param string the password to be validated
-	 * @return boolean whether the password is valid
-	 */
+		/**
+	* Checks if the given password is correct.
+	* @param string the password to be validated
+	* @return boolean whether the password is valid
+	*/
 	public function validatePassword($password)
 	{
 		var_dump($password);
 		var_dump($this->password);
 		return CPasswordHelper::verifyPassword($password,$this->password);
-
 	}
 
 	/**
-	 * Generates the password hash.
-	 * @param string password
-	 * @return string hash
-	 */
+	* Generates the password hash.
+	* @param string password
+	* @return string hash
+	*/
 	public function hashPassword($password)
 	{
 		return CPasswordHelper::hashPassword($password);
@@ -120,21 +126,20 @@ class User extends CActiveRecord
 
 	protected function beforeSave()
 	{
-	  $this->password = $this->hashPassword($this->password);
-	  return parent::beforeSave();
+		$this->password = $this->hashPassword($this->password);
+		return parent::beforeSave();
 	}
 
 	protected function afterSave()
 	{
 
-	  $model = new AuthAssignment();
-	  $model->itemname = "Authenticated";
-	  $model->userid = $this->id_usuario;
-	  $model->bizrule = null;
-	  $model->data = "N;";
-	  var_dump($model);
-	  $model->save();
+		$model = new AuthAssignment();
+		$model->itemname = "Authenticated";
+		$model->userid = $this->id_usuario;
+		$model->bizrule = null;
+		$model->data = "N;";
+		$model->save();
 
-	  return parent::afterSave();
+		return parent::afterSave();
 	}
 }
