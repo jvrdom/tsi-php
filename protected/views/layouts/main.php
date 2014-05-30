@@ -53,6 +53,7 @@ $this->widget(
 <div class="container">
   <?php echo $content; ?>
 </div>
+<div class="clear"></div>
 
 <div class="footer">
     <div class="container text-center">
