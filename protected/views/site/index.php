@@ -14,10 +14,10 @@ $this->pageTitle=Yii::app()->name;
 	<li>Layout file: <code><?php echo $this->getLayoutFile('main'); ?></code></li>
 	<?php
 		$this->widget(
-    'bootstrap.widgets.TbButton',
+    'booster.widgets.TbButton',
 	    array(
 	        'label' => 'Highlighted',
-	        'type' => 'warning',
+	        'context' => 'warning',
 	    )
 		);
 
