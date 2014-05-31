@@ -1,159 +1,374 @@
-CREATE DATABASE  IF NOT EXISTS `tsi-php` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `tsi-php`;
--- MySQL dump 10.13  Distrib 5.5.37, for debian-linux-gnu (x86_64)
---
--- Host: 127.0.0.1    Database: tsi-php
--- ------------------------------------------------------
--- Server version	5.5.37-0ubuntu0.12.04.1
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE SCHEMA IF NOT EXISTS `tsi-php` DEFAULT CHARACTER SET utf8 ;
+USE `tsi-php` ;
 
---
--- Table structure for table `AuthAssignment`
---
+-- -----------------------------------------------------
+-- Table `tsi-php`.`user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`user` (
+  `id_usuario` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(120) NOT NULL,
+  PRIMARY KEY (`id_usuario`))
+ENGINE = InnoDB;
 
-DROP TABLE IF EXISTS `AuthAssignment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `AuthAssignment` (
-  `itemname` varchar(64) NOT NULL,
-  `userid` varchar(64) NOT NULL,
-  `bizrule` text,
-  `data` text,
-  PRIMARY KEY (`itemname`,`userid`),
-  CONSTRAINT `AuthAssignment_ibfk_1` FOREIGN KEY (`itemname`) REFERENCES `AuthItem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `AuthAssignment`
---
+-- -----------------------------------------------------
+-- Table `tsi-php`.`direccion`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`direccion` (
+  `id_direccion` INT NOT NULL AUTO_INCREMENT,
+  `direccion` VARCHAR(45) NULL,
+  `latlong` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_direccion`))
+ENGINE = InnoDB;
 
-LOCK TABLES `AuthAssignment` WRITE;
-/*!40000 ALTER TABLE `AuthAssignment` DISABLE KEYS */;
-INSERT INTO `AuthAssignment` VALUES ('Admin','8',NULL,'N;'),('Authenticated','2',NULL,'N;'),('Authenticated','3',NULL,'N;');
-/*!40000 ALTER TABLE `AuthAssignment` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `AuthItem`
---
+-- -----------------------------------------------------
+-- Table `tsi-php`.`tipo_inmueble`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`tipo_inmueble` (
+  `tipo_inmueble` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`tipo_inmueble`))
+ENGINE = InnoDB;
 
-DROP TABLE IF EXISTS `AuthItem`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `AuthItem` (
-  `name` varchar(64) NOT NULL,
-  `type` int(11) NOT NULL,
-  `description` text,
-  `bizrule` text,
-  `data` text,
-  PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `AuthItem`
---
+-- -----------------------------------------------------
+-- Table `tsi-php`.`inmueble`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`inmueble` (
+  `id_inmueble` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NULL,
+  `descripcion` VARCHAR(120) NULL,
+  `precio` VARCHAR(45) NULL,
+  `superficie` INT NULL,
+  `dormitorios` VARCHAR(45) NULL,
+  `baños` INT NULL,
+  `estado` VARCHAR(45) NULL,
+  `direccion_id_direccion` INT NOT NULL,
+  `tipo_inmueble_tipo_inmueble` INT NOT NULL,
+  PRIMARY KEY (`id_inmueble`),
+  INDEX `fk_inmueble_direccion1_idx` (`direccion_id_direccion` ASC),
+  INDEX `fk_inmueble_tipo_inmueble1_idx` (`tipo_inmueble_tipo_inmueble` ASC),
+  CONSTRAINT `fk_inmueble_direccion1`
+    FOREIGN KEY (`direccion_id_direccion`)
+    REFERENCES `tsi-php`.`direccion` (`id_direccion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_inmueble_tipo_inmueble1`
+    FOREIGN KEY (`tipo_inmueble_tipo_inmueble`)
+    REFERENCES `tsi-php`.`tipo_inmueble` (`tipo_inmueble`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
-LOCK TABLES `AuthItem` WRITE;
-/*!40000 ALTER TABLE `AuthItem` DISABLE KEYS */;
-INSERT INTO `AuthItem` VALUES ('Admin',2,NULL,NULL,'N;'),('Authenticated',2,NULL,NULL,'N;'),('Guest',2,NULL,NULL,'N;');
-/*!40000 ALTER TABLE `AuthItem` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `AuthItemChild`
---
+-- -----------------------------------------------------
+-- Table `tsi-php`.`imagen`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`imagen` (
+  `id_imagen` INT NOT NULL AUTO_INCREMENT,
+  `url` VARCHAR(45) NULL,
+  `inmueble_id_inmueble` INT NOT NULL,
+  PRIMARY KEY (`id_imagen`),
+  INDEX `fk_imagen_inmueble1_idx` (`inmueble_id_inmueble` ASC),
+  CONSTRAINT `fk_imagen_inmueble1`
+    FOREIGN KEY (`inmueble_id_inmueble`)
+    REFERENCES `tsi-php`.`inmueble` (`id_inmueble`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
-DROP TABLE IF EXISTS `AuthItemChild`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `AuthItemChild` (
-  `parent` varchar(64) NOT NULL,
-  `child` varchar(64) NOT NULL,
-  PRIMARY KEY (`parent`,`child`),
-  KEY `child` (`child`),
-  CONSTRAINT `AuthItemChild_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `AuthItem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `AuthItemChild_ibfk_2` FOREIGN KEY (`child`) REFERENCES `AuthItem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `AuthItemChild`
---
+-- -----------------------------------------------------
+-- Table `tsi-php`.`inmueble_tipo`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`inmueble_tipo` (
+  `inmueble_id_inmueble` INT NOT NULL,
+  `tipo_inmueble_tipo_inmueble` INT NOT NULL,
+  PRIMARY KEY (`inmueble_id_inmueble`, `tipo_inmueble_tipo_inmueble`),
+  INDEX `fk_inmueble_has_tipo_inmueble_tipo_inmueble1_idx` (`tipo_inmueble_tipo_inmueble` ASC),
+  INDEX `fk_inmueble_has_tipo_inmueble_inmueble1_idx` (`inmueble_id_inmueble` ASC),
+  CONSTRAINT `fk_inmueble_has_tipo_inmueble_inmueble1`
+    FOREIGN KEY (`inmueble_id_inmueble`)
+    REFERENCES `tsi-php`.`inmueble` (`id_inmueble`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_inmueble_has_tipo_inmueble_tipo_inmueble1`
+    FOREIGN KEY (`tipo_inmueble_tipo_inmueble`)
+    REFERENCES `tsi-php`.`tipo_inmueble` (`tipo_inmueble`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
-LOCK TABLES `AuthItemChild` WRITE;
-/*!40000 ALTER TABLE `AuthItemChild` DISABLE KEYS */;
-/*!40000 ALTER TABLE `AuthItemChild` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `Rights`
---
+-- -----------------------------------------------------
+-- Table `tsi-php`.`administra`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`administra` (
+  `user_id_usuario` INT NOT NULL,
+  `inmueble_id_inmueble` INT NOT NULL,
+  PRIMARY KEY (`user_id_usuario`, `inmueble_id_inmueble`),
+  INDEX `fk_user_has_inmueble_inmueble1_idx` (`inmueble_id_inmueble` ASC),
+  INDEX `fk_user_has_inmueble_user1_idx` (`user_id_usuario` ASC),
+  CONSTRAINT `fk_user_has_inmueble_user1`
+    FOREIGN KEY (`user_id_usuario`)
+    REFERENCES `tsi-php`.`user` (`id_usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_inmueble_inmueble1`
+    FOREIGN KEY (`inmueble_id_inmueble`)
+    REFERENCES `tsi-php`.`inmueble` (`id_inmueble`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
-DROP TABLE IF EXISTS `Rights`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Rights` (
-  `itemname` varchar(64) NOT NULL,
-  `type` int(11) NOT NULL,
-  `weight` int(11) NOT NULL,
+
+-- -----------------------------------------------------
+-- Table `tsi-php`.`calendario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`calendario` (
+  `id_calendario` INT NOT NULL AUTO_INCREMENT,
+  `comienza` DATETIME NULL,
+  `finaliza` DATETIME NULL,
+  `descripcion` VARCHAR(120) NULL,
+  PRIMARY KEY (`id_calendario`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `tsi-php`.`inmueble_calendario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`inmueble_calendario` (
+  `inmueble_id_inmueble` INT NOT NULL,
+  `calendario_id_calendario` INT NOT NULL,
+  PRIMARY KEY (`inmueble_id_inmueble`, `calendario_id_calendario`),
+  INDEX `fk_inmueble_has_calendario_calendario1_idx` (`calendario_id_calendario` ASC),
+  INDEX `fk_inmueble_has_calendario_inmueble1_idx` (`inmueble_id_inmueble` ASC),
+  CONSTRAINT `fk_inmueble_has_calendario_inmueble1`
+    FOREIGN KEY (`inmueble_id_inmueble`)
+    REFERENCES `tsi-php`.`inmueble` (`id_inmueble`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_inmueble_has_calendario_calendario1`
+    FOREIGN KEY (`calendario_id_calendario`)
+    REFERENCES `tsi-php`.`calendario` (`id_calendario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `tsi-php`.`user_calendario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`user_calendario` (
+  `user_id_usuario` INT NOT NULL,
+  `calendario_id_calendario` INT NOT NULL,
+  PRIMARY KEY (`user_id_usuario`, `calendario_id_calendario`),
+  INDEX `fk_user_has_calendario_calendario1_idx` (`calendario_id_calendario` ASC),
+  INDEX `fk_user_has_calendario_user1_idx` (`user_id_usuario` ASC),
+  CONSTRAINT `fk_user_has_calendario_user1`
+    FOREIGN KEY (`user_id_usuario`)
+    REFERENCES `tsi-php`.`user` (`id_usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_calendario_calendario1`
+    FOREIGN KEY (`calendario_id_calendario`)
+    REFERENCES `tsi-php`.`calendario` (`id_calendario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `tsi-php`.`consulta`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`consulta` (
+  `id_consulta` INT NOT NULL AUTO_INCREMENT,
+  `descripcion` VARCHAR(120) NULL,
+  `email` VARCHAR(45) NULL,
+  `telefono` VARCHAR(45) NULL,
+  `pendiente` TINYINT(1) NOT NULL,
+  PRIMARY KEY (`id_consulta`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `tsi-php`.`cliente`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`cliente` (
+  `id_cliente` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NULL,
+  `telefono` VARCHAR(45) NULL,
+  `direccion` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_cliente`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `tsi-php`.`cliente_inmueble`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`cliente_inmueble` (
+  `cliente_id_cliente` INT NOT NULL,
+  `inmueble_id_inmueble` INT NOT NULL,
+  PRIMARY KEY (`cliente_id_cliente`, `inmueble_id_inmueble`),
+  INDEX `fk_cliente_has_inmueble_inmueble1_idx` (`inmueble_id_inmueble` ASC),
+  INDEX `fk_cliente_has_inmueble_cliente1_idx` (`cliente_id_cliente` ASC),
+  CONSTRAINT `fk_cliente_has_inmueble_cliente1`
+    FOREIGN KEY (`cliente_id_cliente`)
+    REFERENCES `tsi-php`.`cliente` (`id_cliente`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cliente_has_inmueble_inmueble1`
+    FOREIGN KEY (`inmueble_id_inmueble`)
+    REFERENCES `tsi-php`.`inmueble` (`id_inmueble`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `tsi-php`.`cliente_consulta`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`cliente_consulta` (
+  `cliente_id_cliente` INT NOT NULL,
+  `consulta_id_consulta` INT NOT NULL,
+  `fecha` DATETIME NOT NULL,
+  PRIMARY KEY (`cliente_id_cliente`, `consulta_id_consulta`),
+  INDEX `fk_cliente_has_consulta_consulta1_idx` (`consulta_id_consulta` ASC),
+  INDEX `fk_cliente_has_consulta_cliente1_idx` (`cliente_id_cliente` ASC),
+  CONSTRAINT `fk_cliente_has_consulta_cliente1`
+    FOREIGN KEY (`cliente_id_cliente`)
+    REFERENCES `tsi-php`.`cliente` (`id_cliente`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cliente_has_consulta_consulta1`
+    FOREIGN KEY (`consulta_id_consulta`)
+    REFERENCES `tsi-php`.`consulta` (`id_consulta`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `tsi-php`.`AuthItem`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`AuthItem` (
+  `name` VARCHAR(64) NOT NULL,
+  `type` INT(11) NOT NULL,
+  `description` TEXT NULL DEFAULT NULL,
+  `bizrule` TEXT NULL DEFAULT NULL,
+  `data` TEXT NULL DEFAULT NULL,
+  PRIMARY KEY (`name`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `tsi-php`.`AuthAssignment`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`AuthAssignment` (
+  `itemname` VARCHAR(64) NOT NULL,
+  `userid` VARCHAR(64) NOT NULL,
+  `bizrule` TEXT NULL DEFAULT NULL,
+  `data` TEXT NULL DEFAULT NULL,
+  PRIMARY KEY (`itemname`, `userid`),
+  CONSTRAINT `AuthAssignment_ibfk_1`
+    FOREIGN KEY (`itemname`)
+    REFERENCES `tsi-php`.`AuthItem` (`name`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `tsi-php`.`AuthItemChild`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`AuthItemChild` (
+  `parent` VARCHAR(64) NOT NULL,
+  `child` VARCHAR(64) NOT NULL,
+  PRIMARY KEY (`parent`, `child`),
+  INDEX `child` (`child` ASC),
+  CONSTRAINT `AuthItemChild_ibfk_1`
+    FOREIGN KEY (`parent`)
+    REFERENCES `tsi-php`.`AuthItem` (`name`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `AuthItemChild_ibfk_2`
+    FOREIGN KEY (`child`)
+    REFERENCES `tsi-php`.`AuthItem` (`name`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `tsi-php`.`Rights`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tsi-php`.`Rights` (
+  `itemname` VARCHAR(64) NOT NULL,
+  `type` INT(11) NOT NULL,
+  `weight` INT(11) NOT NULL,
   PRIMARY KEY (`itemname`),
-  CONSTRAINT `Rights_ibfk_1` FOREIGN KEY (`itemname`) REFERENCES `AuthItem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  CONSTRAINT `Rights_ibfk_1`
+    FOREIGN KEY (`itemname`)
+    REFERENCES `tsi-php`.`AuthItem` (`name`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
---
--- Dumping data for table `Rights`
---
 
-LOCK TABLES `Rights` WRITE;
-/*!40000 ALTER TABLE `Rights` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Rights` ENABLE KEYS */;
-UNLOCK TABLES;
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
---
--- Table structure for table `user`
---
+-- -----------------------------------------------------
+-- Data for table `tsi-php`.`user`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `tsi-php`;
+INSERT INTO `tsi-php`.`user` (`id_usuario`, `username`, `password`) VALUES (1, 'admin', '$2a$13$gyjC2Se9PiQ9WUxyCligB.0xwJJmMUqT50IWU4D76qqDhJWoG4K4.');
 
-DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user` (
-  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(45) NOT NULL,
-  `password` varchar(120) NOT NULL,
-  PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+COMMIT;
 
---
--- Dumping data for table `user`
---
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (8,'admin','$2a$13$gyjC2Se9PiQ9WUxyCligB.0xwJJmMUqT50IWU4D76qqDhJWoG4K4.');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+-- -----------------------------------------------------
+-- Data for table `tsi-php`.`tipo_inmueble`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `tsi-php`;
+INSERT INTO `tsi-php`.`tipo_inmueble` (`tipo_inmueble`, `nombre`) VALUES (1, 'Casa');
+INSERT INTO `tsi-php`.`tipo_inmueble` (`tipo_inmueble`, `nombre`) VALUES (2, 'Apartamento');
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+COMMIT;
 
--- Dump completed on 2014-05-10 18:25:07
+
+-- -----------------------------------------------------
+-- Data for table `tsi-php`.`AuthItem`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `tsi-php`;
+INSERT INTO `tsi-php`.`AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('Admin', 2, '', '', '');
+INSERT INTO `tsi-php`.`AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('Authenticated', 2, '', '', '');
+INSERT INTO `tsi-php`.`AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('Guest', 2, NULL, NULL, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `tsi-php`.`AuthAssignment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `tsi-php`;
+INSERT INTO `tsi-php`.`AuthAssignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES ('Admin', '1', '', 'N;');
+
+COMMIT;
+

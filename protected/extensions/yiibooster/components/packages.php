@@ -11,8 +11,8 @@
  */
 return array(
 	'font-awesome' => array(
-		'baseUrl' => $this->enableCdn ? '//netdna.bootstrapcdn.com/font-awesome/4.0.3/' : $this->getAssetsUrl().'/font-awesome/',
-		'css' => array($this->minify ? 'css/font-awesome.min.css' : 'css/font-awesome.css'),
+		'baseUrl' => $this->enableCdn ? '//netdna.bootstrapcdn.com/font-awesome/4.1.0/' : $this->getAssetsUrl().'/font-awesome/',
+		'css' => array(($this->minify || $this->enableCdn) ? 'css/font-awesome.min.css' : 'css/font-awesome.css'),
 	),
 	'bootstrap.js' => array(
 		'baseUrl' => $this->enableCdn ? '//netdna.bootstrapcdn.com/bootstrap/3.1.1/' : $this->getAssetsUrl() . '/bootstrap/',
@@ -65,11 +65,17 @@ return array(
 		'baseUrl' => $this->enableCdn ? '//cdnjs.cloudflare.com/ajax/libs/datejs/1.0/' : $this->getAssetsUrl() . '/js/',
 		'js' => array('date.min.js')
 	),
+	'colorpicker' => array(
+		'depends' => array('jquery'),
+		'baseUrl' => $this->getAssetsUrl() . '/bootstrap-colorpicker/',
+		'css' => array($this->minify ? 'css/bootstrap-colorpicker.min.css' : 'css/bootstrap-colorpicker.css'),
+		'js' => array($this->minify ? 'js/bootstrap-colorpicker.min.js' : 'js/bootstrap-colorpicker.js')
+	),
 	'x-editable' => array(
 		'baseUrl' => $this->getAssetsUrl() . '/bootstrap-editable/',
 		'css' => array('css/bootstrap-editable.css'),
 		'js' => array($this->minify ? 'js/bootstrap-editable.min.js' : 'js/bootstrap-editable.js'),
-		'depends' => array('jquery','bootstrap.js')
+		'depends' => array('jquery','bootstrap.js', 'datepicker') /* this is to ensure that datepicker always come before editable */
 	),
 	'moment' => array(
 		'baseUrl' => $this->getAssetsUrl(),
@@ -128,5 +134,35 @@ return array(
 	'highcharts' => array(
 		'baseUrl' => $this->enableCdn ? '//code.highcharts.com' : $this->getAssetsUrl() . '/highcharts',
 		'js' => array($this->minify ? 'highcharts.js' : 'highcharts.src.js')
+	),
+	'wysihtml5' => array(
+		'depends' => array('bootstrap.js'),
+		'baseUrl' => $this->getAssetsUrl() . '/bootstrap3-wysihtml5',
+		'css' => array('bootstrap-wysihtml5.css'),
+		'js' => array('wysihtml5-0.3.0.js', 'bootstrap3-wysihtml5.js'),
+	),
+	'markdown' => array(
+		'depends' => array('bootstrap.js'),
+		'baseUrl' => $this->getAssetsUrl() . '/bootstrap-markdown',
+		'css' => array('css/bootstrap-markdown.min.css'),
+		'js' => array('js/bootstrap-markdown.js'),
+	),
+	'switch' => array(
+		'depends' => array('bootstrap.js'),
+		'baseUrl' => $this->getAssetsUrl() . '/bootstrap-switch',
+		'css' => array($this->minify ? 'css/bootstrap3/bootstrap-switch.min.css' : 'css/bootstrap3/bootstrap-switch.css'),
+		'js' => array($this->minify ? 'js/bootstrap-switch.min.js' : 'js/bootstrap-switch.js'),
+	),
+	'typeahead' => array(
+		'depends' => array('jquery'),
+		'baseUrl' => $this->getAssetsUrl() . '/typeahead',
+		'css' => array('css/typeahead.css'),
+		'js' => array($this->minify ? 'js/typeahead.bundle.min.js' : 'js/typeahead.bundle.js'),
+	),
+	'bootstrap-tags' => array(
+		'depends' => array('jquery'),
+		'baseUrl' => $this->getAssetsUrl() . '/bootstrap-tags',
+		'css' => array('css/bootstrap-tags.css'),
+		'js' => array($this->minify ? 'js/bootstrap-tags.min.js' : 'js/bootstrap-tags.js'),
 	),
 );

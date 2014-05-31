@@ -15,7 +15,7 @@ array('label'=>'Manage User','url'=>array('admin')),
 
 <h1>View User #<?php echo $model->id_usuario; ?></h1>
 
-<?php $this->widget('bootstrap.widgets.TbDetailView',array(
+<?php $this->widget('booster.widgets.TbDetailView',array(
 'data'=>$model,
 'attributes'=>array(
 		'id_usuario',
