@@ -38,7 +38,7 @@ return false;
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('bootstrap.widgets.TbGridView',array(
+<?php $this->widget('booster.widgets.TbGridView',array(
 'id'=>'user-grid',
 'dataProvider'=>$model->search(),
 'filter'=>$model,
@@ -47,7 +47,7 @@ return false;
 		'username',
 		'password',
 array(
-'class'=>'bootstrap.widgets.TbButtonColumn',
+'class'=>'booster.widgets.TbButtonColumn',
 ),
 ),
 )); ?>
