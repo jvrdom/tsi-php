@@ -11,7 +11,7 @@ return array(
 	'name'=>'My Web Application',
 
 	// preloading 'log' component
-	'preload'=>array('log','bootstrap'),
+	'preload'=>array('log','booster'),
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -31,7 +31,7 @@ return array(
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'admin',
-			'generatorPaths' => array('bootstrap.gii'),
+			'generatorPaths' => array('booster.gii'),
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			//'ipFilters'=>array('127.0.0.1','::1'),
 		),
@@ -52,7 +52,7 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 
-		'bootstrap' => array('class' => 'application.extensions.yiibooster.components.Bootstrap', 'responsiveCss' => true,),
+		'booster' => array('class' => 'application.extensions.yiibooster.components.Booster', 'responsiveCss' => true,),
 		// uncomment the following to enable URLs in path-format
 		
 		'urlManager'=>array(
