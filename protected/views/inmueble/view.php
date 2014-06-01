@@ -16,16 +16,15 @@ array('label'=>'Manage Inmueble','url'=>array('admin')),
 <h1>View Inmueble #<?php echo $model->id_inmueble; ?></h1>
 
 <?php $this->widget('booster.widgets.TbDetailView',array(
-'data'=>$model,
+'data'=> $model,
 'attributes'=>array(
-		'id_inmueble',
-		'nombre',
-		'descripcion',
-		'precio',
-		'superficie',
-		'dormitorios',
-		'baños',
-		'estado',
+		 array('name' => 'nombre', 'label' => 'Nombre'),
+		 array('name' => 'descripcion', 'label' => 'Descripcion'),
+		 array('name' => 'precio', 'label' => 'Precio'),
+		 array('name' => 'superficie', 'label' => 'Superficie'),
+		 array('name' => 'dormitorios', 'label' => 'Dormitorios'),
+		 array('name' => 'baños', 'label' => 'Baños'),
+		 array('name' => 'estado', 'label' => 'Estado'),
 		/*'direccion_id_direccion',
 		'tipo_inmueble_id_tipo_inmueble',*/
 ),
