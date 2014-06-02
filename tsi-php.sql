@@ -40,7 +40,7 @@ CREATE TABLE `AuthAssignment` (
 
 LOCK TABLES `AuthAssignment` WRITE;
 /*!40000 ALTER TABLE `AuthAssignment` DISABLE KEYS */;
-INSERT INTO `AuthAssignment` VALUES ('Admin','1','','N;'),('Authenticated','2',NULL,'N;');
+INSERT INTO `AuthAssignment` VALUES ('Admin','1',NULL,'N;');
 /*!40000 ALTER TABLE `AuthAssignment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +67,7 @@ CREATE TABLE `AuthItem` (
 
 LOCK TABLES `AuthItem` WRITE;
 /*!40000 ALTER TABLE `AuthItem` DISABLE KEYS */;
-INSERT INTO `AuthItem` VALUES ('Admin',2,'','',''),('Authenticated',2,'','',''),('Guest',2,NULL,NULL,NULL);
+INSERT INTO `AuthItem` VALUES ('Admin',2,NULL,NULL,'N;'),('Administrativo',2,'Encargado de todas la labores administrativas del sitema.',NULL,'N;'),('Agente',2,'Gestión de inmuebles y clientes.',NULL,'N;'),('Authenticated',2,NULL,NULL,'N;'),('Director',2,'Tiene acceso a todos los módulos del sistema.',NULL,'N;'),('Guest',2,NULL,NULL,'N;');
 /*!40000 ALTER TABLE `AuthItem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,8 +135,8 @@ CREATE TABLE `administra` (
   PRIMARY KEY (`user_id_usuario`,`inmueble_id_inmueble`),
   KEY `fk_user_has_inmueble_inmueble1_idx` (`inmueble_id_inmueble`),
   KEY `fk_user_has_inmueble_user1_idx` (`user_id_usuario`),
-  CONSTRAINT `fk_user_has_inmueble_user1` FOREIGN KEY (`user_id_usuario`) REFERENCES `user` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_has_inmueble_inmueble1` FOREIGN KEY (`inmueble_id_inmueble`) REFERENCES `inmueble` (`id_inmueble`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_user_has_inmueble_inmueble1` FOREIGN KEY (`inmueble_id_inmueble`) REFERENCES `inmueble` (`id_inmueble`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_inmueble_user1` FOREIGN KEY (`user_id_usuario`) REFERENCES `user` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -293,7 +293,7 @@ CREATE TABLE `direccion` (
   `direccion` varchar(45) DEFAULT NULL,
   `latlong` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_direccion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -302,6 +302,7 @@ CREATE TABLE `direccion` (
 
 LOCK TABLES `direccion` WRITE;
 /*!40000 ALTER TABLE `direccion` DISABLE KEYS */;
+INSERT INTO `direccion` VALUES (1,'Me cago',NULL),(2,'jajajaj',NULL),(3,'dvfdvdvdfv',NULL),(4,'Montevideo, Uruguay','(-34.8836111, -56.18194440000002)');
 /*!40000 ALTER TABLE `direccion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,7 +355,7 @@ CREATE TABLE `inmueble` (
   KEY `fk_inmueble_tipo_inmueble1_idx` (`tipo_inmueble_id_tipo_inmueble`),
   CONSTRAINT `fk_inmueble_direccion1` FOREIGN KEY (`direccion_id_direccion`) REFERENCES `direccion` (`id_direccion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_inmueble_tipo_inmueble1` FOREIGN KEY (`tipo_inmueble_id_tipo_inmueble`) REFERENCES `tipo_inmueble` (`id_tipo_inmueble`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -363,6 +364,7 @@ CREATE TABLE `inmueble` (
 
 LOCK TABLES `inmueble` WRITE;
 /*!40000 ALTER TABLE `inmueble` DISABLE KEYS */;
+INSERT INTO `inmueble` VALUES (3,'aadascs','Otra mas','100',12,'13',1,'Bueno',2,1),(4,'snjdvndfjvn','njkvndjvnfjk','100',12,'2',1,'dvfdvdfvdf',3,2),(5,'Javier','sdvfdvfdv','100',12,'1',1,'Nada',4,2);
 /*!40000 ALTER TABLE `inmueble` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -379,8 +381,8 @@ CREATE TABLE `inmueble_calendario` (
   PRIMARY KEY (`inmueble_id_inmueble`,`calendario_id_calendario`),
   KEY `fk_inmueble_has_calendario_calendario1_idx` (`calendario_id_calendario`),
   KEY `fk_inmueble_has_calendario_inmueble1_idx` (`inmueble_id_inmueble`),
-  CONSTRAINT `fk_inmueble_has_calendario_inmueble1` FOREIGN KEY (`inmueble_id_inmueble`) REFERENCES `inmueble` (`id_inmueble`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_inmueble_has_calendario_calendario1` FOREIGN KEY (`calendario_id_calendario`) REFERENCES `calendario` (`id_calendario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_inmueble_has_calendario_calendario1` FOREIGN KEY (`calendario_id_calendario`) REFERENCES `calendario` (`id_calendario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_inmueble_has_calendario_inmueble1` FOREIGN KEY (`inmueble_id_inmueble`) REFERENCES `inmueble` (`id_inmueble`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -429,7 +431,7 @@ CREATE TABLE `user` (
   `username` varchar(45) NOT NULL,
   `password` varchar(120) NOT NULL,
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -455,8 +457,8 @@ CREATE TABLE `user_calendario` (
   PRIMARY KEY (`user_id_usuario`,`calendario_id_calendario`),
   KEY `fk_user_has_calendario_calendario1_idx` (`calendario_id_calendario`),
   KEY `fk_user_has_calendario_user1_idx` (`user_id_usuario`),
-  CONSTRAINT `fk_user_has_calendario_user1` FOREIGN KEY (`user_id_usuario`) REFERENCES `user` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_has_calendario_calendario1` FOREIGN KEY (`calendario_id_calendario`) REFERENCES `calendario` (`id_calendario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_user_has_calendario_calendario1` FOREIGN KEY (`calendario_id_calendario`) REFERENCES `calendario` (`id_calendario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_calendario_user1` FOREIGN KEY (`user_id_usuario`) REFERENCES `user` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -478,4 +480,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-30 23:53:41
+-- Dump completed on 2014-06-01 20:17:43
