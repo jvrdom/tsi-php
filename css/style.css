@@ -57,3 +57,8 @@ code
 {
     cursor: pointer;
 }
+
+.tab-content > .active
+{
+    margin-top: 1%;
+}
