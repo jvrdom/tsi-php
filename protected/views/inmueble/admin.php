@@ -1,13 +1,4 @@
 <?php
-$this->breadcrumbs=array(
-	'Inmuebles'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-array('label'=>'List Inmueble','url'=>array('index')),
-array('label'=>'Create Inmueble','url'=>array('create')),
-);
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

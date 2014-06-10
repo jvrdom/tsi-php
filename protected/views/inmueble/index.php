@@ -1,17 +1,21 @@
-<?php
-$this->breadcrumbs=array(
-	'Inmuebles',
-);
-
-$this->menu=array(
-array('label'=>'Create Inmueble','url'=>array('create')),
-array('label'=>'Manage Inmueble','url'=>array('admin')),
-);
-?>
-
 <h1>Inmuebles</h1>
 
-<?php $this->widget('booster.widgets.TbListView',array(
+<?php $this->widget('booster.widgets.TbGridView',array(
+'id'=>'inmueble-grid',
+'type' => 'striped',
 'dataProvider'=>$dataProvider,
-'itemView'=>'_view',
+'template' => "{items}",
+'columns'=>array(
+      'nombre',
+      'descripcion',
+      'precio',
+      'superficie',
+      'dormitorios',
+      /*
+      'baños',
+      'estado',
+      'direccion_id_direccion',
+      'tipo_inmueble_id_tipo_inmueble',
+      */
+),
 )); ?>

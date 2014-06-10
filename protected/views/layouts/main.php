@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />-->
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jQueryfileupload/css/jquery.fileupload.css" />
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
@@ -45,8 +46,17 @@
                             'type' => 'navbar',
                             'htmlOptions' => array('class' => 'pull-right'),
                             'items' => array(
-                                array('label'=>'Login', 'url'=>array('site/login'), 'visible'=>Yii::app()->user->isGuest),
-                                array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+                              array(
+                                 'label' =>'Gestión de Inmuebles',
+                                 'visible' => Yii::app()->user->checkAccess('Agente'), 
+                                 'items' => array(
+                                    array('label' => 'Listado de Inmuebles', 'url'=>array('/inmueble')),
+                                    array('label' => 'Crear Inmueble', 'url'=>array('/inmueble/create')),
+                                    array('label' => 'Administración', 'url'=>array('/inmueble/admin')),
+                                 )
+                              ),
+                              array('label'=>'Login', 'url'=>array('site/login'), 'visible'=>Yii::app()->user->isGuest),
+                              array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('site/logout'), 'visible'=>!Yii::app()->user->isGuest),
                             ),
                         ),
                     ),
@@ -67,7 +77,6 @@
 </div><!-- footer -->
 
 <!-- Javascript -->
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jQueryfileupload/js/vendor/jquery.ui.widget.js"></script>
     <script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.min.js"></script>
