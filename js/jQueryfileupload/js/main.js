@@ -11,7 +11,9 @@
 
 /* global $, window */
 
-$(function () {
+var url = [];
+
+$(function() {
     'use strict';
 
     // Initialize the jQuery File Upload widget:
@@ -31,5 +33,16 @@ $(function () {
             '/cors/result.html?%s'
         )
     );
+
+    $('#fileupload').bind('fileuploaddone', function (e, data) {
+        // Log the current bitrate for this upload:
+        //console.log(data);
+        $.each(data.files, function (index, file) {
+            //console.log('Selected file: ' + file.name);
+            url.push(file.name);
+        });
+
+        document.getElementById('Imagen_url').value = JSON.stringify(url);
+    });
 
 });

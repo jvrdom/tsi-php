@@ -24,6 +24,7 @@
 
 	<?php echo $form->textFieldGroup(Direccion::model(),'direccion',array('label' => 'Direccion','class'=>'span5','append' => '<span onclick="codeAddress()"class="glyphicon glyphicon-map-marker"></span>')); ?>
 	<?php echo $form->hiddenField(Direccion::model(), 'latlong'); ?>
+   <?php echo $form->hiddenField(Imagen::model(), 'url[]'); ?>
 
 	<?php echo $form->dropDownListGroup(
 			$model,
@@ -43,7 +44,8 @@
 	<?php $this->widget('booster.widgets.TbButton', array(
 			'buttonType'=>'submit',
 			'context'=>'primary',
-			'label'=>$model->isNewRecord ? 'Create' : 'Save',
+			'label'=>$model->isNewRecord ? 'Crear Inmueble' : 'Save',
+         'icon' => 'glyphicon glyphicon-home',
 		)); ?>
 </div>
 

@@ -7,7 +7,7 @@
  * @property integer $id_inmueble
  * @property string $nombre
  * @property string $descripcion
- * @property string $precio
+ * @property double $precio
  * @property integer $superficie
  * @property string $dormitorios
  * @property integer $baños
@@ -41,9 +41,10 @@ class Inmueble extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('direccion_id_direccion, tipo_inmueble_id_tipo_inmueble', 'required'),
+			array('nombre, tipo_inmueble_id_tipo_inmueble', 'required'),
 			array('superficie, baños, direccion_id_direccion, tipo_inmueble_id_tipo_inmueble', 'numerical', 'integerOnly'=>true),
-			array('nombre, precio, dormitorios, estado', 'length', 'max'=>45),
+			array('precio', 'numerical'),
+			array('nombre, dormitorios, estado', 'length', 'max'=>45),
 			array('descripcion', 'length', 'max'=>120),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -108,7 +109,7 @@ class Inmueble extends CActiveRecord
 		$criteria->compare('id_inmueble',$this->id_inmueble);
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('descripcion',$this->descripcion,true);
-		$criteria->compare('precio',$this->precio,true);
+		$criteria->compare('precio',$this->precio);
 		$criteria->compare('superficie',$this->superficie);
 		$criteria->compare('dormitorios',$this->dormitorios,true);
 		$criteria->compare('baños',$this->baños);
@@ -132,8 +133,12 @@ class Inmueble extends CActiveRecord
 		return parent::model($className);
 	}
 
-	public function getPropertyTypes(){
+   /**
+    * Retorna los tipos de propiedad de un inmueble.
+    * @return listData Lista de tipos de inmueble.
+    */
+   public function getPropertyTypes(){
     $models = TipoInmueble::model()->findAll();
     return Chtml::listData($models,'id_tipo_inmueble','nombre');
-  }
+   }
 }

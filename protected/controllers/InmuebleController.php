@@ -77,7 +77,7 @@ $modelDireccion->attributes=$_POST['Direccion'];
 if($modelDireccion->save()){
 	$model->direccion_id_direccion = $modelDireccion->id_direccion;
 	if ($model->save())
-		$this->redirect(array('view','id'=>$model->id_inmueble));
+      $this->redirect(array('view','id'=>$model->id_inmueble));
 }
 
 }
