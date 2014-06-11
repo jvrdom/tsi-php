@@ -32,7 +32,7 @@
          <div class="modal-content">
             <div class="modal-header">
                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-               <h4 class="modal-title">Modal title</h4>
+               <h4 class="modal-title">Ingreso de Imágenes</h4>
             </div>
             <div class="modal-body">
               <form id="fileupload" enctype="multipart/form-data">
@@ -149,7 +149,14 @@
               </script>
            </div>
            <div class="modal-footer">
-            <p>Prueba</p>
+            <button id="btnModalCancelar" class="btn btn-danger cancel" data-dismiss="modal">
+               <i class="glyphicon glyphicon-ban-circle"></i>
+               <span>Cancelar</span>
+            </button>
+            <button id="btnModalAceptar" class="btn btn-success btn-invisible" style="display:none;" data-dismiss="modal">
+               <i class="glyphicon glyphicon-ok"></i>
+               <span>Aceptar</span>
+            </button>
            </div>
          </div>
       </div>

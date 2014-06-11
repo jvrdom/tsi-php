@@ -22,6 +22,29 @@ $(function () {
         //xhrFields: {withCredentials: true},
         url: 'http://localhost/tsi-php/protected/modules/imageHandler/',
         dataType: 'json',
+    }).bind('fileuploaddone', function (e, data) {
+        // Log the current bitrate for this upload:
+        //console.log(data);
+        $.each(data.files, function (index, file) {
+            //console.log('Selected file: ' + file.name);
+            url.push(file.name);
+        });
+
+        document.getElementById('Imagen_url').value = JSON.stringify(url);
+        //$.notify(url.length.toString(), "info");
+    }).bind('fileuploadstop', function () {
+        // Log the current bitrate for this upload:
+        //console.log(data);
+        $.notify('Se han ingresado: ' + url.length.toString() + ' fotos.', {
+            globalPosition: 'right bottom',
+            className: 'success'
+        });
+
+        //$('#btnModal i').removeClass('glyphicon glyphicon-ban-circle').addClass('glyphicon glyphicon-ok');
+        
+        $('#btnModalCancelar').addClass('btn-invisible');
+        $('#btnModalAceptar').removeClass('btn-invisible').removeAttr('style');
+        
     });
 
     // Enable iframe cross-domain access via redirect option:
@@ -33,16 +56,5 @@ $(function () {
             '/cors/result.html?%s'
         )
     );
-
-    $('#fileupload').bind('fileuploaddone', function (e, data) {
-        // Log the current bitrate for this upload:
-        //console.log(data);
-        $.each(data.files, function (index, file) {
-            //console.log('Selected file: ' + file.name);
-            url.push(file.name);
-        });
-
-        document.getElementById('Imagen_url').value = JSON.stringify(url);
-    });
 
 });
