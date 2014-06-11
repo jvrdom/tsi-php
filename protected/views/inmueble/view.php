@@ -1,15 +1,8 @@
 <?php
-$this->breadcrumbs=array(
-	'Inmuebles'=>array('index'),
-	$model->id_inmueble,
-);
 
 $this->menu=array(
-array('label'=>'List Inmueble','url'=>array('index')),
-array('label'=>'Create Inmueble','url'=>array('create')),
 array('label'=>'Update Inmueble','url'=>array('update','id'=>$model->id_inmueble)),
 array('label'=>'Delete Inmueble','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->id_inmueble),'confirm'=>'Are you sure you want to delete this item?')),
-array('label'=>'Manage Inmueble','url'=>array('admin')),
 );
 ?>
 

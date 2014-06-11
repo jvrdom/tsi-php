@@ -74,10 +74,22 @@ $model->attributes=$_POST['Inmueble'];
 $modelDireccion = new Direccion;
 $modelDireccion->attributes=$_POST['Direccion'];
 
+$array = json_decode($_POST['Imagen']['url'][0]);
+
 if($modelDireccion->save()){
 	$model->direccion_id_direccion = $modelDireccion->id_direccion;
-	if ($model->save())
-      $this->redirect(array('view','id'=>$model->id_inmueble));
+	if ($model->save()){
+      foreach ($array as $value) {
+         # code...
+         $modelImagen = new Imagen;
+         $modelImagen->url = $value;
+         $modelImagen->inmueble_id_inmueble = $model->id_inmueble;
+         $modelImagen->save();
+         unset($modelImagen);
+      }
+   }
+
+   $this->redirect(array('view','id'=>$model->id_inmueble));
 }
 
 }
@@ -137,8 +149,25 @@ throw new CHttpException(400,'Invalid request. Please do not repeat this request
 public function actionIndex()
 {
 $dataProvider=new CActiveDataProvider('Inmueble');
+$gridColumns = array(
+   array('name'=>'nombre', 'header'=>'Nombre'),
+   array('name'=>'descripcion', 'header'=>'Descripcion'),
+   array('name'=>'precio', 'header'=>'Precio'),
+   array('name'=>'superficie', 'header'=>'Superficie'),
+   array('name'=>'baños', 'header'=>'Baños'),
+   array('name'=>'dormitorios', 'header'=>'Dormitorios'),
+   array('name'=>'estado', 'header'=>'Estado'),
+   array(
+      'htmlOptions' => array('nowrap'=>'nowrap'),
+      'class'=>'booster.widgets.TbButtonColumn',
+      'template' => '{view}',
+      'updateButtonUrl'=>null,
+      'deleteButtonUrl'=>null,
+   )
+);
 $this->render('index',array(
 'dataProvider'=>$dataProvider,
+'columns' =>$gridColumns,
 ));
 }
 
