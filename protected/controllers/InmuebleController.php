@@ -9,6 +9,19 @@ class InmuebleController extends Controller
 public $layout='//layouts/column2';
 
 /**
+ * Sobrescribo el metodo init del controlador para que además carge el archivo js
+ * de manejo de Gmaps.
+ * @return void
+ */
+public function init() {
+   $baseUrl = Yii::app()->baseUrl; 
+   $cs = Yii::app()->getClientScript();
+   $cs->registerScriptFile('http://maps.googleapis.com/maps/api/js?key=GMAPS_API&sensor=true');
+   $cs->registerScriptFile($baseUrl.'/js/gmaps.js', CClientScript::POS_END);
+   return parent::init();
+}
+
+/**
 * @return array action filters
 */
 public function filters()
@@ -50,9 +63,13 @@ array('deny',  // deny all users
 */
 public function actionView($id)
 {
-$this->render('view',array(
-'model'=>$this->loadModel($id),
-));
+   $modelInmueble = $this->loadModel($id);
+   $modelDireccion = $this->loadDireccion($modelInmueble->direccion_id_direccion);
+
+   $this->render('view',array(
+   'model'=>$modelInmueble,
+   'modelDireccion'=>$modelDireccion,
+   ));
 }
 
 /**
@@ -74,10 +91,22 @@ $model->attributes=$_POST['Inmueble'];
 $modelDireccion = new Direccion;
 $modelDireccion->attributes=$_POST['Direccion'];
 
+$array = json_decode($_POST['Imagen']['url'][0]);
+
 if($modelDireccion->save()){
 	$model->direccion_id_direccion = $modelDireccion->id_direccion;
-	if ($model->save())
-		$this->redirect(array('view','id'=>$model->id_inmueble));
+	if ($model->save()){
+      foreach ($array as $value) {
+         # code...
+         $modelImagen = new Imagen;
+         $modelImagen->url = $value;
+         $modelImagen->inmueble_id_inmueble = $model->id_inmueble;
+         $modelImagen->save();
+         unset($modelImagen);
+      }
+   }
+
+   $this->redirect(array('view','id'=>$model->id_inmueble));
 }
 
 }
@@ -137,8 +166,25 @@ throw new CHttpException(400,'Invalid request. Please do not repeat this request
 public function actionIndex()
 {
 $dataProvider=new CActiveDataProvider('Inmueble');
+$gridColumns = array(
+   array('name'=>'nombre', 'header'=>'Nombre'),
+   array('name'=>'descripcion', 'header'=>'Descripcion'),
+   array('name'=>'precio', 'header'=>'Precio'),
+   array('name'=>'superficie', 'header'=>'Superficie'),
+   array('name'=>'baños', 'header'=>'Baños'),
+   array('name'=>'dormitorios', 'header'=>'Dormitorios'),
+   array('name'=>'estado', 'header'=>'Estado'),
+   array(
+      'htmlOptions' => array('nowrap'=>'nowrap'),
+      'class'=>'booster.widgets.TbButtonColumn',
+      'template' => '{view}',
+      'updateButtonUrl'=>null,
+      'deleteButtonUrl'=>null,
+   )
+);
 $this->render('index',array(
 'dataProvider'=>$dataProvider,
+'columns' =>$gridColumns,
 ));
 }
 
@@ -182,4 +228,12 @@ echo CActiveForm::validate($model);
 Yii::app()->end();
 }
 }
+
+public function loadDireccion($id) {
+   $modelDireccion = Direccion::model()->findByPk($id);
+   if($modelDireccion===null) 
+      throw new CHttpException(404,'The requested page does not exist.');
+   return $modelDireccion;
+}
+
 }
