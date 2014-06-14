@@ -1,6 +1,6 @@
 var map;
 var marker;
-var markerNew;
+var myLatLong;
 var geocoder;
 var infowindow;
 
@@ -17,6 +17,23 @@ function initialize() {
     };
 
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    if (accion != 'create'){
+      myLatLong = new google.maps.LatLng(latlong[0], latlong[1]);
+      var content = "<strong> "+ direccion +"</strong>" ;
+      
+      infowindow = new google.maps.InfoWindow({ content: content });
+
+      marker = new google.maps.Marker({
+        position: myLatLong,
+        map: map,
+        title: 'Hello World!',
+      });
+
+      map.setCenter(marker.getPosition());
+      infowindow.open(map, marker);
+    }
+    
 }
 
 function codeAddress() {
