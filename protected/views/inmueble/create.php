@@ -162,10 +162,6 @@
       </div>
    </div>
 </div>
-
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBDun4Glg2ymc4wiMNbzPXsCAlrEYJhwRA&sensor=true"></script>
-<?php  
-  $baseUrl = Yii::app()->baseUrl; 
-  $cs = Yii::app()->getClientScript();
-  $cs->registerScriptFile($baseUrl.'/js/gmaps.js', CClientScript::POS_END);
-?>
+<script type="text/javascript">
+   var accion = <?php echo json_encode($this->action->Id) ?>;
+</script>
