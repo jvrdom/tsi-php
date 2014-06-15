@@ -152,7 +152,11 @@ public function actionDelete($id)
 if(Yii::app()->request->isPostRequest)
 {
 // we only allow deletion via POST request
-$this->loadModel($id)->delete();
+$modelInmueble = $this->loadModel($id);
+
+$this->deleteImages($id);
+$modelInmueble->delete();
+$this->loadDireccion($modelInmueble->direccion_id_direccion)->delete();
 
 // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 if(!isset($_GET['ajax']))
@@ -249,6 +253,10 @@ public function loadImagenes($id) {
    if($imagenes===null) 
       throw new CHttpException(404,'The requested page does not exist.');
    return $imagenes;
+}
+
+public function deleteImages($id) {
+   Imagen::model()->deleteAllByAttributes(array('inmueble_id_inmueble' => $id));
 }
 
 }
