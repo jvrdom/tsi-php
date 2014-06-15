@@ -22,6 +22,12 @@ $(function () {
         //xhrFields: {withCredentials: true},
         url: 'http://localhost/tsi-php/protected/modules/imageHandler/',
         dataType: 'json',
+        disableImageResize: false,
+        previewMaxWidth: 100,
+        previewMaxHeight: 100,
+        imageMaxWidth: 800,
+        imageMaxHeight: 800,
+        imageCrop: true,
     }).bind('fileuploaddone', function (e, data) {
         // Log the current bitrate for this upload:
         //console.log(data);
