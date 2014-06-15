@@ -65,10 +65,12 @@ public function actionView($id)
 {
    $modelInmueble = $this->loadModel($id);
    $modelDireccion = $this->loadDireccion($modelInmueble->direccion_id_direccion);
+   $listImagenes = $this->loadImagenes($id);
 
    $this->render('view',array(
    'model'=>$modelInmueble,
    'modelDireccion'=>$modelDireccion,
+   'listImagenes'=>$listImagenes,
    ));
 }
 
@@ -229,11 +231,24 @@ Yii::app()->end();
 }
 }
 
+/**
+ * Retorna la dirección de un inmueble.
+ * @param  int $id Id del inmueble
+ * @return Direccion Objeto dirección del inmueble.
+ */
 public function loadDireccion($id) {
    $modelDireccion = Direccion::model()->findByPk($id);
    if($modelDireccion===null) 
       throw new CHttpException(404,'The requested page does not exist.');
    return $modelDireccion;
+}
+
+public function loadImagenes($id) {
+   //$imagenes = Imagen::model()->findAll(array('condition' => 'inmueble_id_inmueble => $id'));
+   $imagenes = Imagen::model()->findAllByAttributes(array('inmueble_id_inmueble' => $id));
+   if($imagenes===null) 
+      throw new CHttpException(404,'The requested page does not exist.');
+   return $imagenes;
 }
 
 }
