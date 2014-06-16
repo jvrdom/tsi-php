@@ -12,14 +12,19 @@ Sistema que permite al usuario de forma interactiva inmuebles que se ajusten a s
 1. Ejecutar el script SQL (tsi-php.sql) incluido el proyecto.
 2. Ya que github no trackea carpetas vacías, no puede hacerse cambios en los permisos de la carpeta /assets. Por ende, para evitar error de **missing /assets folder**, es necesario ejecutar en consola:  
 
-```bash
-  chmod -R 0777 /assets.
-```
+  ```bash
+    chmod -R 0777 /assets.
+  ```
 3. Para evitar el warning **Failed to create scaled version: thumbnail** al usar **jQuery-File-Upload** plugin, en necesario instalar la librería GD de php:
 
-```bash
-  sudo apt-get install php5-gd
-```
+  ```bash
+    sudo apt-get install php5-gd
+  ```
+4. Por temas de seguridad, el Key de la API de Google no es pública, por ende, hay que [generarla](https://developers.google.com/maps/documentation/javascript/tutorial) y cambiar en el método init() del archivo [InmuebleController.php](/protected/controllers/InmuebleController.php):
+
+  ```php
+    $cs->registerScriptFile('http://maps.googleapis.com/maps/api/js?key=GMAPS_API&sensor=true');
+  ```
 
 #Toolbox
 
