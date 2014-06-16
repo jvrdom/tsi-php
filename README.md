@@ -22,6 +22,6 @@ Sistema que permite al usuario de forma interactiva inmuebles que se ajusten a s
 + **Twitter Boostrap 3:** Uno de los más populares Front-End Framework. [Homepage](https://getbootstrap.com/)
 + **Yii Booster:** Yii widgets que usa librerías y estilos de Twitter Boostrap. Bootstrap para Yii. [Homepage](https://yiibooster.clevertech.biz/)
 + **JQuery File Upload:** Widget para el manejo de uploads de fotos, archivos, imagenes con soporte para varios lenguajes servidores (PHP, Ruby, Phyton, etc.) [Homepage](https://blueimp.github.io/jQuery-File-Upload/)
-+Api Google Maps versión 3: Librería Javascript para el manejo de la popular API de Google Maps. [Homepage](https://developers.google.com/maps/documentation/javascript/?hl=es)
++ Api Google Maps versión 3: Librería Javascript para el manejo de la popular API de Google Maps. [Homepage](https://developers.google.com/maps/documentation/javascript/?hl=es)
 
 
