@@ -20,7 +20,8 @@ Sistema que permite al usuario de forma interactiva inmuebles que se ajusten a s
   ```bash
     sudo apt-get install php5-gd
   ```
-4. Por temas de seguridad, el Key de la API de Google no es pública, por ende, hay que [generarla](https://getbootstrap.com/) y cambiar en el método init() del archivo [InmuebleController.php](/protected/controllers/InmuebleController.php):
+4. Por temas de seguridad, el Key de la API de Google no es pública, por ende, hay que [generarla](https://developers.google.com/maps/documentation/javascript/tutorial) y cambiar en el método init() del archivo [InmuebleController.php](/protected/controllers/InmuebleController.php):
+
   ```php
     $cs->registerScriptFile('http://maps.googleapis.com/maps/api/js?key=GMAPS_API&sensor=true');
   ```
