@@ -10,7 +10,7 @@ Sistema que permite al usuario de forma interactiva inmuebles que se ajusten a s
 ```bash
   chmod -R 0777 /assets.
 ```
-3. para evitar el warning **Failed to create scaled version: thumbnail** al usar **jQuery-File-Upload** plugin, en necesario instalar la librería GD de php:
+3. Para evitar el warning **Failed to create scaled version: thumbnail** al usar **jQuery-File-Upload** plugin, en necesario instalar la librería GD de php:
 
 ```bash
   sudo apt-get install php5-gd
