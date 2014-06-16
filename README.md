@@ -1,7 +1,7 @@
 tsi-php
 =======
 
-Sistema que permite al usuario de forma interactiva inmuebles que se ajusten a sus necesidad. Cuenta con un sistema interno manejado por el personal interno de la inmobiliaria que le permite hacer un ABM tanto de inmuebles como de usuarios. Usando tecnologías como PHP, CSS y patrón MVC.
+Sistema que permite al usuario de forma interactiva buscar inmuebles que se ajusten a sus necesidad. Cuenta con un sistema interno manejado por el personal de la inmobiliaria que le permite hacer un ABM tanto de inmuebles como de usuarios. Usando tecnologías como PHP, CSS, patrón MVC y servidor web Apache.
 
 #Pre Requisitos:
 
