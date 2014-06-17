@@ -28,18 +28,27 @@ array('label'=>'Delete Inmueble','url'=>'#','linkOptions'=>array('submit'=>array
 </div>
 
 <div class="modal fade" id="modalImagenes">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="flexslider">
-        <ul class="slides">
-         <?php foreach ($listImagenes as $key => $value) { ?>
-            <li>
-               <img src="http://localhost/tsi-php/protected/modules/imageHandler/files/<?php echo $value->url;?>" />
-            </li>
-         <?php }?>
-        </ul>
-      </div>
-    </div><!-- /.modal-content -->
+  <div class="modal-dialog" style="margin-top:10%;">
+      <div class="wrapper">
+            <div class="jcarousel-wrapper">
+                <div class="jcarousel">
+                    <ul>
+                        <?php foreach ($listImagenes as $key => $value) { ?>
+                           <li>
+                              <img src="http://localhost/tsi-php/protected/modules/imageHandler/files/<?php echo $value->url;?>" />
+                           </li>
+                        <?php }?>
+                    </ul>
+                </div>
+
+                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+                
+                <!--<p class="jcarousel-pagination">-->
+                    
+                </p>
+            </div>
+        </div>
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
