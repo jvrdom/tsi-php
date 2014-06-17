@@ -25,8 +25,8 @@ $(function () {
         disableImageResize: false,
         previewMaxWidth: 100,
         previewMaxHeight: 100,
-        imageMaxWidth: 800,
-        imageMaxHeight: 800,
+        imageMaxWidth: 600,
+        imageMaxHeight: 400,
         imageCrop: true,
     }).bind('fileuploaddone', function (e, data) {
         // Log the current bitrate for this upload:
