@@ -19,13 +19,38 @@ array('label'=>'Delete Inmueble','url'=>'#','linkOptions'=>array('submit'=>array
       		 array('name' => 'dormitorios', 'label' => 'Dormitorios'),
       		 array('name' => 'baños', 'label' => 'Baños'),
       		 array('name' => 'estado', 'label' => 'Estado'),
+             array('name' => 'prueba', 'type' => 'raw', 'label' => 'Imágenes', 'value'=>'<a href="" data-toggle="modal" data-target="#modalImagenes">Ver más...</a>'),
       		/*'tipo_inmueble_id_tipo_inmueble',*/
       ),
       )); ?>
    </div>
-   <div class="col-md-5" id="map-canvas" style="height:400px;" />
-       
+   <div class="col-md-5" id="map-canvas" style="height:400px;"></div>
 </div>
+
+<div class="modal fade" id="modalImagenes">
+  <div class="modal-dialog" style="margin-top:10%;">
+      <div class="wrapper">
+            <div class="jcarousel-wrapper">
+                <div class="jcarousel">
+                    <ul>
+                        <?php foreach ($listImagenes as $key => $value) { ?>
+                           <li>
+                              <img src="http://localhost/tsi-php/protected/modules/imageHandler/files/<?php echo $value->url;?>" />
+                           </li>
+                        <?php }?>
+                    </ul>
+                </div>
+
+                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+                
+                <!--<p class="jcarousel-pagination">-->
+                    
+                </p>
+            </div>
+        </div>
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <script type="text/javascript">
       var modelLatlong = <?php echo json_encode($modelDireccion->latlong) ?>;

@@ -98,6 +98,8 @@
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jQueryfileupload/js/jquery.fileupload-ui.js"></script>
     <!-- The main application script -->
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jQueryfileupload/js/main.js"></script>
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.jcarousel.min.js"></script>
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jcarousel.js"></script>
 
 </body>
 </html>

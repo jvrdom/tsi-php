@@ -16,7 +16,7 @@ public $layout='//layouts/column2';
 public function init() {
    $baseUrl = Yii::app()->baseUrl; 
    $cs = Yii::app()->getClientScript();
-   $cs->registerScriptFile('http://maps.googleapis.com/maps/api/js?key=GMAPS_API&sensor=true');
+   $cs->registerScriptFile('http://maps.googleapis.com/maps/api/js?key=AIzaSyBDun4Glg2ymc4wiMNbzPXsCAlrEYJhwRA&sensor=true');
    $cs->registerScriptFile($baseUrl.'/js/gmaps.js', CClientScript::POS_END);
    return parent::init();
 }
@@ -65,10 +65,12 @@ public function actionView($id)
 {
    $modelInmueble = $this->loadModel($id);
    $modelDireccion = $this->loadDireccion($modelInmueble->direccion_id_direccion);
+   $listImagenes = $this->loadImagenes($id);
 
    $this->render('view',array(
    'model'=>$modelInmueble,
    'modelDireccion'=>$modelDireccion,
+   'listImagenes'=>$listImagenes,
    ));
 }
 
@@ -150,7 +152,11 @@ public function actionDelete($id)
 if(Yii::app()->request->isPostRequest)
 {
 // we only allow deletion via POST request
-$this->loadModel($id)->delete();
+$modelInmueble = $this->loadModel($id);
+
+$this->deleteImages($id);
+$modelInmueble->delete();
+$this->loadDireccion($modelInmueble->direccion_id_direccion)->delete();
 
 // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 if(!isset($_GET['ajax']))
@@ -229,11 +235,28 @@ Yii::app()->end();
 }
 }
 
+/**
+ * Retorna la dirección de un inmueble.
+ * @param  int $id Id del inmueble
+ * @return Direccion Objeto dirección del inmueble.
+ */
 public function loadDireccion($id) {
    $modelDireccion = Direccion::model()->findByPk($id);
    if($modelDireccion===null) 
       throw new CHttpException(404,'The requested page does not exist.');
    return $modelDireccion;
+}
+
+public function loadImagenes($id) {
+   //$imagenes = Imagen::model()->findAll(array('condition' => 'inmueble_id_inmueble => $id'));
+   $imagenes = Imagen::model()->findAllByAttributes(array('inmueble_id_inmueble' => $id));
+   if($imagenes===null) 
+      throw new CHttpException(404,'The requested page does not exist.');
+   return $imagenes;
+}
+
+public function deleteImages($id) {
+   Imagen::model()->deleteAllByAttributes(array('inmueble_id_inmueble' => $id));
 }
 
 }
