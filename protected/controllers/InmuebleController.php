@@ -69,13 +69,8 @@ public function actionView($id)
    $portadaFile = '';
 
    foreach ($listImagenes as $key => $value) {
-      if($value->esPortada === '1'){
+      if($value->esPortada === '1')
          $portadaFile = Yii::app()->request->baseUrl.'/protected/modules/imageHandler/files/'.$value->url;
-      } else {
-         $i = array_rand($listImagenes, 1);
-         $portadaFile = Yii::app()->request->baseUrl.'/protected/modules/imageHandler/files/'.$listImagenes[$i]->url;
-         break;
-      }
    }
 
    $this->render('view',array(
@@ -111,18 +106,37 @@ $imagen = $_POST['portada'];
 if($modelDireccion->save()){
 	$model->direccion_id_direccion = $modelDireccion->id_direccion;
 	if ($model->save()){
-      foreach ($array as $value) {
-         # code...
-         $modelImagen = new Imagen;
-         $modelImagen->url = $value;
-         $modelImagen->inmueble_id_inmueble = $model->id_inmueble;
-         if ($modelImagen->url === $imagen){
-            $modelImagen->esPortada = 1;
-         } else {
-            $modelImagen->esPortada = 0;
+      if ($imagen === '') {
+         $i = array_rand($array, 1);
+         $nombre = $array[$i];
+
+         foreach ($array as $value) {
+            # code...
+            $modelImagen = new Imagen;
+            $modelImagen->url = $value;
+            $modelImagen->inmueble_id_inmueble = $model->id_inmueble;
+            if($modelImagen->url === $nombre ){
+               $modelImagen->esPortada = 1;
+            } else {
+               $modelImagen->esPortada = 0;
+            }
+            $modelImagen->save();
+            unset($modelImagen);
          }
-         $modelImagen->save();
-         unset($modelImagen);
+      } else {
+         foreach ($array as $value) {
+            # code...
+            $modelImagen = new Imagen;
+            $modelImagen->url = $value;
+            $modelImagen->inmueble_id_inmueble = $model->id_inmueble;
+            if ($modelImagen->url === $imagen){
+               $modelImagen->esPortada = 1;
+            } else {
+               $modelImagen->esPortada = 0;
+            }
+            $modelImagen->save();
+            unset($modelImagen);
+         }
       }
 
       $this->redirect(array('view','id'=>$model->id_inmueble));
