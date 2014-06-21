@@ -69,9 +69,13 @@ public function actionView($id)
    $portadaFile = '';
 
    foreach ($listImagenes as $key => $value) {
-      # code...
-      if($value->esPortada === '1')
+      if($value->esPortada === '1'){
          $portadaFile = Yii::app()->request->baseUrl.'/protected/modules/imageHandler/files/'.$value->url;
+      } else {
+         $i = array_rand($listImagenes, 1);
+         $portadaFile = Yii::app()->request->baseUrl.'/protected/modules/imageHandler/files/'.$listImagenes[$i]->url;
+         break;
+      }
    }
 
    $this->render('view',array(
@@ -119,9 +123,9 @@ if($modelDireccion->save()){
          }
          $modelImagen->save();
          unset($modelImagen);
-
-         $this->redirect(array('view','id'=>$model->id_inmueble));
       }
+
+      $this->redirect(array('view','id'=>$model->id_inmueble));
    }
 }
 
