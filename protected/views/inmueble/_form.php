@@ -25,6 +25,7 @@
 	<?php echo $form->textFieldGroup(Direccion::model(),'direccion',array('label' => 'Direccion','class'=>'span5','append' => '<span onclick="codeAddress()"class="glyphicon glyphicon-map-marker"></span>')); ?>
 	<?php echo $form->hiddenField(Direccion::model(), 'latlong'); ?>
    <?php echo $form->hiddenField(Imagen::model(), 'url[]'); ?>
+   <input type="hidden" id="portadaHidden" name="portada" value="a"/>
 
 	<?php echo $form->dropDownListGroup(
 			$model,

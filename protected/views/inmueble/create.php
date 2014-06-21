@@ -144,6 +144,9 @@
                                   </button>
                               {% } %}
                           </td>
+                          <td>
+                              <a href="#" id="btnImg"><img id="imgStar" src="<?php echo Yii::app()->request->baseUrl; ?>/images/star.png"></a>
+                          </td>
                       </tr>
                   {% } %}
               </script>
