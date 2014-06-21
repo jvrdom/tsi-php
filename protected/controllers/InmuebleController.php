@@ -66,11 +66,19 @@ public function actionView($id)
    $modelInmueble = $this->loadModel($id);
    $modelDireccion = $this->loadDireccion($modelInmueble->direccion_id_direccion);
    $listImagenes = $this->loadImagenes($id);
+   $portadaFile = '';
+
+   foreach ($listImagenes as $key => $value) {
+      # code...
+      if($value->esPortada === '1')
+         $portadaFile = Yii::app()->request->baseUrl.'/protected/modules/imageHandler/files/'.$value->url;
+   }
 
    $this->render('view',array(
    'model'=>$modelInmueble,
    'modelDireccion'=>$modelDireccion,
    'listImagenes'=>$listImagenes,
+   'portada'=>$portadaFile,
    ));
 }
 
@@ -94,6 +102,7 @@ $modelDireccion = new Direccion;
 $modelDireccion->attributes=$_POST['Direccion'];
 
 $array = json_decode($_POST['Imagen']['url'][0]);
+$imagen = $_POST['portada'];
 
 if($modelDireccion->save()){
 	$model->direccion_id_direccion = $modelDireccion->id_direccion;
@@ -103,12 +112,17 @@ if($modelDireccion->save()){
          $modelImagen = new Imagen;
          $modelImagen->url = $value;
          $modelImagen->inmueble_id_inmueble = $model->id_inmueble;
+         if ($modelImagen->url === $imagen){
+            $modelImagen->esPortada = 1;
+         } else {
+            $modelImagen->esPortada = 0;
+         }
          $modelImagen->save();
          unset($modelImagen);
+
+         $this->redirect(array('view','id'=>$model->id_inmueble));
       }
    }
-
-   $this->redirect(array('view','id'=>$model->id_inmueble));
 }
 
 }
@@ -248,7 +262,6 @@ public function loadDireccion($id) {
 }
 
 public function loadImagenes($id) {
-   //$imagenes = Imagen::model()->findAll(array('condition' => 'inmueble_id_inmueble => $id'));
    $imagenes = Imagen::model()->findAllByAttributes(array('inmueble_id_inmueble' => $id));
    if($imagenes===null) 
       throw new CHttpException(404,'The requested page does not exist.');

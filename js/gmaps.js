@@ -20,18 +20,29 @@ function initialize() {
 
     if (accion != 'create'){
       myLatLong = new google.maps.LatLng(latlong[0], latlong[1]);
-      var content = "<strong> "+ direccion +"</strong>" ;
+      var content = '<div id="content" style="margin-top:2px;"> ' +
+                      '<div id="imageContent" style="text-align:-webkit-center; float:left; margin-right:10px;">' +
+                        '<img src="' + portadaFileName + '" height="130" width="170" />' +
+                      '</div>' +
+                      '<div id="textContent">' +
+                        "<strong> Direccion: </strong>" + direccion +
+                      '</div>' +
+                    '</div>';
       
-      infowindow = new google.maps.InfoWindow({ content: content });
+      infowindow = new google.maps.InfoWindow({ content: content,  });
 
-      marker = new google.maps.Marker({
+      marker = new google.maps.Marker({ 
         position: myLatLong,
         map: map,
         title: 'Hello World!',
       });
 
+      google.maps.event.addListenerOnce(map, 'idle', function(){
+         infowindow.open(map, marker);
+      });
+
       map.setCenter(marker.getPosition());
-      infowindow.open(map, marker);
+      
     }
     
 }

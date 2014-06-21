@@ -100,6 +100,7 @@
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jQueryfileupload/js/main.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.jcarousel.min.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jcarousel.js"></script>
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/app.js"></script>
 
 </body>
 </html>
