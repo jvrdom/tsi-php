@@ -4,50 +4,35 @@
 /* @var $form CActiveForm  */
 
 $this->pageTitle=Yii::app()->name . ' - Login';
-$this->breadcrumbs=array(
-	'Login',
-);
 ?>
 
-<h1>Login</h1>
+<div class="inner">
+   <?php $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
+      'id'=>'login-form',
+      'type' => 'horizontal',
+      'enableClientValidation'=>true,
+      'clientOptions'=>array(
+         'validateOnSubmit'=>true,
+      ),
+   )); ?>
 
-<p>Please fill out the following form with your login credentials:</p>
+   <p class="alert alert-info" style="text-align: center;">Campos <span class="required">Usuario</span> y <span class="required">Password</span> son requeridos.</p>
 
-<div class="form">
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'login-form',
-	'enableClientValidation'=>true,
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
-	),
-)); ?>
+   <?php echo $form->errorSummary($model); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+   <?php echo $form->textFieldGroup($model,'username',array('label' => 'Usuario','class'=>'span5','maxlength'=>45)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'username'); ?>
-		<?php echo $form->textField($model,'username'); ?>
-		<?php echo $form->error($model,'username'); ?>
-	</div>
+   <?php echo $form->passwordFieldGroup($model,'password',array('label' => 'Password','class'=>'span5','maxlength'=>120)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password'); ?>
-		<?php echo $form->error($model,'password'); ?>
-		<p class="hint">
-			Hint: You may login with <kbd>demo</kbd>/<kbd>demo</kbd> or <kbd>admin</kbd>/<kbd>admin</kbd>.
-		</p>
-	</div>
+   <?php $this->widget('booster.widgets.TbButton', array(
+         'buttonType'=>'submit',
+         'context'=>'primary',
+         'label'=> 'Iniciar Sesion',
+         'icon' => 'glyphicon glyphicon-home',
+         'htmlOptions' => array('class' => 'btn-block'),
+      )); ?>
+   
 
-	<div class="row rememberMe">
-		<?php echo $form->checkBox($model,'rememberMe'); ?>
-		<?php echo $form->label($model,'rememberMe'); ?>
-		<?php echo $form->error($model,'rememberMe'); ?>
-	</div>
+   <?php $this->endWidget(); ?>
+</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Login'); ?>
-	</div>
-
-<?php $this->endWidget(); ?>
-</div><!-- form -->
