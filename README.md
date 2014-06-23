@@ -25,6 +25,9 @@ Sistema que permite al usuario de forma interactiva buscar inmuebles que se ajus
   ```php
     $cs->registerScriptFile('http://maps.googleapis.com/maps/api/js?key=GMAPS_API&sensor=true');
   ```
+5. Para ingresar a la applicación:
+    **Nombre de usuario:** admin
+    **Password:** cero123
 
 #Toolbox
 
