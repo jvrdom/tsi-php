@@ -70,6 +70,7 @@ class ClienteController extends Controller
 		if(isset($_POST['Cliente']))
 		{
 			$model->attributes=$_POST['Cliente'];
+         $model->esPendiente = true;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id_cliente));
 		}
@@ -124,12 +125,11 @@ class ClienteController extends Controller
 	{
 		$dataProvider=new CActiveDataProvider('Cliente');
 		$gridColumns = array(
-			array('name'=>'id_cliente', 'header'=>'Nombre'),
-   			array('name'=>'nombre', 'header'=>'Descripcion'),
-   			array('name'=>'email', 'header'=>'Precio'),
-   			array('name'=>'telefono', 'header'=>'Superficie'),
-   			array('name'=>'direccion', 'header'=>'Baños'),
-   			array('name'=>'esPendiente', 'header'=>'Dormitorios'),
+			array('name'=>'id_cliente', 'header'=>'Identificador'),
+   			array('name'=>'nombre', 'header'=>'Nombre'),
+   			array('name'=>'email', 'header'=>'E-Mail'),
+   			array('name'=>'telefono', 'header'=>'Teléfono'),
+   			array('name'=>'direccion', 'header'=>'Dirección'),
    			array(
       			'htmlOptions' => array('nowrap'=>'nowrap'),
       			'class'=>'booster.widgets.TbButtonColumn',

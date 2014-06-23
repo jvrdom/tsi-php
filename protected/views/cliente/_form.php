@@ -1,10 +1,13 @@
 <?php $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
 	'id'=>'cliente-form',
 	'type' => 'horizontal',
-	'enableAjaxValidation'=>false,
+   'enableClientValidation'=>true,
+      'clientOptions'=>array(
+         'validateOnSubmit'=>true,
+   ),
 )); ?>
 
-<p class="alert alert-info">Fields with <span class="required">*</span> are required.</p>
+<p class="alert alert-info" style="text-align:center;"><span class="required">Nombre, Email</span> y <span class="required">Teléfono</span> son requeridos.</p>
 
 <?php echo $form->errorSummary($model); ?>
 
@@ -12,21 +15,16 @@
 
 	<?php echo $form->textFieldGroup($model,'email',array('label' => 'Email','class'=>'span5','maxlength'=>120)); ?>
 
-	<?php echo $form->textFieldGroup($model,'telefono',array('label' => 'Telefono','class'=>'span5','maxlength'=>45)); ?>
+	<?php echo $form->textFieldGroup($model,'telefono',array('label' => 'Teléfono','class'=>'span5','maxlength'=>45)); ?>
 
-	<?php echo $form->textFieldGroup($model,'direccion',array('label' => 'Direccion','class'=>'span5')); ?>
-
-	<?php echo $form->textFieldGroup($model,'esPendiente',array('label' => 'Pendiente','class'=>'span5','maxlength'=>45)); ?>
-
-
-
+	<?php echo $form->textFieldGroup($model,'direccion',array('label' => 'Dirección','class'=>'span5')); ?>
 
 <div class="form-actions pull-right">
 	<?php $this->widget('booster.widgets.TbButton', array(
 			'buttonType'=>'submit',
-			'context'=>'primary',
+			'context'=>'success',
 			'label'=>$model->isNewRecord ? 'Crear Cliente' : 'Save',
-         'icon' => 'glyphicon glyphicon-home',
+         'icon' => 'glyphicon glyphicon-user',
 		)); ?>
 </div>
 

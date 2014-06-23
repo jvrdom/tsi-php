@@ -2,6 +2,10 @@
 	'id'=>'inmueble-form',
 	'type' => 'horizontal',
 	'enableAjaxValidation'=>false,
+   'enableClientValidation'=>true,
+      'clientOptions'=>array(
+         'validateOnSubmit'=>true,
+   ),
 )); ?>
 
 <p class="alert alert-info">Fields with <span class="required">*</span> are required.</p>
