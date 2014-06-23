@@ -9,9 +9,9 @@
  * @property string $email
  * @property string $telefono
  * @property string $direccion
+ * @property string $esPendiente
  *
  * The followings are the available model relations:
- * @property ClienteConsulta[] $clienteConsultas
  * @property Inmueble[] $inmuebles
  */
 class Cliente extends CActiveRecord
@@ -33,10 +33,10 @@ class Cliente extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nombre', 'required'),
-			array('nombre, email, telefono, direccion', 'length', 'max'=>45),
+			array('nombre, email, telefono, direccion, esPendiente', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_cliente, nombre, email, telefono, direccion', 'safe', 'on'=>'search'),
+			array('id_cliente, nombre, email, telefono, direccion, esPendiente', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -48,7 +48,6 @@ class Cliente extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'clienteConsultas' => array(self::HAS_MANY, 'ClienteConsulta', 'cliente_id_cliente'),
 			'inmuebles' => array(self::MANY_MANY, 'Inmueble', 'cliente_inmueble(cliente_id_cliente, inmueble_id_inmueble)'),
 		);
 	}
@@ -64,6 +63,7 @@ class Cliente extends CActiveRecord
 			'email' => 'Email',
 			'telefono' => 'Telefono',
 			'direccion' => 'Direccion',
+			'esPendiente' => 'Es Pendiente',
 		);
 	}
 
@@ -90,6 +90,7 @@ class Cliente extends CActiveRecord
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('telefono',$this->telefono,true);
 		$criteria->compare('direccion',$this->direccion,true);
+		$criteria->compare('esPendiente',$this->esPendiente,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

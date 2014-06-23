@@ -1,30 +1,23 @@
+
+
 <?php
-/* @var $this ClienteController */
-/* @var $model Cliente */
-
-$this->breadcrumbs=array(
-	'Clientes'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Cliente', 'url'=>array('index')),
-	array('label'=>'Create Cliente', 'url'=>array('create')),
-);
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
+$('.search-form').toggle();
+return false;
 });
 $('.search-form form').submit(function(){
-	$('#cliente-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
+$.fn.yiiGridView.update('cliente-grid', {
+data: $(this).serialize()
+});
+return false;
 });
 ");
 ?>
+
+
+
 
 <h1>Manage Clientes</h1>
 
@@ -40,7 +33,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('booster.widgets.TbGridView',array(
 	'id'=>'cliente-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -50,8 +43,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'email',
 		'telefono',
 		'direccion',
+		'esPendiente',
 		array(
-			'class'=>'CButtonColumn',
+'class'=>'booster.widgets.TbButtonColumn',
 		),
 	),
 )); ?>
