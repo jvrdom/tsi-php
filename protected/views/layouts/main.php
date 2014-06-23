@@ -47,11 +47,20 @@
                             'htmlOptions' => array('class' => 'pull-right'),
                             'items' => array(
                               array(
+                                 'label' =>'Gestión de Usuarios',
+                                 'visible' => Yii::app()->user->checkAccess('Administrativo'), 
+                                 'items' => array(
+                                    array('label' => 'Crear Usuario', 'url'=>array('/user/create')),
+                                    array('label' => 'Listado de Usuarios', 'url'=>array('/user')),
+                                    array('label' => 'Administración', 'url'=>array('/user/admin')),
+                                 )
+                              ),
+                              array(
                                  'label' =>'Gestión de Inmuebles',
                                  'visible' => Yii::app()->user->checkAccess('Agente'), 
                                  'items' => array(
-                                    array('label' => 'Listado de Inmuebles', 'url'=>array('/inmueble')),
                                     array('label' => 'Crear Inmueble', 'url'=>array('/inmueble/create')),
+                                    array('label' => 'Listado de Inmuebles', 'url'=>array('/inmueble')),
                                     array('label' => 'Administración', 'url'=>array('/inmueble/admin')),
                                  )
                               ),
