@@ -1,12 +1,12 @@
-
 <?php
-
 
 $this->menu=array(
 	array('label'=>'Update Cliente', 'url'=>array('update', 'id'=>$model->id_cliente)),
 	array('label'=>'Delete Cliente', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_cliente),'confirm'=>'Are you sure you want to delete this item?')),
 );
+
 ?>
+
 <div class="row">
    <div class="col-md-7">
       <h1>View Cliente: <?php echo $model->nombre; ?></h1>
@@ -19,8 +19,8 @@ $this->menu=array(
       		 array('name' => 'email', 'label' => 'Email'),
       		 array('name' => 'telefono', 'label' => 'Telefono'),
       		 array('name' => 'direccion', 'label' => 'Direccion'),
-      		 array('name' => 'esPendiente', 'label' => 'Pendiente'),
-
+             array('name' => 'pendiente', 'type' => 'raw', 'label' => 'Estado', 'value'=>'<strong><font color="red">Pendiente</font></strong>', 'visible'=>$model->esPendiente === '1'),
+             array('name' => 'pendiente', 'type' => 'raw', 'label' => 'Estado', 'value'=>'<strong><font color="green">Ingresado</font></strong>', 'visible'=>$model->esPendiente === '0'),
       ),
       )); ?>
    </div>
