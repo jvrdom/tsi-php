@@ -123,10 +123,31 @@ class ClienteController extends Controller
 	public function actionIndex()
 	{
 		$dataProvider=new CActiveDataProvider('Cliente');
+		$gridColumns = array(
+			array('name'=>'id_cliente', 'header'=>'Nombre'),
+   			array('name'=>'nombre', 'header'=>'Descripcion'),
+   			array('name'=>'email', 'header'=>'Precio'),
+   			array('name'=>'telefono', 'header'=>'Superficie'),
+   			array('name'=>'direccion', 'header'=>'Baños'),
+   			array('name'=>'esPendiente', 'header'=>'Dormitorios'),
+   			array(
+      			'htmlOptions' => array('nowrap'=>'nowrap'),
+      			'class'=>'booster.widgets.TbButtonColumn',
+      			'template' => '{view}',
+      			'updateButtonUrl'=>null,
+      			'deleteButtonUrl'=>null,
+   			)
+		);
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+			'columns' =>$gridColumns,
 		));
 	}
+
+
+
+
+
 
 	/**
 	 * Manages all models.

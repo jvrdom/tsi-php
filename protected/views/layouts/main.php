@@ -59,6 +59,22 @@
                               array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('site/logout'), 'visible'=>!Yii::app()->user->isGuest),
                             ),
                         ),
+                        array(
+                            'class' => 'booster.widgets.TbMenu',
+                            'type' => 'navbar',
+                            'htmlOptions' => array('class' => 'pull-right'),
+                            'items' => array(
+                              array(
+                                 'label' =>'Gestión de Clientes',
+                                 'visible' => Yii::app()->user->checkAccess('Agente'), 
+                                 'items' => array(
+                                    array('label' => 'Listado de Clientes', 'url'=>array('/cliente')),
+                                    array('label' => 'Crear Clientes', 'url'=>array('/cliente/create')),
+                                    array('label' => 'Administración', 'url'=>array('/cliente/admin')),
+                                 )
+                              ),
+                        ),
+                            ),
                     ),
                 )
         );
