@@ -130,7 +130,7 @@ class User extends CActiveRecord
 		return parent::beforeSave();
 	}
 
-	protected function afterSave()
+	/*protected function afterSave()
 	{
 
 		$model = new AuthAssignment();
@@ -141,5 +141,5 @@ class User extends CActiveRecord
 		$model->save();
 
 		return parent::afterSave();
-	}
+	}*/
 }

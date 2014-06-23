@@ -139,6 +139,6 @@ class Inmueble extends CActiveRecord
     */
    public function getPropertyTypes(){
     $models = TipoInmueble::model()->findAll();
-    return Chtml::listData($models,'id_tipo_inmueble','nombre');
+    return Chtml::listData($models,'name','nombre');
    }
 }
