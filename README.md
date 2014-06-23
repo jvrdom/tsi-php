@@ -27,7 +27,7 @@ Sistema que permite al usuario de forma interactiva buscar inmuebles que se ajus
   ```
 5. Para ingresar a la applicación:
     **Nombre de usuario:** admin
-    **Password:** cero123
+    **Password:** admin
 
 #Toolbox
 
