@@ -16,7 +16,7 @@ public $layout='//layouts/column2';
 public function init() {
    $baseUrl = Yii::app()->baseUrl; 
    $cs = Yii::app()->getClientScript();
-   $cs->registerScriptFile('http://maps.googleapis.com/maps/api/js?key=GMAPS_API&sensor=true');
+   $cs->registerScriptFile('http://maps.googleapis.com/maps/api/js?key=AIzaSyBDun4Glg2ymc4wiMNbzPXsCAlrEYJhwRA&sensor=true');
    $cs->registerScriptFile($baseUrl.'/js/gmaps.js', CClientScript::POS_END);
    return parent::init();
 }

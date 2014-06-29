@@ -42,7 +42,7 @@ class Inmueble extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nombre, tipo_inmueble_id_tipo_inmueble', 'required'),
-			array('superficie, baños, direccion_id_direccion, tipo_inmueble_id_tipo_inmueble', 'numerical', 'integerOnly'=>true),
+			array('superficie, baños, direccion_id_direccion,tipo_inmueble_id_tipo_inmueble','numerical', 'integerOnly'=>true),
 			array('precio', 'numerical'),
 			array('nombre, dormitorios, estado', 'length', 'max'=>45),
 			array('descripcion', 'length', 'max'=>120),
@@ -139,6 +139,6 @@ class Inmueble extends CActiveRecord
     */
    public function getPropertyTypes(){
     $models = TipoInmueble::model()->findAll();
-    return Chtml::listData($models,'name','nombre');
+    return CHtml::listData($models,'id_tipo_inmueble','nombre');
    }
 }
