@@ -29,7 +29,16 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+      $criteria=new CDbCriteria;
+      $criteria->addCondition('esPortada = 1','AND'); // 
+      $dataProvider=new CActiveDataProvider('Imagen', 
+                                             array('criteria' => $criteria,
+                                                   'pagination' => array('pageSize' => 6),
+                                             ));
+      /*$imagenes = Imagen::model()->findByAttributes(array('inmueble_id_inmueble' => '3', 'esPortada' => '1'));
+      array_push($prueba, $imagenes->getAttribute('url'));
+      */
+		$this->render('index',array('listInmueble' => $dataProvider));
 	}
 
 	/**

@@ -10,8 +10,7 @@ html {
 body {
 
     /* Margin bottom by footer height */
-
-    margin-bottom: 60px;
+    padding-top: 10px;
 
 }
 
@@ -323,5 +322,19 @@ pre {
     width: 50%;
 
     margin: 0 auto;
+
+}
+
+.btn-thumb {
+
+    margin-top: -6%;
+
+    margin-right: -1%;
+
+}
+
+.row-thumb {
+
+    margin-top: -2%;
 
 }
