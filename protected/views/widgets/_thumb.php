@@ -7,7 +7,7 @@
             <span>
                <strong>Precio: </strong> </br>
                <?php echo $data['inmueble']->precio ?> pesos.
-               <a href="#" class="btn btn-success pull-right btn-thumb" role="button">Ver más</a>
+               <a href="<?php echo Yii::app()->baseUrl ?>/index.php/inmueble/<?php echo $data['inmueble']->id_inmueble ?>"  class="btn btn-success pull-right btn-thumb" role="button">Ver más</a>
             </span>
         </div>
     </div>
