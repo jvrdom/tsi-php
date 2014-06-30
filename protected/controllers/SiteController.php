@@ -35,9 +35,6 @@ class SiteController extends Controller
                                              array('criteria' => $criteria,
                                                    'pagination' => array('pageSize' => 6),
                                              ));
-      /*$imagenes = Imagen::model()->findByAttributes(array('inmueble_id_inmueble' => '3', 'esPortada' => '1'));
-      array_push($prueba, $imagenes->getAttribute('url'));
-      */
 		$this->render('index',array('listInmueble' => $dataProvider));
 	}
 
