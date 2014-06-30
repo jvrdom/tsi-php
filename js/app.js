@@ -12,4 +12,11 @@ $( document ).ready(function() {
       // do something on error
     }
    });
+
+  $('#myTab a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  });
+
+  $(".pagination").wrap("<div class='text-center'></div>");
 });
