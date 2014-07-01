@@ -7,12 +7,13 @@ $this->pageTitle=Yii::app()->name;
      <ul class="nav nav-pills nav-stacked">
         <li class="active"><a href="#">Home</a></li>
         <li><a href="#">Profile</a></li>
-        <li><a href="#">Messages</a></li>
+        <hr></hr>
+        <li><a class="alert alert-success" href="#">Messages</a></li>
      </ul>
    </div>
    
    <div class="col-md-9">
-   <?php   
+   <?php if ($listInmueble != null ) {
       echo CHtml::openTag('div', array('class' => 'row-fluid row-thumb', 'id' => 'thumbnail-list'));
          $this->widget(
          'booster.widgets.TbThumbnails',
@@ -23,6 +24,10 @@ $this->pageTitle=Yii::app()->name;
          )
          );
       echo CHtml::closeTag('div');
+   } else {
+      echo $this->renderPartial('_nullInmueble');
+   }
    ?>
+   
    </div>
 </div>
