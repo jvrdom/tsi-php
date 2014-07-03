@@ -14,9 +14,14 @@ $( document ).ready(function() {
    });
 
   $('#myTab a').click(function (e) {
-    e.preventDefault()
-    $(this).tab('show')
+    e.preventDefault();
+    $(this).tab('show');
   });
 
   $(".pagination").wrap("<div class='text-center'></div>");
+
+  $('#barrios-drop').change(function(){ 
+    var nombre = $('#barrios-drop :selected').text();
+    document.getElementById('barriohidden').value = nombre;
+   });
 });
