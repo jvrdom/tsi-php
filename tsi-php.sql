@@ -35,16 +35,6 @@ CREATE TABLE `AuthAssignment` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `AuthAssignment`
---
-
-LOCK TABLES `AuthAssignment` WRITE;
-/*!40000 ALTER TABLE `AuthAssignment` DISABLE KEYS */;
-INSERT INTO `AuthAssignment` VALUES ('Admin','1','','N;'),('Administrativo','2',NULL,NULL);
-/*!40000 ALTER TABLE `AuthAssignment` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `AuthItem`
 --
 
@@ -60,16 +50,6 @@ CREATE TABLE `AuthItem` (
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `AuthItem`
---
-
-LOCK TABLES `AuthItem` WRITE;
-/*!40000 ALTER TABLE `AuthItem` DISABLE KEYS */;
-INSERT INTO `AuthItem` VALUES ('Admin',2,'','',''),('Administrativo',2,'Encargado de todas la labores administrativas del sitema.',NULL,NULL),('Agente',2,'Gestión de inmuebles y clientes.',NULL,NULL),('Director',2,'Tiene acceso a todos los módulos del sistema.',NULL,NULL);
-/*!40000 ALTER TABLE `AuthItem` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `AuthItemChild`
@@ -89,15 +69,6 @@ CREATE TABLE `AuthItemChild` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `AuthItemChild`
---
-
-LOCK TABLES `AuthItemChild` WRITE;
-/*!40000 ALTER TABLE `AuthItemChild` DISABLE KEYS */;
-/*!40000 ALTER TABLE `AuthItemChild` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `Rights`
 --
 
@@ -112,15 +83,6 @@ CREATE TABLE `Rights` (
   CONSTRAINT `Rights_ibfk_1` FOREIGN KEY (`itemname`) REFERENCES `AuthItem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Rights`
---
-
-LOCK TABLES `Rights` WRITE;
-/*!40000 ALTER TABLE `Rights` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Rights` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `administra`
@@ -141,15 +103,6 @@ CREATE TABLE `administra` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `administra`
---
-
-LOCK TABLES `administra` WRITE;
-/*!40000 ALTER TABLE `administra` DISABLE KEYS */;
-/*!40000 ALTER TABLE `administra` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `busqueda`
 --
 
@@ -166,15 +119,6 @@ CREATE TABLE `busqueda` (
   PRIMARY KEY (`id_busqueda`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `busqueda`
---
-
-LOCK TABLES `busqueda` WRITE;
-/*!40000 ALTER TABLE `busqueda` DISABLE KEYS */;
-/*!40000 ALTER TABLE `busqueda` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `cliente`
@@ -195,15 +139,6 @@ CREATE TABLE `cliente` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `cliente`
---
-
-LOCK TABLES `cliente` WRITE;
-/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `cliente_inmueble`
 --
 
@@ -220,15 +155,6 @@ CREATE TABLE `cliente_inmueble` (
   CONSTRAINT `fk_cliente_has_inmueble_inmueble1` FOREIGN KEY (`inmueble_id_inmueble`) REFERENCES `inmueble` (`id_inmueble`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cliente_inmueble`
---
-
-LOCK TABLES `cliente_inmueble` WRITE;
-/*!40000 ALTER TABLE `cliente_inmueble` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cliente_inmueble` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `consulta`
@@ -251,15 +177,6 @@ CREATE TABLE `consulta` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `consulta`
---
-
-LOCK TABLES `consulta` WRITE;
-/*!40000 ALTER TABLE `consulta` DISABLE KEYS */;
-/*!40000 ALTER TABLE `consulta` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `direccion`
 --
 
@@ -270,18 +187,10 @@ CREATE TABLE `direccion` (
   `id_direccion` int(11) NOT NULL AUTO_INCREMENT COMMENT '		',
   `direccion` varchar(45) DEFAULT NULL,
   `latlong` varchar(45) DEFAULT NULL,
+  `barrio` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_direccion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `direccion`
---
-
-LOCK TABLES `direccion` WRITE;
-/*!40000 ALTER TABLE `direccion` DISABLE KEYS */;
-/*!40000 ALTER TABLE `direccion` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `imagen`
@@ -300,15 +209,6 @@ CREATE TABLE `imagen` (
   CONSTRAINT `fk_imagen_inmueble1` FOREIGN KEY (`inmueble_id_inmueble`) REFERENCES `inmueble` (`id_inmueble`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `imagen`
---
-
-LOCK TABLES `imagen` WRITE;
-/*!40000 ALTER TABLE `imagen` DISABLE KEYS */;
-/*!40000 ALTER TABLE `imagen` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `inmueble`
@@ -337,15 +237,6 @@ CREATE TABLE `inmueble` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `inmueble`
---
-
-LOCK TABLES `inmueble` WRITE;
-/*!40000 ALTER TABLE `inmueble` DISABLE KEYS */;
-/*!40000 ALTER TABLE `inmueble` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `portada`
 --
 
@@ -363,15 +254,6 @@ CREATE TABLE `portada` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `portada`
---
-
-LOCK TABLES `portada` WRITE;
-/*!40000 ALTER TABLE `portada` DISABLE KEYS */;
-/*!40000 ALTER TABLE `portada` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tipo_inmueble`
 --
 
@@ -384,16 +266,6 @@ CREATE TABLE `tipo_inmueble` (
   PRIMARY KEY (`id_tipo_inmueble`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tipo_inmueble`
---
-
-LOCK TABLES `tipo_inmueble` WRITE;
-/*!40000 ALTER TABLE `tipo_inmueble` DISABLE KEYS */;
-INSERT INTO `tipo_inmueble` VALUES (1,'Casa'),(2,'Apartamento');
-/*!40000 ALTER TABLE `tipo_inmueble` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `user`
@@ -409,16 +281,6 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user`
---
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','$2a$13$znL/k6U6RMBOIM5cBMBt9.yKN9xru3eiCZvtSi55At3KYveL2qIoy');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -429,4 +291,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-23 15:11:50
+-- Dump completed on 2014-07-03 13:59:42

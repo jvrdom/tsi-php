@@ -99,6 +99,7 @@ $model->attributes=$_POST['Inmueble'];
 
 $modelDireccion = new Direccion;
 $modelDireccion->attributes=$_POST['Direccion'];
+$modelDireccion->barrio = $_POST['barrio'];
 
 $array = json_decode($_POST['Imagen']['url'][0]);
 $imagen = $_POST['portada'];
