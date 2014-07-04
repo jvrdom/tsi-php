@@ -14,11 +14,11 @@ public $layout='//layouts/column2';
  * @return void
  */
 public function init() {
-   $baseUrl = Yii::app()->baseUrl; 
+   /*$baseUrl = Yii::app()->baseUrl; 
    $cs = Yii::app()->getClientScript();
-   $cs->registerScriptFile('http://maps.googleapis.com/maps/api/js?key=GMAP_API&sensor=true');
+   $cs->registerScriptFile('http://maps.googleapis.com/maps/api/js?key=AIzaSyBDun4Glg2ymc4wiMNbzPXsCAlrEYJhwRA&sensor=true');
    $cs->registerScriptFile($baseUrl.'/js/gmaps.js', CClientScript::POS_END);
-   return parent::init();
+   return parent::init();*/
 }
 
 /**
@@ -40,7 +40,7 @@ public function accessRules()
 {
 return array(
 array('allow',  // allow all users to perform 'index' and 'view' actions
-'actions'=>array('index','view'),
+'actions'=>array('index','view','buscar','pruebaAjax'),
 'users'=>array('*'),
 ),
 array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -240,6 +240,15 @@ $model->attributes=$_GET['Inmueble'];
 $this->render('admin',array(
 'model'=>$model,
 ));
+}
+
+public function actionBuscar(){
+   $criteria=new CDbCriteria;
+   $dataProvider=new CActiveDataProvider('Inmueble', 
+                                          array('criteria' => $criteria,
+                                                'pagination' => array('pageSize' => 10),
+                                          ));
+   $this->render('search_inmueble',array('listInmueble' => $dataProvider));
 }
 
 /**

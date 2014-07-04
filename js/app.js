@@ -20,7 +20,7 @@ $( document ).ready(function() {
 
   $(".pagination").wrap("<div class='text-center'></div>");
 
-  $('#barrios-drop').change(function(){ 
+  $('#barrios-drop').change(function(){
     var nombre = $('#barrios-drop :selected').text();
     document.getElementById('barriohidden').value = nombre;
    });
