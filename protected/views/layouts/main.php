@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jQueryfileupload/css/jquery.fileupload.css" />
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/styleLast.css" />
 </head>
 
 <body>
@@ -73,6 +74,7 @@
                                     array('label' => 'Administración', 'url'=>array('/inmueble/admin')),
                                  )
                               ),
+                              array('label'=>'Buscar Inmuebles', 'url'=>array('inmueble/buscar'), 'visible'=>Yii::app()->user->isGuest),
                               array('label'=>'Login', 'url'=>array('site/login'), 'visible'=>Yii::app()->user->isGuest),
                               array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('site/logout'), 'visible'=>!Yii::app()->user->isGuest),
                             ),

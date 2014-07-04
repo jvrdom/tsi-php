@@ -58,4 +58,5 @@ array('label'=>'Delete Inmueble','url'=>'#','linkOptions'=>array('submit'=>array
       var latlong = modelLatlong.replace (/\(|\)/g, '').split(',');
       var direccion = <?php echo json_encode($modelDireccion->direccion) ?>;
       var portadaFileName = <?php echo json_encode($portada) ?>;
+      var barrio = <?php echo json_encode($modelDireccion->barrio) ?>;
 </script>
