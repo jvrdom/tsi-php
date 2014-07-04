@@ -8,6 +8,7 @@ class AjaxController extends Controller
 	}
 
    public function actionFilterApartamentos(){
+      sleep(2);
       $type = $_POST['type'];
       $criteria=new CDbCriteria;
       $criteria->addCondition('tipo_inmueble_id_tipo_inmueble = ' .$type,'AND');
@@ -20,6 +21,7 @@ class AjaxController extends Controller
    }
 
    public function actionFilterCasas(){
+      sleep(2);
       $type = $_POST['type'];
       $criteria=new CDbCriteria;
       $criteria->addCondition('tipo_inmueble_id_tipo_inmueble = ' .$type,'AND');

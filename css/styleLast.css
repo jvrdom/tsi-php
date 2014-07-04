@@ -48,3 +48,7 @@
     color: #fff;
     background-color: #428bca;
 }
+
+.loading {
+  opacity: .12;
+}

@@ -243,12 +243,26 @@ $this->render('admin',array(
 }
 
 public function actionBuscar(){
-   $criteria=new CDbCriteria;
+
+   $criteriaApt=new CDbCriteria;
+   $criteriaCasa=new CDbCriteria;
    $dataProvider=new CActiveDataProvider('Inmueble', 
-                                          array('criteria' => $criteria,
-                                                'pagination' => array('pageSize' => 10),
-                                          ));
-   $this->render('search_inmueble',array('listInmueble' => $dataProvider));
+                                          array('pagination' => array('pageSize' => 10)));
+   
+   $dataProviderApt= clone $dataProvider;
+   $criteriaApt->addCondition('tipo_inmueble_id_tipo_inmueble = 2 ','AND');
+   $dataProviderApt->setCriteria($criteriaApt);
+   $cantApt = $dataProviderApt->getItemCount();
+
+   $dataProviderCasa= clone $dataProvider;
+   $criteriaCasa->addCondition('tipo_inmueble_id_tipo_inmueble = 1 ','AND');
+   $dataProviderCasa->setCriteria($criteriaCasa);
+   $cantCasa = $dataProviderCasa->getItemCount();
+
+   $this->render('search_inmueble',array('listInmueble' => $dataProvider, 
+                                         'cantApt' => $cantApt,
+                                         'cantCasa' => $cantCasa,
+                                         ));
 }
 
 /**

@@ -8,12 +8,18 @@ $this->pageTitle=Yii::app()->name;
         <li>
          <?php 
             echo CHtml::ajaxLink(
-               'Apartamentos',          
+               'Apartamentos('.$cantApt.')',          
                array('ajax/filterApartamentos',),
                array(
                    'type'=>'POST',
                    'data' => array('type' => '2'),
                    'update'=>'#thumbnail-list',
+                   'beforeSend' => 'function() {           
+                     $("#thumbnail-list").addClass("loading");
+                    }',
+                   'complete' => 'function(){
+                     $("#thumbnail-list").removeClass("loading");
+                    }',
                )
            );
           ?>
@@ -21,12 +27,18 @@ $this->pageTitle=Yii::app()->name;
         <li>
          <?php 
             echo CHtml::ajaxLink(
-               'Casas',          
+               'Casas('.$cantCasa.')',          
                array('ajax/filterCasas',),
                array(
                    'type'=>'POST',
                    'data' => array('type' => '1'),
                    'update'=>'#thumbnail-list',
+                   'beforeSend' => 'function() {           
+                     $("#thumbnail-list").addClass("loading");
+                    }',
+                   'complete' => 'function(){
+                     $("#thumbnail-list").removeClass("loading");
+                    }',
                )
            );
           ?>
