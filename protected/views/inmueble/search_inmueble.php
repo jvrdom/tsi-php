@@ -22,7 +22,7 @@ $this->pageTitle=Yii::app()->name;
          <?php 
             echo CHtml::ajaxLink(
                'Casas',          
-               array('ajax/filterApartamentos',),
+               array('ajax/filterCasas',),
                array(
                    'type'=>'POST',
                    'data' => array('type' => '1'),
