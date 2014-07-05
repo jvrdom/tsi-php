@@ -1,7 +1,7 @@
 tsi-php
 =======
 
-Sistema que permite al usuario de forma interactiva buscar inmuebles que se ajusten a sus necesidad. Cuenta con un sistema interno manejado por el personal de la inmobiliaria que le permite hacer un ABM tanto de inmuebles como de usuarios. Usando tecnologías como PHP, CSS, patrón MVC y servidor web Apache.
+Sistema que permite al usuario de forma interactiva buscar inmuebles que se ajusten a sus necesidades. Cuenta con un sistema interno manejado por el personal de la inmobiliaria que le permite hacer un ABM tanto de inmuebles como de usuarios. Usando tecnologías como PHP, CSS, patrón MVC y servidor web Apache.
 
 #Pre Requisitos:
 
@@ -25,6 +25,9 @@ Sistema que permite al usuario de forma interactiva buscar inmuebles que se ajus
   ```php
     $cs->registerScriptFile('http://maps.googleapis.com/maps/api/js?key=GMAPS_API&sensor=true');
   ```
+5. Para ingresar a la applicación:
+    **Nombre de usuario:** admin
+    **Password:** admin
 
 #Toolbox
 

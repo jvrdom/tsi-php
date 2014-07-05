@@ -29,7 +29,13 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+      $criteria=new CDbCriteria;
+      $criteria->addCondition('esPortada = 1','AND'); // 
+      $dataProvider=new CActiveDataProvider('Imagen', 
+                                             array('criteria' => $criteria,
+                                                   'pagination' => array('pageSize' => 6),
+                                             ));
+		$this->render('index',array('listInmueble' => $dataProvider));
 	}
 
 	/**

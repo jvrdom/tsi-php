@@ -1,25 +1,29 @@
 <?php
 
 /**
- * This is the model class for table "imagen".
+ * This is the model class for table "AuthItem".
  *
- * The followings are the available columns in table 'imagen':
- * @property integer $id_imagen
- * @property string $url
- * @property integer $esPortada
- * @property integer $inmueble_id_inmueble
+ * The followings are the available columns in table 'AuthItem':
+ * @property string $name
+ * @property integer $type
+ * @property string $description
+ * @property string $bizrule
+ * @property string $data
  *
  * The followings are the available model relations:
- * @property Inmueble $inmuebleIdInmueble
+ * @property AuthAssignment[] $authAssignments
+ * @property AuthItemChild[] $authItemChildren
+ * @property AuthItemChild[] $authItemChildren1
+ * @property Rights $rights
  */
-class Imagen extends CActiveRecord
+class AuthItem extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'imagen';
+		return 'AuthItem';
 	}
 
 	/**
@@ -30,12 +34,13 @@ class Imagen extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('inmueble_id_inmueble', 'required'),
-			array('esPortada, inmueble_id_inmueble', 'numerical', 'integerOnly'=>true),
-			array('url', 'length', 'max'=>45),
+			array('name, type', 'required'),
+			array('type', 'numerical', 'integerOnly'=>true),
+			array('name', 'length', 'max'=>64),
+			array('description, bizrule, data', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_imagen, url, esPortada, inmueble_id_inmueble', 'safe', 'on'=>'search'),
+			array('name, type, description, bizrule, data', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -47,7 +52,10 @@ class Imagen extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'inmueble' => array(self::BELONGS_TO, 'Inmueble', 'inmueble_id_inmueble'),
+			'authAssignments' => array(self::HAS_MANY, 'AuthAssignment', 'itemname'),
+			'authItemChildren' => array(self::HAS_MANY, 'AuthItemChild', 'parent'),
+			'authItemChildren1' => array(self::HAS_MANY, 'AuthItemChild', 'child'),
+			'rights' => array(self::HAS_ONE, 'Rights', 'itemname'),
 		);
 	}
 
@@ -57,10 +65,11 @@ class Imagen extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_imagen' => 'Id Imagen',
-			'url' => 'Url',
-			'esPortada' => 'Es Portada',
-			'inmueble_id_inmueble' => 'Inmueble Id Inmueble',
+			'name' => 'Rol',
+			'type' => 'Type',
+			'description' => 'Description',
+			'bizrule' => 'Bizrule',
+			'data' => 'Data',
 		);
 	}
 
@@ -82,10 +91,11 @@ class Imagen extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id_imagen',$this->id_imagen);
-		$criteria->compare('url',$this->url,true);
-		$criteria->compare('esPortada',$this->esPortada);
-		$criteria->compare('inmueble_id_inmueble',$this->inmueble_id_inmueble);
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('type',$this->type);
+		$criteria->compare('description',$this->description,true);
+		$criteria->compare('bizrule',$this->bizrule,true);
+		$criteria->compare('data',$this->data,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -96,7 +106,7 @@ class Imagen extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Imagen the static model class
+	 * @return AuthItem the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

@@ -35,7 +35,7 @@ array('label'=>'Delete Inmueble','url'=>'#','linkOptions'=>array('submit'=>array
                     <ul>
                         <?php foreach ($listImagenes as $key => $value) { ?>
                            <li>
-                              <img src="http://localhost/tsi-php/protected/modules/imageHandler/files/<?php echo $value->url;?>" />
+                              <img src="<?php echo Yii::app()->request->baseUrl; ?>/protected/modules/imageHandler/files/<?php echo $value->url;?>" />
                            </li>
                         <?php }?>
                     </ul>
@@ -57,4 +57,6 @@ array('label'=>'Delete Inmueble','url'=>'#','linkOptions'=>array('submit'=>array
       var accion = <?php echo json_encode($this->action->Id) ?>;
       var latlong = modelLatlong.replace (/\(|\)/g, '').split(',');
       var direccion = <?php echo json_encode($modelDireccion->direccion) ?>;
+      var portadaFileName = <?php echo json_encode($portada) ?>;
+      var barrio = <?php echo json_encode($modelDireccion->barrio) ?>;
 </script>

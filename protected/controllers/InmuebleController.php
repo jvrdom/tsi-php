@@ -16,7 +16,7 @@ public $layout='//layouts/column2';
 public function init() {
    $baseUrl = Yii::app()->baseUrl; 
    $cs = Yii::app()->getClientScript();
-   $cs->registerScriptFile('http://maps.googleapis.com/maps/api/js?key=AIzaSyBDun4Glg2ymc4wiMNbzPXsCAlrEYJhwRA&sensor=true');
+   $cs->registerScriptFile('http://maps.googleapis.com/maps/api/js?key=GMAP_API&sensor=true');
    $cs->registerScriptFile($baseUrl.'/js/gmaps.js', CClientScript::POS_END);
    return parent::init();
 }
@@ -40,7 +40,7 @@ public function accessRules()
 {
 return array(
 array('allow',  // allow all users to perform 'index' and 'view' actions
-'actions'=>array('index','view'),
+'actions'=>array('index','view','buscar','pruebaAjax'),
 'users'=>array('*'),
 ),
 array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -66,11 +66,18 @@ public function actionView($id)
    $modelInmueble = $this->loadModel($id);
    $modelDireccion = $this->loadDireccion($modelInmueble->direccion_id_direccion);
    $listImagenes = $this->loadImagenes($id);
+   $portadaFile = '';
+
+   foreach ($listImagenes as $key => $value) {
+      if($value->esPortada === '1')
+         $portadaFile = Yii::app()->request->baseUrl.'/protected/modules/imageHandler/files/'.$value->url;
+   }
 
    $this->render('view',array(
    'model'=>$modelInmueble,
    'modelDireccion'=>$modelDireccion,
    'listImagenes'=>$listImagenes,
+   'portada'=>$portadaFile,
    ));
 }
 
@@ -92,23 +99,49 @@ $model->attributes=$_POST['Inmueble'];
 
 $modelDireccion = new Direccion;
 $modelDireccion->attributes=$_POST['Direccion'];
+$modelDireccion->barrio = $_POST['barrio'];
 
 $array = json_decode($_POST['Imagen']['url'][0]);
+$imagen = $_POST['portada'];
 
 if($modelDireccion->save()){
 	$model->direccion_id_direccion = $modelDireccion->id_direccion;
 	if ($model->save()){
-      foreach ($array as $value) {
-         # code...
-         $modelImagen = new Imagen;
-         $modelImagen->url = $value;
-         $modelImagen->inmueble_id_inmueble = $model->id_inmueble;
-         $modelImagen->save();
-         unset($modelImagen);
-      }
-   }
+      if ($imagen === '') {
+         $i = array_rand($array, 1);
+         $nombre = $array[$i];
 
-   $this->redirect(array('view','id'=>$model->id_inmueble));
+         foreach ($array as $value) {
+            # code...
+            $modelImagen = new Imagen;
+            $modelImagen->url = $value;
+            $modelImagen->inmueble_id_inmueble = $model->id_inmueble;
+            if($modelImagen->url === $nombre ){
+               $modelImagen->esPortada = 1;
+            } else {
+               $modelImagen->esPortada = 0;
+            }
+            $modelImagen->save();
+            unset($modelImagen);
+         }
+      } else {
+         foreach ($array as $value) {
+            # code...
+            $modelImagen = new Imagen;
+            $modelImagen->url = $value;
+            $modelImagen->inmueble_id_inmueble = $model->id_inmueble;
+            if ($modelImagen->url === $imagen){
+               $modelImagen->esPortada = 1;
+            } else {
+               $modelImagen->esPortada = 0;
+            }
+            $modelImagen->save();
+            unset($modelImagen);
+         }
+      }
+
+      $this->redirect(array('view','id'=>$model->id_inmueble));
+   }
 }
 
 }
@@ -209,6 +242,29 @@ $this->render('admin',array(
 ));
 }
 
+public function actionBuscar(){
+
+   $criteriaApt=new CDbCriteria;
+   $criteriaCasa=new CDbCriteria;
+   $dataProvider=new CActiveDataProvider('Inmueble', 
+                                          array('pagination' => array('pageSize' => 10)));
+   
+   $dataProviderApt= clone $dataProvider;
+   $criteriaApt->addCondition('tipo_inmueble_id_tipo_inmueble = 2 ','AND');
+   $dataProviderApt->setCriteria($criteriaApt);
+   $cantApt = $dataProviderApt->getItemCount();
+
+   $dataProviderCasa= clone $dataProvider;
+   $criteriaCasa->addCondition('tipo_inmueble_id_tipo_inmueble = 1 ','AND');
+   $dataProviderCasa->setCriteria($criteriaCasa);
+   $cantCasa = $dataProviderCasa->getItemCount();
+
+   $this->render('search_inmueble',array('listInmueble' => $dataProvider, 
+                                         'cantApt' => $cantApt,
+                                         'cantCasa' => $cantCasa,
+                                         ));
+}
+
 /**
 * Returns the data model based on the primary key given in the GET variable.
 * If the data model is not found, an HTTP exception will be raised.
@@ -248,7 +304,6 @@ public function loadDireccion($id) {
 }
 
 public function loadImagenes($id) {
-   //$imagenes = Imagen::model()->findAll(array('condition' => 'inmueble_id_inmueble => $id'));
    $imagenes = Imagen::model()->findAllByAttributes(array('inmueble_id_inmueble' => $id));
    if($imagenes===null) 
       throw new CHttpException(404,'The requested page does not exist.');

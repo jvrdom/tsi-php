@@ -22,7 +22,7 @@ return array(
 		'application.extensions.MongoYii.behaviors.*',
 		'application.extensions.MongoYii.util.*',
 		'application.modules.rights.*',
-    'application.modules.rights.components.*',
+      'application.modules.rights.components.*',
 	),
 
 	'modules'=>array(

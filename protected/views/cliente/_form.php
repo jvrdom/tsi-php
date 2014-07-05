@@ -1,52 +1,42 @@
-<?php
-/* @var $this ClienteController */
-/* @var $model Cliente */
-/* @var $form CActiveForm */
-?>
-
-<div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
 	'id'=>'cliente-form',
-	// Please note: When you enable ajax validation, make sure the corresponding
-	// controller action is handling ajax validation correctly.
-	// There is a call to performAjaxValidation() commented in generated controller code.
-	// See class documentation of CActiveForm for details on this.
-	'enableAjaxValidation'=>false,
+	'type' => 'horizontal',
+   'enableClientValidation'=>true,
+      'clientOptions'=>array(
+         'validateOnSubmit'=>true,
+   ),
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+<p class="alert alert-info" style="text-align:center;"><span class="required">Nombre, Email</span> y <span class="required">Teléfono</span> son requeridos.</p>
 
-	<?php echo $form->errorSummary($model); ?>
+<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'nombre'); ?>
-		<?php echo $form->textField($model,'nombre',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'nombre'); ?>
-	</div>
+	<?php echo $form->textFieldGroup($model,'nombre',array('label' => 'Nombre','class'=>'span5','maxlength'=>45)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textField($model,'email',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'email'); ?>
-	</div>
+	<?php echo $form->textFieldGroup($model,'email',array('label' => 'Email','class'=>'span5','maxlength'=>120)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'telefono'); ?>
-		<?php echo $form->textField($model,'telefono',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'telefono'); ?>
-	</div>
+	<?php echo $form->textFieldGroup($model,'telefono',array('label' => 'Teléfono','class'=>'span5','maxlength'=>45)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'direccion'); ?>
-		<?php echo $form->textField($model,'direccion',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($model,'direccion'); ?>
-	</div>
+	<?php echo $form->textFieldGroup($model,'direccion',array('label' => 'Dirección','class'=>'span5')); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
+<div class="form-actions pull-right">
+	<?php $this->widget('booster.widgets.TbButton', array(
+			'buttonType'=>'submit',
+			'context'=>'success',
+			'label'=>$model->isNewRecord ? 'Crear Cliente' : 'Save',
+         'icon' => 'glyphicon glyphicon-user',
+		)); ?>
+</div>
 
 <?php $this->endWidget(); ?>
 
-</div><!-- form -->
+
+
+
+
+
+
+
+
+
+
