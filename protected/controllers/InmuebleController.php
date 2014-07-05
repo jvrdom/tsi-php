@@ -244,6 +244,7 @@ $this->render('admin',array(
 
 public function actionBuscar(){
 
+   $barrios = array();
    $criteriaApt=new CDbCriteria;
    $criteriaCasa=new CDbCriteria;
    $dataProvider=new CActiveDataProvider('Inmueble', 
@@ -259,9 +260,17 @@ public function actionBuscar(){
    $dataProviderCasa->setCriteria($criteriaCasa);
    $cantCasa = $dataProviderCasa->getItemCount();
 
+   foreach ($dataProvider->getData() as $key => $value) {
+      # code...
+      array_push($barrios, $value->direccion['barrio']);
+   }
+
+   $result = array_unique(array_intersect($barrios, Direccion::model()->getBarrios()));
+
    $this->render('search_inmueble',array('listInmueble' => $dataProvider, 
                                          'cantApt' => $cantApt,
                                          'cantCasa' => $cantCasa,
+                                         'result' => $result,
                                          ));
 }
 

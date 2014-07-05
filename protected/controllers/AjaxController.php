@@ -32,4 +32,18 @@ class AjaxController extends Controller
       
       $this->renderPartial('/inmueble/_ajaxInmueble',array('listInmueble' => $listInmueble));
    }
+
+   public function actionFilterBarrios(){
+      sleep(2);
+      $barrio = $_POST['barrio'];
+      $criteriaBarrios=new CDbCriteria;
+      $criteriaBarrios->with = array('direccion' => array('condition' => 'direccion.barrio = :barrio',
+                                                       'params' => array(':barrio' => $barrio)
+                                                      ));
+      $listInmueble=new CActiveDataProvider('Inmueble', 
+                                             array('criteria' => $criteriaBarrios,
+                                                   'pagination' => array('pageSize' => 10),
+                                             ));
+      $this->renderPartial('/inmueble/_ajaxInmueble',array('listInmueble' => $listInmueble));
+   }
 }
