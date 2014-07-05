@@ -46,10 +46,29 @@ $this->pageTitle=Yii::app()->name;
      </ul>
      <hr></hr>
      <ul class="nav nav-sidebar">
-        <li><a href="#">Barrios</a></li>
-        <li>
-          
-        </li>
+         <?php 
+            foreach ($result as $key => $value) { ?>
+               <li>
+                  <?php
+                     echo CHtml::ajaxLink(
+                        $value,          
+                        array('ajax/filterBarrios/',),
+                        array(
+                            'type'=>'POST',
+                            'data' => array('barrio' => $value),
+                            'update'=>'#thumbnail-list',
+                            'beforeSend' => 'function() {           
+                              $("#thumbnail-list").addClass("loading");
+                             }',
+                            'complete' => 'function(){
+                              $("#thumbnail-list").removeClass("loading");
+                             }',
+                        )
+                    );
+                  ?>
+               </li>
+           <?php }
+         ?>
      </ul>
      <hr></hr>
    </div>
