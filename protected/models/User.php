@@ -109,8 +109,6 @@ class User extends CActiveRecord
 	*/
 	public function validatePassword($password)
 	{
-		var_dump($password);
-		var_dump($this->password);
 		return CPasswordHelper::verifyPassword($password,$this->password);
 	}
 
