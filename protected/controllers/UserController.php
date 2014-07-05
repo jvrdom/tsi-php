@@ -74,7 +74,6 @@ $roles = CHtml::listData(AuthItem::model()->findAll(),'name', 'name');
 if(isset($_POST['User']))
 {
 
-//var_dump($_POST);
 $model->attributes=$_POST['User'];
 $modelRol->itemname = $_POST['AuthItem']['name'];
 
