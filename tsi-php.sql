@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `tsi-php`.`direccion` (
   `id_direccion` INT NOT NULL AUTO_INCREMENT COMMENT '		',
   `direccion` VARCHAR(45) NULL,
   `latlong` VARCHAR(45) NULL,
+  `barrio` VARCHAR(45) NULL,
   PRIMARY KEY (`id_direccion`))
 ENGINE = InnoDB;
 
