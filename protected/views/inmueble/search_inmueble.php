@@ -15,10 +15,10 @@ $this->pageTitle=Yii::app()->name;
                    'data' => array('type' => '2'),
                    'update'=>'#thumbnail-list',
                    'beforeSend' => 'function() {           
-                     $("#thumbnail-list").addClass("loading");
+                     $("#modalLoading").addClass("modalLoading");
                     }',
                    'complete' => 'function(){
-                     $("#thumbnail-list").removeClass("loading");
+                     $("#modalLoading").removeClass("modalLoading");
                     }',
                )
            );
@@ -34,10 +34,10 @@ $this->pageTitle=Yii::app()->name;
                    'data' => array('type' => '1'),
                    'update'=>'#thumbnail-list',
                    'beforeSend' => 'function() {           
-                     $("#thumbnail-list").addClass("loading");
+                     $("#modalLoading").addClass("modalLoading");
                     }',
                    'complete' => 'function(){
-                     $("#thumbnail-list").removeClass("loading");
+                     $("#modalLoading").removeClass("modalLoading");
                     }',
                )
            );
@@ -58,10 +58,10 @@ $this->pageTitle=Yii::app()->name;
                             'data' => array('barrio' => $value),
                             'update'=>'#thumbnail-list',
                             'beforeSend' => 'function() {           
-                              $("#thumbnail-list").addClass("loading");
+                              $("#modalLoading").addClass("modalLoading");
                              }',
                             'complete' => 'function(){
-                              $("#thumbnail-list").removeClass("loading");
+                              $("#modalLoading").removeClass("modalLoading");
                              }',
                         )
                     );
@@ -80,5 +80,5 @@ $this->pageTitle=Yii::app()->name;
          echo CHtml::closeTag('div');
       ?>
    </div>
-   <div id="prueba"></div>
+   <div id="modalLoading"></div>
 </div>
