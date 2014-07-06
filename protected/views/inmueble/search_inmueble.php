@@ -20,7 +20,8 @@ $this->pageTitle=Yii::app()->name;
                    'complete' => 'function(){
                      $("#modalLoading").removeClass("modalLoading");
                     }',
-               )
+               ),
+               array('id' => 'apt-link')
            );
           ?>
         </li>
@@ -39,7 +40,8 @@ $this->pageTitle=Yii::app()->name;
                    'complete' => 'function(){
                      $("#modalLoading").removeClass("modalLoading");
                     }',
-               )
+               ),
+               array('id' => 'apt-casa')
            );
           ?>
         </li>
@@ -63,7 +65,8 @@ $this->pageTitle=Yii::app()->name;
                             'complete' => 'function(){
                               $("#modalLoading").removeClass("modalLoading");
                              }',
-                        )
+                        ),
+                        array('id' => 'apt-barrios')
                     );
                   ?>
                </li>
@@ -71,6 +74,27 @@ $this->pageTitle=Yii::app()->name;
          ?>
      </ul>
      <hr></hr>
+     <ul class="nav nav-sidebar alert-info">      
+         <li>
+            <?php
+               echo CHtml::ajaxLink(
+                  'Ingrese su consulta',          
+                  array('busqueda/create/',),
+                  array(
+                      'type'=>'POST',
+                      'update'=>'#thumbnail-list',
+                      'beforeSend' => 'function() {           
+                        $("#modalLoading").addClass("modalLoading");
+                       }',
+                      'complete' => 'function(){
+                        $("#modalLoading").removeClass("modalLoading");
+                       }',
+                  ),
+                  array('id' => 'apt-consulta')
+              );
+            ?>
+         </li>
+     </ul>
    </div>
    
    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">

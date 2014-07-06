@@ -227,6 +227,9 @@ CREATE TABLE IF NOT EXISTS `tsi-php`.`busqueda` (
   `dormitorios` VARCHAR(45) NULL,
   `baños` INT NULL,
   `direccion` VARCHAR(45) NULL,
+  `descripcion` VARCHAR(45) NULL,
+  `tipo` VARCHAR(45) NULL,
+  `esPendiente` TINYINT(1) NULL,
   PRIMARY KEY (`id_busqueda`))
 ENGINE = InnoDB;
 

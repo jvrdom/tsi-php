@@ -1,3 +1,6 @@
+var tipo_content;
+var barrio_content;
+
 $( document ).ready(function() {
   $('#btnImg').live({
     click: function() {
@@ -24,4 +27,16 @@ $( document ).ready(function() {
     var nombre = $('#barrios-drop :selected').text();
     document.getElementById('barriohidden').value = nombre;
    });
+
+  $('#apt-link').click(function() {
+        tipo_content = $(this).text();
+  });
+
+  $('#casa-link').click(function() {
+        tipo_content = $(this).text();
+  });
+
+  $('#barrio-link').click(function() {
+        barrio_content = $(this).text();
+  });
 });
