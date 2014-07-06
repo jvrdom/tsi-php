@@ -102,16 +102,18 @@ class Direccion extends CActiveRecord
 	}
 
    public function getBarrios(){
-      return $barrios = array('Ciudad Vieja','Centro','Barrio Sur','Palermo','Parque Rodó','Punta Carretas',
-                              'Pocitos','Buceo','Parque Batlle','Villa Dolores','Malvín','Malvín Norte','Punta Gorda',
-                              'Carrasco','Carrasco Norte','Bañados de Carrasco','Maroñas','Parque Guaraní','Flor de Maroñas',
-                              'Las Canteras','Punta de Rieles','Bella Italia','Jardines del Hipódromo','Ituzaingó','Unión','Villa Española',
-                              'Mercado Modelo','Bolívar','Castro Castellanos','Cerrito de la Victoria','Las Acacias','Aires Puros','Casavalle',
-                              'Barrio Borro','Piedras Blancas','Manga','Toledo Chico','Paso de las Duranas','Peñarol','Lavalleja','Villa del Cerro',
-                              'Casabó','Pajas Blancas','La Paloma','Tomkinson','Rincón del Cerro','La Teja','Prado','Nueva Savona',
-                              'Capurro','Bella Vista','Arroyo Seco','Aguada','Reducto','Atahualpa','Jacinto Vera','La Figurita','Larrañaga',
-                              'La Blanqueada','Villa Muñoz','Goes','Retiro','La Comercial','Tres Cruces','Brazo Oriental','Sayago','Conciliación',
-                              'Belvedere','Nuevo París','Tres Ombúes','Pueblo Victoria','Paso de la Arena','Los Bulevares','Santiago Vázquez',
-                              'Colón Sureste','Abayubá','Colón Centro y Noreste','Lezica','Melilla','Villa García','Manga Rural','Manga');
+      $barrios = array('Ciudad Vieja','Centro','Barrio Sur','Palermo','Parque Rodó','Punta Carretas',
+                        'Pocitos','Buceo','Parque Batlle','Villa Dolores','Malvín','Malvín Norte','Punta Gorda',
+                        'Carrasco','Carrasco Norte','Bañados de Carrasco','Maroñas','Parque Guaraní','Flor de Maroñas',
+                        'Las Canteras','Punta de Rieles','Bella Italia','Jardines del Hipódromo','Ituzaingó','Unión','Villa Española',
+                        'Mercado Modelo','Bolívar','Castro Castellanos','Cerrito de la Victoria','Las Acacias','Aires Puros','Casavalle',
+                        'Barrio Borro','Piedras Blancas','Manga','Toledo Chico','Paso de las Duranas','Peñarol','Lavalleja','Villa del Cerro',
+                        'Casabó','Pajas Blancas','La Paloma','Tomkinson','Rincón del Cerro','La Teja','Prado','Nueva Savona',
+                        'Capurro','Bella Vista','Arroyo Seco','Aguada','Reducto','Atahualpa','Jacinto Vera','La Figurita','Larrañaga',
+                        'La Blanqueada','Villa Muñoz','Goes','Retiro','La Comercial','Tres Cruces','Brazo Oriental','Sayago','Conciliación',
+                        'Belvedere','Nuevo París','Tres Ombúes','Pueblo Victoria','Paso de la Arena','Los Bulevares','Santiago Vázquez',
+                        'Colón Sureste','Abayubá','Colón Centro y Noreste','Lezica','Melilla','Villa García','Manga Rural','Manga');
+      asort($barrios);
+      return $barrios;
    }
 }
