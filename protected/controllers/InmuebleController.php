@@ -323,4 +323,11 @@ public function deleteImages($id) {
    Imagen::model()->deleteAllByAttributes(array('inmueble_id_inmueble' => $id));
 }
 
+public function actionHipoteca($LoanAmount, $InterestRate, $months) {
+
+   $client=new SoapClient('http://www.webservicex.net/FinanceService.asmx');
+   $LoanMonthlyPaymentResult = $client->LoanMonthlyPayment($LoanAmount, $InterestRate, $months);
+   return $LoanMonthlyPaymentResult;
+}
+
 }
