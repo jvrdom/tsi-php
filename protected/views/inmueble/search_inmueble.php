@@ -82,13 +82,7 @@ $this->pageTitle=Yii::app()->name;
                   array('busqueda/create/',),
                   array(
                       'type'=>'POST',
-                      'update'=>'#thumbnail-list',
-                      'beforeSend' => 'function() {           
-                        $("#modalLoading").addClass("modalLoading");
-                       }',
-                      'complete' => 'function(){
-                        $("#modalLoading").removeClass("modalLoading");
-                       }',
+                      'update'=>'#thumbnail-list',                      
                   ),
                   array('id' => 'apt-consulta')
               );
