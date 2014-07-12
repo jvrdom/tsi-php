@@ -56,8 +56,8 @@ class Portada extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'portfch' => 'Portfch',
-			'id_inmueble' => 'Id Inmueble',
+			'portfch' => 'Fecha',
+			'id_inmueble' => 'Inmueble',
 			'orden' => 'Orden',
 			'id_portada' => 'Id Portada',
 		);
