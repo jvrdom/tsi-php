@@ -46,4 +46,17 @@ class AjaxController extends Controller
                                              ));
       $this->renderPartial('/inmueble/_ajaxInmueble',array('listInmueble' => $listInmueble));
    }
+
+
+   public function actionCuotaHipotecaMensual() {
+      
+      $interes = $_POST['interes'];
+      $meses = $_POST['meses'];
+      $precio = $_POST['precio'];
+      $resultado =  ($precio * ( 1 + ($interes / 100)) ) / $meses ;
+      echo $resultado;
+
+      Yii::app()->end();
+   }
+
 }
