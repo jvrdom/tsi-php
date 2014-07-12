@@ -28,7 +28,7 @@ class PortadaController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view', 'altaPortada'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -38,7 +38,7 @@ class PortadaController extends Controller
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
 				'users'=>array('admin'),
-			),
+			),			
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -127,6 +127,50 @@ class PortadaController extends Controller
 			'dataProvider'=>$dataProvider,
 		));
 	}
+
+	public function actionAltaPortada()
+	{
+		
+		if(isset($_POST['selectedIds']))
+		{
+			$list = $_POST['selectedIds'];
+			var_dump($list);
+			 if(count($list)>0){
+			 	foreach ($list as $key => $value) {
+			 		$model = new Portada;
+			 		$fechaHoy = getdate();
+			 		$fechaHoyAux = $fechaHoy[0];
+					$d = $fechaHoy["mday"];
+					$m = $fechaHoy["mon"];
+					$y = $fechaHoy["year"];	
+					$fechaHoyStr = $y . '-' . $m . '-' . $d;
+					var_dump($fechaHoyStr);	 		
+			 		$model->portfch = $fechaHoyStr;
+			 		$model->id_inmueble = $value;
+			 		$model->orden = 1;
+					if($model->save())
+						$this->redirect(array('site/index'));		 			 	
+			 	}
+			}
+		}
+
+	//--------------------------------------		
+		$dataProvider=new CActiveDataProvider('Inmueble');	
+		$gridColumns = array(
+		   array('name'=>'nombre', 'header'=>'Nombre'),
+		   array('name'=>'descripcion', 'header'=>'Descripcion'),
+		   array('name'=>'precio', 'header'=>'Precio'),
+		   array('name'=>'superficie', 'header'=>'Superficie'),
+		   array('name'=>'baños', 'header'=>'Baños'),
+		   array('name'=>'dormitorios', 'header'=>'Dormitorios'),
+		   array('name'=>'estado', 'header'=>'Estado'),	  
+		   array('id' => 'selectedIds','class' => 'CCheckBoxColumn'),
+		);		
+		$this->render('altaPortada',array(
+						'dataProvider'=>$dataProvider,
+						'columns' =>$gridColumns,
+					));
+	}		
 
 	/**
 	 * Manages all models.

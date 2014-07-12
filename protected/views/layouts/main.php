@@ -74,6 +74,13 @@
                                     array('label' => 'Administración', 'url'=>array('/inmueble/admin')),
                                  )
                               ),
+                              array(
+                                 'label' =>'Gestión de Portada',
+                                 'visible' => Yii::app()->user->checkAccess('Agente'), 
+                                 'items' => array(
+                                    array('label' => 'Administración', 'url'=>array('/portada/altaPortada')),
+                                 )
+                              ),
                               array('label'=>'Buscar Inmuebles', 'url'=>array('inmueble/buscar'), 'visible'=>Yii::app()->user->isGuest),
                               array('label'=>'Login', 'url'=>array('site/login'), 'visible'=>Yii::app()->user->isGuest),
                               array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('site/logout'), 'visible'=>!Yii::app()->user->isGuest),
