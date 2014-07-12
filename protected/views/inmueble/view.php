@@ -27,7 +27,7 @@ array('label'=>'Delete Inmueble','url'=>'#','linkOptions'=>array('submit'=>array
          )); ?>
      </div> 
       
-     <div class="row"> <!--public function actionHipoteca($LoanAmount, $InterestRate, $months) {-->
+     <div class="row">
 
       <form class="form-inline" role="form">
 
