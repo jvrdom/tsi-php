@@ -7,9 +7,11 @@ Sistema que permite al usuario de forma interactiva buscar inmuebles que se ajus
 
 1. PHP v. 5.5 o mayor.
 2. Que apache tenga acceso al webroot del proyecto.
-..* Sino es así: chown R usuarioLinux:www-data /var/www/tsi-php
-    > En versión 2.4.7 el webroot cambia a /var/www/html/tsi-php
-    > Pueda ser que necesites ejecutar como **sudo** la operación.
+  * Sino es así: chown R usuarioLinux:www-data /var/www/tsi-php.
+
+>En versión 2.4.7 el webroot cambia a /var/www/html/tsi-php.
+
+>Pueda ser que necesites ejecutar como **sudo** la operación.
 
 #Instalación
 
