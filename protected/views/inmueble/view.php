@@ -19,10 +19,10 @@ array('label'=>'Delete Inmueble','url'=>'#','linkOptions'=>array('submit'=>array
       		 array('name' => 'dormitorios', 'label' => 'Dormitorios'),
       		 array('name' => 'baños', 'label' => 'Baños'),
       		 array('name' => 'estado', 'label' => 'Estado'),
-             array('name' => 'prueba', 'type' => 'raw', 'label' => 'Imágenes', 'value'=>'<a href="" data-toggle="modal" data-target="#modalImagenes">Ver más...</a>'),
-      		/*'tipo_inmueble_id_tipo_inmueble',*/
+           array('name' => 'prueba', 'type' => 'raw', 'label' => 'Imágenes', 'value'=>'<a href="" data-toggle="modal" data-target="#modalImagenes">Ver más...</a>'),
+           array('type' => 'raw', 'value'=> CHtml::link('Agendar', array('clienteInmueble/create','id_inmueble'=>$model->id_inmueble)),
       ),
-      )); ?>
+      ))); ?>
    </div>
    <div class="col-md-5" id="map-canvas" style="height:400px;"></div>
 </div>

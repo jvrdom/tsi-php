@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />-->
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/js/jQueryfileupload/css/jquery.fileupload.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/fullcalendar.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/js/smartWizard/styles/smart_wizard.css" />
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/styleLast.css" />
@@ -120,7 +122,10 @@
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jQueryfileupload/js/main.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.jcarousel.min.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jcarousel.js"></script>
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/moment.min.js"></script>
+    <script src='<?php echo Yii::app()->request->baseUrl; ?>/js/fullcalendar.js'></script>
+    <script src='<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui.custom.min.js'></script>
+    <script src='<?php echo Yii::app()->request->baseUrl; ?>/js/smartWizard/jquery.smartWizard-2.0.js'></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/app.js"></script>
-
 </body>
 </html>
