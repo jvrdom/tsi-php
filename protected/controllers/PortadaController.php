@@ -136,6 +136,12 @@ class PortadaController extends Controller
 			$list = $_POST['selectedIds'];
 			var_dump($list);
 			 if(count($list)>0){
+		 		//----Elimino las portadas anteriores
+				$connection = yii::app()->db;
+				$sql = "DELETE FROM portada";
+				$command=$connection->createCommand($sql);
+				$command->execute();			 		
+		 		//-----------------------------------				 	
 			 	foreach ($list as $key => $value) {
 			 		$model = new Portada;
 			 		$fechaHoy = getdate();
@@ -143,14 +149,13 @@ class PortadaController extends Controller
 					$d = $fechaHoy["mday"];
 					$m = $fechaHoy["mon"];
 					$y = $fechaHoy["year"];	
-					$fechaHoyStr = $y . '-' . $m . '-' . $d;
-					var_dump($fechaHoyStr);	 		
+					$fechaHoyStr = $y . '-' . $m . '-' . $d;		
 			 		$model->portfch = $fechaHoyStr;
 			 		$model->id_inmueble = $value;
 			 		$model->orden = 1;
-					if($model->save())
-						$this->redirect(array('site/index'));		 			 	
+					$model->save();		 			 	
 			 	}
+			 	$this->redirect(array('site/index'));
 			}
 		}
 
