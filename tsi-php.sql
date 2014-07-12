@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `tsi-php`.`direccion` (
   `id_direccion` INT NOT NULL AUTO_INCREMENT COMMENT '		',
   `direccion` VARCHAR(45) NULL,
   `latlong` VARCHAR(45) NULL,
+  `barrio` VARCHAR(45) NULL,
   PRIMARY KEY (`id_direccion`))
 ENGINE = InnoDB;
 
@@ -127,7 +128,9 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `tsi-php`.`cliente_inmueble` (
   `cliente_id_cliente` INT NOT NULL,
   `inmueble_id_inmueble` INT NOT NULL,
-  PRIMARY KEY (`cliente_id_cliente`, `inmueble_id_inmueble`),
+  `fecha_ini` DATETIME NOT NULL,
+  `visito` VARCHAR(45) NULL,
+  PRIMARY KEY (`cliente_id_cliente`, `inmueble_id_inmueble`, `fecha_ini`),
   INDEX `fk_cliente_has_inmueble_inmueble1_idx` (`inmueble_id_inmueble` ASC),
   INDEX `fk_cliente_has_inmueble_cliente1_idx` (`cliente_id_cliente` ASC),
   CONSTRAINT `fk_cliente_has_inmueble_cliente1`
@@ -224,6 +227,9 @@ CREATE TABLE IF NOT EXISTS `tsi-php`.`busqueda` (
   `dormitorios` VARCHAR(45) NULL,
   `baños` INT NULL,
   `direccion` VARCHAR(45) NULL,
+  `descripcion` VARCHAR(45) NULL,
+  `tipo` VARCHAR(45) NULL,
+  `esPendiente` TINYINT(1) NULL,
   PRIMARY KEY (`id_busqueda`))
 ENGINE = InnoDB;
 
@@ -232,38 +238,15 @@ ENGINE = InnoDB;
 -- Table `tsi-php`.`portada`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tsi-php`.`portada` (
-  `portfch` DATE NOT NULL,
+  `id_portada` INT NOT NULL AUTO_INCREMENT,
   `id_inmueble` INT NOT NULL,
-  `orden` MEDIUMINT(9) NOT NULL,
-  PRIMARY KEY (`portfch`, `id_inmueble`),
+  `portfch` DATE NOT NULL,
+  `orden` MEDIUMINT(9) NULL,
+  PRIMARY KEY (`id_portada`),
   INDEX `fk_portada_inmueble1_idx` (`id_inmueble` ASC),
   CONSTRAINT `fk_portada_inmueble1`
     FOREIGN KEY (`id_inmueble`)
     REFERENCES `tsi-php`.`inmueble` (`id_inmueble`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `tsi-php`.`consulta`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tsi-php`.`consulta` (
-  `inmueble_id_inmueble` INT NOT NULL,
-  `user_id_usuario` INT NOT NULL,
-  `fecha_ini` DATETIME NULL,
-  `fecha_fin` VARCHAR(45) NULL,
-  PRIMARY KEY (`inmueble_id_inmueble`, `user_id_usuario`),
-  INDEX `fk_inmueble_has_user_user1_idx` (`user_id_usuario` ASC),
-  INDEX `fk_inmueble_has_user_inmueble1_idx` (`inmueble_id_inmueble` ASC),
-  CONSTRAINT `fk_inmueble_has_user_inmueble1`
-    FOREIGN KEY (`inmueble_id_inmueble`)
-    REFERENCES `tsi-php`.`inmueble` (`id_inmueble`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_inmueble_has_user_user1`
-    FOREIGN KEY (`user_id_usuario`)
-    REFERENCES `tsi-php`.`user` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -300,12 +283,8 @@ COMMIT;
 START TRANSACTION;
 USE `tsi-php`;
 INSERT INTO `tsi-php`.`AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('Admin', 2, '', '', '');
-INSERT INTO `tsi-php`.`AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('Authenticated', 2, '', '', '');
-INSERT INTO `tsi-php`.`AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('Guest', 2, NULL, NULL, NULL);
-INSERT INTO `tsi-php`.`AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('Administrativo', 2, 'Encargado de todas la labores administrativas del sitema.', NULL, NULL);
-INSERT INTO `tsi-php`.`AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('Agente', 2, 'Gestión de inmuebles y clientes.', NULL, NULL);
-INSERT INTO `tsi-php`.`AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('Director', 2, 'Tiene acceso a todos los módulos del sistema.', NULL, NULL);
-
+INSERT INTO `tsi-php`.`AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('Administrativo', 2, 'Encargado de todas la labores administrativas del sitema.', '', '');
+INSERT INTO `tsi-php`.`AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('Agente', 2, 'Gestión de inmuebles y clientes.', '', '');
 
 COMMIT;
 

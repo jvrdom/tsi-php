@@ -70,6 +70,7 @@ class ClienteController extends Controller
 		if(isset($_POST['Cliente']))
 		{
 			$model->attributes=$_POST['Cliente'];
+         $model->esPendiente = true;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id_cliente));
 		}
@@ -123,10 +124,30 @@ class ClienteController extends Controller
 	public function actionIndex()
 	{
 		$dataProvider=new CActiveDataProvider('Cliente');
+		$gridColumns = array(
+			array('name'=>'id_cliente', 'header'=>'Identificador'),
+   			array('name'=>'nombre', 'header'=>'Nombre'),
+   			array('name'=>'email', 'header'=>'E-Mail'),
+   			array('name'=>'telefono', 'header'=>'Teléfono'),
+   			array('name'=>'direccion', 'header'=>'Dirección'),
+   			array(
+      			'htmlOptions' => array('nowrap'=>'nowrap'),
+      			'class'=>'booster.widgets.TbButtonColumn',
+      			'template' => '{view}',
+      			'updateButtonUrl'=>null,
+      			'deleteButtonUrl'=>null,
+   			)
+		);
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+			'columns' =>$gridColumns,
 		));
 	}
+
+
+
+
+
 
 	/**
 	 * Manages all models.

@@ -1,3 +1,6 @@
+var tipo_content;
+var barrio_content;
+
 $( document ).ready(function() {
   $('#btnImg').live({
     click: function() {
@@ -12,4 +15,28 @@ $( document ).ready(function() {
       // do something on error
     }
    });
+
+  $('#myTab a').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+  });
+
+  $(".pagination").wrap("<div class='text-center'></div>");
+
+  $('#barrios-drop').change(function(){
+    var nombre = $('#barrios-drop :selected').text();
+    document.getElementById('barriohidden').value = nombre;
+   });
+
+  $('#apt-link').click(function() {
+        tipo_content = $(this).text();
+  });
+
+  $('#casa-link').click(function() {
+        tipo_content = $(this).text();
+  });
+
+  $('#barrio-link').click(function() {
+        barrio_content = $(this).text();
+  });
 });

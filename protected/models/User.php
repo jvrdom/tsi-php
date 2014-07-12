@@ -109,8 +109,6 @@ class User extends CActiveRecord
 	*/
 	public function validatePassword($password)
 	{
-		var_dump($password);
-		var_dump($this->password);
 		return CPasswordHelper::verifyPassword($password,$this->password);
 	}
 
@@ -130,16 +128,4 @@ class User extends CActiveRecord
 		return parent::beforeSave();
 	}
 
-	protected function afterSave()
-	{
-
-		$model = new AuthAssignment();
-		$model->itemname = "Authenticated";
-		$model->userid = $this->id_usuario;
-		$model->bizrule = null;
-		$model->data = "N;";
-		$model->save();
-
-		return parent::afterSave();
-	}
 }

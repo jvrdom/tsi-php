@@ -16,7 +16,7 @@ public $layout='//layouts/column2';
 public function init() {
    $baseUrl = Yii::app()->baseUrl; 
    $cs = Yii::app()->getClientScript();
-   $cs->registerScriptFile('http://maps.googleapis.com/maps/api/js?key=GMAPS_API&sensor=true');
+   $cs->registerScriptFile('http://maps.googleapis.com/maps/api/js?key=GMAP_API&sensor=true');
    $cs->registerScriptFile($baseUrl.'/js/gmaps.js', CClientScript::POS_END);
    return parent::init();
 }
@@ -40,7 +40,7 @@ public function accessRules()
 {
 return array(
 array('allow',  // allow all users to perform 'index' and 'view' actions
-'actions'=>array('index','view'),
+'actions'=>array('index','view','buscar'),
 'users'=>array('*'),
 ),
 array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -99,6 +99,7 @@ $model->attributes=$_POST['Inmueble'];
 
 $modelDireccion = new Direccion;
 $modelDireccion->attributes=$_POST['Direccion'];
+$modelDireccion->barrio = $_POST['barrio'];
 
 $array = json_decode($_POST['Imagen']['url'][0]);
 $imagen = $_POST['portada'];
@@ -241,6 +242,38 @@ $this->render('admin',array(
 ));
 }
 
+public function actionBuscar(){
+
+   $barrios = array();
+   $criteriaApt=new CDbCriteria;
+   $criteriaCasa=new CDbCriteria;
+   $dataProvider=new CActiveDataProvider('Inmueble', 
+                                          array('pagination' => array('pageSize' => 10)));
+   
+   $dataProviderApt= clone $dataProvider;
+   $criteriaApt->addCondition('tipo_inmueble_id_tipo_inmueble = 2 ','AND');
+   $dataProviderApt->setCriteria($criteriaApt);
+   $cantApt = $dataProviderApt->getItemCount();
+
+   $dataProviderCasa= clone $dataProvider;
+   $criteriaCasa->addCondition('tipo_inmueble_id_tipo_inmueble = 1 ','AND');
+   $dataProviderCasa->setCriteria($criteriaCasa);
+   $cantCasa = $dataProviderCasa->getItemCount();
+
+   foreach ($dataProvider->getData() as $key => $value) {
+      # code...
+      array_push($barrios, $value->direccion['barrio']);
+   }
+
+   $result = array_unique(array_intersect($barrios, Direccion::model()->getBarrios()));
+
+   $this->render('search_inmueble',array('listInmueble' => $dataProvider, 
+                                         'cantApt' => $cantApt,
+                                         'cantCasa' => $cantCasa,
+                                         'result' => $result,
+                                         ));
+}
+
 /**
 * Returns the data model based on the primary key given in the GET variable.
 * If the data model is not found, an HTTP exception will be raised.
@@ -288,6 +321,13 @@ public function loadImagenes($id) {
 
 public function deleteImages($id) {
    Imagen::model()->deleteAllByAttributes(array('inmueble_id_inmueble' => $id));
+}
+
+public function actionHipoteca($LoanAmount, $InterestRate, $months) {
+
+   $client=new SoapClient('http://www.webservicex.net/FinanceService.asmx');
+   $LoanMonthlyPaymentResult = $client->LoanMonthlyPayment($LoanAmount, $InterestRate, $months);
+   return $LoanMonthlyPaymentResult;
 }
 
 }

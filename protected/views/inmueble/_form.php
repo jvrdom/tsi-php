@@ -2,9 +2,11 @@
 	'id'=>'inmueble-form',
 	'type' => 'horizontal',
 	'enableAjaxValidation'=>false,
+   'enableClientValidation'=>true,
+      'clientOptions'=>array(
+         'validateOnSubmit'=>true,
+   ),
 )); ?>
-
-<p class="alert alert-info">Fields with <span class="required">*</span> are required.</p>
 
 <?php echo $form->errorSummary($model); ?>
 
@@ -26,6 +28,22 @@
 	<?php echo $form->hiddenField(Direccion::model(), 'latlong'); ?>
    <?php echo $form->hiddenField(Imagen::model(), 'url[]'); ?>
    <input type="hidden" id="portadaHidden" name="portada" value=""/>
+   <input type="hidden" id="barriohidden" name="barrio" value=""/>
+
+   <?php echo $form->dropDownListGroup(
+         Direccion::model(),
+         'barrio',
+            array(
+               'wrapperHtmlOptions' => array(
+               'class' => 'span5',
+               'id' => 'barrios-drop'
+            ),
+         'widgetOptions' => array(
+            'data' => Direccion::model()->getBarrios(),
+            )
+         )
+      ); 
+   ?>
 
 	<?php echo $form->dropDownListGroup(
 			$model,

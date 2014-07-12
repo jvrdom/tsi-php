@@ -1,7 +1,4 @@
-<?php
-/* @var $this ClienteController */
-/* @var $data Cliente */
-?>
+
 
 <div class="view">
 
@@ -23,6 +20,10 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('direccion')); ?>:</b>
 	<?php echo CHtml::encode($data->direccion); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('esPendiente')); ?>:</b>
+	<?php echo CHtml::encode($data->esPendiente); ?>
 	<br />
 
 

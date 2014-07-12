@@ -1,17 +1,9 @@
-<?php
-$this->breadcrumbs=array(
-	'Users',
-);
+<h1>Usuarios</h1>
 
-$this->menu=array(
-array('label'=>'Create User','url'=>array('create')),
-array('label'=>'Manage User','url'=>array('admin')),
-);
-?>
-
-<h1>Users</h1>
-
-<?php $this->widget('booster.widgets.TbListView',array(
+<?php $this->widget('booster.widgets.TbGridView',array(
+'id'=>'user-grid',
+'type' => 'striped',
 'dataProvider'=>$dataProvider,
-'itemView'=>'_view',
+'template' => "{items}",
+'columns' => $columns,
 )); ?>

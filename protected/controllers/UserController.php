@@ -50,9 +50,12 @@ array('deny',  // deny all users
 */
 public function actionView($id)
 {
-$this->render('view',array(
-'model'=>$this->loadModel($id),
-));
+   $modelUsuario = $this->loadModel($id);
+   $rol = $this->loadRol($modelUsuario->id_usuario)->itemname;
+   $this->render('view',array(
+      'model'=>$modelUsuario,
+      'rol' => $rol,
+   ));
 }
 
 /**
@@ -62,19 +65,27 @@ $this->render('view',array(
 public function actionCreate()
 {
 $model=new User;
+$modelRol= new AuthAssignment;
+$roles = CHtml::listData(AuthItem::model()->findAll(),'name', 'name');
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
 if(isset($_POST['User']))
 {
+
 $model->attributes=$_POST['User'];
+$modelRol->itemname = $_POST['AuthItem']['name'];
+
 if($model->save())
-$this->redirect(array('view','id'=>$model->id_usuario));
+   $modelRol->userid = $model->id_usuario;
+   if($modelRol->save())
+      $this->redirect(array('view','id'=>$model->id_usuario));
 }
 
 $this->render('create',array(
 'model'=>$model,
+'roles'=> $roles,
 ));
 }
 
@@ -127,9 +138,22 @@ throw new CHttpException(400,'Invalid request. Please do not repeat this request
 */
 public function actionIndex()
 {
+
 $dataProvider=new CActiveDataProvider('User');
+$gridColumns = array(
+   array('name'=>'id_usuario', 'header'=>'Identificador'),
+   array('name'=>'username', 'header'=>'Nombre de Usuario'),
+   array(
+      'htmlOptions' => array('nowrap'=>'nowrap'),
+      'class'=>'booster.widgets.TbButtonColumn',
+      'template' => '{view}',
+      'updateButtonUrl'=>null,
+      'deleteButtonUrl'=>null,
+   )
+);
 $this->render('index',array(
 'dataProvider'=>$dataProvider,
+'columns' =>$gridColumns,
 ));
 }
 
@@ -159,6 +183,17 @@ $model=User::model()->findByPk($id);
 if($model===null)
 throw new CHttpException(404,'The requested page does not exist.');
 return $model;
+}
+
+/**
+ * Retorna el rol del id de usuario ingresado.
+ * @param  Integer $id Identificador del usuario.
+ */
+public function loadRol($id){
+   $modelRol = AuthAssignment::model()->findByAttributes(array('userid' => $id));
+   if($modelRol===null) 
+      throw new CHttpException(404,'The requested page does not exist.');
+   return $modelRol;
 }
 
 /**

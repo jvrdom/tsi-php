@@ -25,13 +25,14 @@ function initialize() {
                         '<img src="' + portadaFileName + '" height="130" width="170" />' +
                       '</div>' +
                       '<div id="textContent">' +
-                        "<strong> Direccion: </strong>" + direccion +
+                        "<strong> Direccion: </strong>" + direccion + '<br>' +
+                        "<strong> Barrio: </strong>" + barrio +
                       '</div>' +
                     '</div>';
       
       infowindow = new google.maps.InfoWindow({ content: content,  });
 
-      marker = new google.maps.Marker({ 
+      marker = new google.maps.Marker({
         position: myLatLong,
         map: map,
         title: 'Hello World!',
