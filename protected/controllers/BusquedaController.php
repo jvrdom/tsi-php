@@ -32,7 +32,7 @@ class BusquedaController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('update'),
+				'actions'=>array('update','toggle'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -70,9 +70,9 @@ class BusquedaController extends Controller
 		if(isset($_POST['Busqueda']))
 		{
 			$model->attributes=$_POST['Busqueda'];
-         $model->esPendiente=1;
+         	$model->esPendiente=0;
 			if($model->save())
-				$this->redirect(array('site/index','id'=>$model->id_busqueda));
+				$this->redirect(array('site/index'));
 		}
 
 		$this->renderPartial('_form',array(
@@ -142,6 +142,14 @@ class BusquedaController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actions(){
+			return array('toggle' => array(
+									'class' => 'booster.actions.TbToggleAction',
+									'modelName' => 'Busqueda',
+									)
+					);
 	}
 
 	/**

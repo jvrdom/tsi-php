@@ -11,6 +11,7 @@
  * @property integer $baños
  * @property string $direccion
  * @property string $descripcion
+ * @property string $tipo
  * @property integer $esPendiente
  */
 class Busqueda extends CActiveRecord
@@ -33,10 +34,10 @@ class Busqueda extends CActiveRecord
 		return array(
 			array('baños, esPendiente', 'numerical', 'integerOnly'=>true),
 			array('precio', 'numerical'),
-			array('superficie, dormitorios, direccion, descripcion', 'length', 'max'=>45),
+			array('superficie, dormitorios, direccion, descripcion, tipo', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_busqueda, precio, superficie, dormitorios, baños, direccion, descripcion, esPendiente', 'safe', 'on'=>'search'),
+			array('id_busqueda, precio, superficie, dormitorios, baños, direccion, descripcion, tipo, esPendiente', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,6 +65,7 @@ class Busqueda extends CActiveRecord
 			'baños' => 'Baños',
 			'direccion' => 'Direccion',
 			'descripcion' => 'Descripcion',
+			'tipo' => 'Tipo',
 			'esPendiente' => 'Es Pendiente',
 		);
 	}
@@ -93,6 +95,7 @@ class Busqueda extends CActiveRecord
 		$criteria->compare('baños',$this->baños);
 		$criteria->compare('direccion',$this->direccion,true);
 		$criteria->compare('descripcion',$this->descripcion,true);
+		$criteria->compare('tipo',$this->tipo,true);
 		$criteria->compare('esPendiente',$this->esPendiente);
 
 		return new CActiveDataProvider($this, array(
