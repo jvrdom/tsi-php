@@ -1,6 +1,6 @@
 <?php
 
-class BusquedaController extends Controller
+class ClienteInmuebleController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -28,11 +28,11 @@ class BusquedaController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','create'),
+				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('update','toggle'),
+				'actions'=>array('create','update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -62,21 +62,22 @@ class BusquedaController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Busqueda;
+		$model=new ClienteInmueble;
+		$modelCliente = new Cliente;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Busqueda']))
+		if(isset($_POST['ClienteInmueble']))
 		{
-			$model->attributes=$_POST['Busqueda'];
-         	$model->esPendiente=0;
+			$model->attributes=$_POST['ClienteInmueble'];
 			if($model->save())
-				$this->redirect(array('site/index'));
+				$this->redirect(array('view','id'=>$model->id_cliente_inmueble));
 		}
 
-		$this->renderPartial('_form',array(
+		$this->render('create',array(
 			'model'=>$model,
+			'modelCliente'=>$modelCliente,
 		));
 	}
 
@@ -92,11 +93,11 @@ class BusquedaController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Busqueda']))
+		if(isset($_POST['ClienteInmueble']))
 		{
-			$model->attributes=$_POST['Busqueda'];
+			$model->attributes=$_POST['ClienteInmueble'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id_busqueda));
+				$this->redirect(array('view','id'=>$model->id_cliente_inmueble));
 		}
 
 		$this->render('update',array(
@@ -123,7 +124,7 @@ class BusquedaController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Busqueda');
+		$dataProvider=new CActiveDataProvider('ClienteInmueble');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -134,34 +135,26 @@ class BusquedaController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Busqueda('search');
+		$model=new ClienteInmueble('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Busqueda']))
-			$model->attributes=$_GET['Busqueda'];
+		if(isset($_GET['ClienteInmueble']))
+			$model->attributes=$_GET['ClienteInmueble'];
 
 		$this->render('admin',array(
 			'model'=>$model,
 		));
 	}
 
-	public function actions(){
-			return array('toggle' => array(
-									'class' => 'booster.actions.TbToggleAction',
-									'modelName' => 'Busqueda',
-									)
-					);
-	}
-
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Busqueda the loaded model
+	 * @return ClienteInmueble the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Busqueda::model()->findByPk($id);
+		$model=ClienteInmueble::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -169,11 +162,11 @@ class BusquedaController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Busqueda $model the model to be validated
+	 * @param ClienteInmueble $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='busqueda-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='cliente-inmueble-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

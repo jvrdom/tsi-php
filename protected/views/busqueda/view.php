@@ -1,33 +1,19 @@
-<?php
-/* @var $this BusquedaController */
-/* @var $model Busqueda */
+<div class="page-header"> 
+	<h1>Viendo Consulta #<?php echo $model->id_busqueda; ?></h1>
+</div>
 
-$this->breadcrumbs=array(
-	'Busquedas'=>array('index'),
-	$model->id_busqueda,
-);
-
-$this->menu=array(
-	array('label'=>'List Busqueda', 'url'=>array('index')),
-	array('label'=>'Create Busqueda', 'url'=>array('create')),
-	array('label'=>'Update Busqueda', 'url'=>array('update', 'id'=>$model->id_busqueda)),
-	array('label'=>'Delete Busqueda', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id_busqueda),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Busqueda', 'url'=>array('admin')),
-);
+<?php 
+$this->widget('booster.widgets.TbDetailView',array(
+      'data'=> $model,
+      'attributes'=>array(
+	  		 array('name' => 'descripcion', 'label' => 'Descripcion'),
+	  		 array('name' => 'precio', 'label' => 'Precio'),
+	  		 array('name' => 'superficie', 'label' => 'Superficie'),
+	  		 array('name' => 'dormitorios', 'label' => 'Dormitorios'),
+	  		 array('name' => 'baños', 'label' => 'Baños'),
+	  		 array('name' => 'direccion', 'label' => 'Barrio'),
+	  		 array('name' => 'pendiente', 'type' => 'raw', 'label' => 'Estado', 'value'=>'<strong><font color="red">Pendiente</font></strong>', 'visible'=>$model->esPendiente === '0'),
+	       	 array('name' => 'pendiente', 'type' => 'raw', 'label' => 'Estado', 'value'=>'<strong><font color="green">Resuelto</font></strong>', 'visible'=>$model->esPendiente === '1'),
+      ),
+)); 
 ?>
-
-<h1>View Busqueda #<?php echo $model->id_busqueda; ?></h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id_busqueda',
-		'precio',
-		'superficie',
-		'dormitorios',
-		'baños',
-		'direccion',
-		'descripcion',
-		'esPendiente',
-	),
-)); ?>

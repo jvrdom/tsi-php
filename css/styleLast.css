@@ -66,3 +66,7 @@
                 50% 50% 
                 no-repeat;
 }
+
+#cliente-form {
+    visibility:hidden;
+}

@@ -1,46 +1,47 @@
-<?php
-/* @var $this PortadaController */
-/* @var $model Portada */
-/* @var $form CActiveForm */
-?>
-
-<div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
 	'id'=>'portada-form',
-	// Please note: When you enable ajax validation, make sure the corresponding
-	// controller action is handling ajax validation correctly.
-	// There is a call to performAjaxValidation() commented in generated controller code.
-	// See class documentation of CActiveForm for details on this.
-	'enableAjaxValidation'=>false,
+	'type' => 'horizontal',
+   'enableClientValidation'=>true,
+      'clientOptions'=>array(
+         'validateOnSubmit'=>true,
+   ),
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+<p class="alert alert-info" style="text-align:center;">Seleccione los inmuebles para la portada</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'portfch'); ?>
-		<?php echo $form->textField($model,'portfch'); ?>
-		<?php echo $form->error($model,'portfch'); ?>
-	</div>
+	<!-- -->
+	<?php echo $form->datePickerGroup(
+	$model,
+	'portfch',
+	array(
+	'widgetOptions' => array(
+	'options' => array(
+	'language' => 'es',
+	),
+	),
+	'wrapperHtmlOptions' => array(
+	'class' => 'span5',
+	),
+	'prepend' => '<i class="glyphicon glyphicon-calendar"></i>'
+	)
+	); ?>
+	<!-- -->	
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_inmueble'); ?>
-		<?php echo $form->textField($model,'id_inmueble'); ?>
-		<?php echo $form->error($model,'id_inmueble'); ?>
-	</div>
+	<?php echo $form->dateFieldGroup($model,'portfch',array('label' => 'Fecha2','class'=>'span5', 'maxlength'=>45, 'type'=>'date')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'orden'); ?>
-		<?php echo $form->textField($model,'orden'); ?>
-		<?php echo $form->error($model,'orden'); ?>
-	</div>
+	<?php echo $form->textFieldGroup($model,'id_inmueble',array('label' => 'Inmueble','class'=>'span5','maxlength'=>45)); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
+	<?php echo $form->textFieldGroup($model,'orden',array('label' => 'Orden','class'=>'span5','maxlength'=>45)); ?>
+
+<div class="form-actions pull-right">
+	<?php $this->widget('booster.widgets.TbButton', array(
+			'buttonType'=>'submit',
+			'context'=>'success',
+			'label'=>$model->isNewRecord ? 'Crear Portada' : 'Save',
+         'icon' => 'glyphicon glyphicon-user',
+		)); ?>
+</div>	
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

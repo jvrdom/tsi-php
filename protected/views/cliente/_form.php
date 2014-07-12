@@ -1,6 +1,7 @@
 <?php $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
 	'id'=>'cliente-form',
 	'type' => 'horizontal',
+	'class' => 'formHide',
    'enableClientValidation'=>true,
       'clientOptions'=>array(
          'validateOnSubmit'=>true,

@@ -7,6 +7,7 @@ array('label'=>'Delete Inmueble','url'=>'#','linkOptions'=>array('submit'=>array
 ?>
 <div class="row">
    <div class="col-md-7">
+<<<<<<< HEAD
       <div class="row">
         <h1>View Inmueble: <?php echo $model->nombre;?></h1>
 
@@ -58,6 +59,24 @@ array('label'=>'Delete Inmueble','url'=>'#','linkOptions'=>array('submit'=>array
       </form>
      </div> <!--end form hipoteca-->
       
+=======
+      <h1>View Inmueble: <?php echo $model->nombre; ?></h1>
+
+      <?php $this->widget('booster.widgets.TbDetailView',array(
+      'data'=> $model,
+      'attributes'=>array(
+      		 array('name' => 'nombre', 'label' => 'Nombre'),
+      		 array('name' => 'descripcion', 'label' => 'Descripcion'),
+      		 array('name' => 'precio', 'label' => 'Precio'),
+      		 array('name' => 'superficie', 'label' => 'Superficie'),
+      		 array('name' => 'dormitorios', 'label' => 'Dormitorios'),
+      		 array('name' => 'baños', 'label' => 'Baños'),
+      		 array('name' => 'estado', 'label' => 'Estado'),
+           array('name' => 'prueba', 'type' => 'raw', 'label' => 'Imágenes', 'value'=>'<a href="" data-toggle="modal" data-target="#modalImagenes">Ver más...</a>'),
+           array('type' => 'raw', 'value'=> CHtml::link('Agendar', array('clienteInmueble/create','id_inmueble'=>$model->id_inmueble)),
+      ),
+      ))); ?>
+>>>>>>> 2f7a457e10cbd692166fc288fce999485f35b602
    </div>
    
    <div class="col-md-5" id="map-canvas" style="height:400px;"></div>
