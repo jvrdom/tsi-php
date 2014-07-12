@@ -19,8 +19,8 @@ $this->menu=array(
       		 array('name' => 'email', 'label' => 'Email'),
       		 array('name' => 'telefono', 'label' => 'Telefono'),
       		 array('name' => 'direccion', 'label' => 'Direccion'),
-             array('name' => 'pendiente', 'type' => 'raw', 'label' => 'Estado', 'value'=>'<strong><font color="red">Pendiente</font></strong>', 'visible'=>$model->esPendiente === '1'),
-             array('name' => 'pendiente', 'type' => 'raw', 'label' => 'Estado', 'value'=>'<strong><font color="green">Ingresado</font></strong>', 'visible'=>$model->esPendiente === '0'),
+           array('name' => 'pendiente', 'type' => 'raw', 'label' => 'Estado', 'value'=>'<strong><font color="red">Pendiente</font></strong>', 'visible'=>$model->esPendiente === '1'),
+           array('name' => 'pendiente', 'type' => 'raw', 'label' => 'Estado', 'value'=>'<strong><font color="green">Ingresado</font></strong>', 'visible'=>$model->esPendiente === '0'),
       ),
       )); ?>
    </div>
