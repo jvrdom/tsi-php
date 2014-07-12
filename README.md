@@ -6,6 +6,12 @@ Sistema que permite al usuario de forma interactiva buscar inmuebles que se ajus
 #Pre Requisitos:
 
 1. PHP v. 5.5 o mayor.
+2. Que apache tenga acceso al webroot del proyecto.
+  * Sino es así: chown R usuarioLinux:www-data /var/www/tsi-php.
+
+>En versión 2.4.7 el webroot cambia a /var/www/html/tsi-php.
+
+>Pueda ser que necesites ejecutar como **sudo** la operación.
 
 #Instalación
 
@@ -13,7 +19,7 @@ Sistema que permite al usuario de forma interactiva buscar inmuebles que se ajus
 2. Ya que github no trackea carpetas vacías, no puede hacerse cambios en los permisos de la carpeta /assets. Por ende, para evitar error de **missing /assets folder**, es necesario ejecutar en consola:  
 
   ```bash
-    chmod -R 0777 /assets.
+    chmod -R 0775 /assets.
   ```
 3. Para evitar el warning **Failed to create scaled version: thumbnail** al usar **jQuery-File-Upload** plugin, en necesario instalar la librería GD de php:
 
