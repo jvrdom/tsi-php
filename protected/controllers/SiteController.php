@@ -30,6 +30,7 @@ class SiteController extends Controller
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
       $criteria=new CDbCriteria;
+      $criteria->join='INNER JOIN portada ON id_inmueble=inmueble_id_inmueble';
       $criteria->addCondition('esPortada = 1','AND'); // 
       $dataProvider=new CActiveDataProvider('Imagen', 
                                              array('criteria' => $criteria,
