@@ -22,9 +22,8 @@ array('label'=>'Delete Inmueble','url'=>'#','linkOptions'=>array('submit'=>array
              array('name' => 'estado', 'label' => 'Estado'),
              array('name' => 'prueba', 'type' => 'raw', 'label' => 'Imágenes', 'value'=>'<a href="" data-toggle="modal" data-target="#modalImagenes">Ver más...</a>'),
              array('type' => 'raw', 'value'=> CHtml::link('Agendar', array('clienteInmueble/create','id_inmueble'=>$model->id_inmueble)),
-            /*'tipo_inmueble_id_tipo_inmueble',*/
            ),
-         )); ?>
+         ))); ?>
      </div> 
       
      <div class="row">

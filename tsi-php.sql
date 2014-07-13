@@ -128,7 +128,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `tsi-php`.`cliente_inmueble` (
   `cliente_id_cliente` INT NOT NULL,
   `inmueble_id_inmueble` INT NOT NULL,
-  `fecha_ini` DATETIME NOT NULL,
+  `fecha_ini` VARCHAR(45) NOT NULL,
   `visito` VARCHAR(45) NULL,
   PRIMARY KEY (`cliente_id_cliente`, `inmueble_id_inmueble`, `fecha_ini`),
   INDEX `fk_cliente_has_inmueble_inmueble1_idx` (`inmueble_id_inmueble` ASC),
