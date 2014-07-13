@@ -59,4 +59,23 @@ class AjaxController extends Controller
       Yii::app()->end();
    }
 
+   public function actionPrueba(){
+      
+      $modelCliente = new Cliente;
+      $modelCliente->nombre = $_POST['nombre'];
+      $modelCliente->email = $_POST['email'];
+      $modelCliente->telefono = $_POST['telefono'];
+      $modelCliente->direccion = $_POST['direccion'];
+      $modelCliente->esPendiente = 1;
+
+      if($modelCliente->save()){
+         $cliente_inmueble = new ClienteInmueble;
+         $cliente_inmueble->cliente_id_cliente = $modelCliente->id_cliente;
+         $cliente_inmueble->inmueble_id_inmueble = $_POST['id_inmueble'];
+         $cliente_inmueble->fecha_ini = $_POST['fecha'];
+         $cliente_inmueble->visito = 0;
+         $cliente_inmueble->save();
+      }
+   }
+
 }

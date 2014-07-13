@@ -131,6 +131,7 @@
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jcarousel.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/moment.min.js"></script>
     <script src='<?php echo Yii::app()->request->baseUrl; ?>/js/fullcalendar.js'></script>
+    <script src='<?php echo Yii::app()->request->baseUrl; ?>/js/es.js'></script>
     <script src='<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui.custom.min.js'></script>
     <script src='<?php echo Yii::app()->request->baseUrl; ?>/js/smartWizard/jquery.smartWizard-2.0.js'></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/app.js"></script>
