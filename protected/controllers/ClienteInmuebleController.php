@@ -28,12 +28,13 @@ class ClienteInmuebleController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('view','create','toogle'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('index','update'),
 				'users'=>array('@'),
+				'roles'=>array('Agente'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
@@ -143,6 +144,14 @@ class ClienteInmuebleController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actions(){
+			return array('toggle' => array(
+									'class' => 'booster.actions.TbToggleAction',
+									'modelName' => 'ClienteInmueble',
+									)
+					);
 	}
 
 	/**

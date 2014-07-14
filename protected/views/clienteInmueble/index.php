@@ -1,20 +1,23 @@
 <?php
-/* @var $this ClienteInmuebleController */
-/* @var $dataProvider CActiveDataProvider */
-
-$this->breadcrumbs=array(
-	'Cliente Inmuebles',
-);
-
-$this->menu=array(
-	array('label'=>'Create ClienteInmueble', 'url'=>array('create')),
-	array('label'=>'Manage ClienteInmueble', 'url'=>array('admin')),
-);
+    $this->widget(
+	    'booster.widgets.TbExtendedGridView',
+	    array(
+	    'fixedHeader' => true,
+	    'headerOffset' => 40,
+	    // 40px is the height of the main navigation at bootstrap
+	    'type' => 'striped',
+	    'dataProvider' => $dataProvider,
+	    'responsiveTable' => true,
+	    'template' => "{items}",
+	    'columns' => array(
+			array('name' => 'inmueble_id_inmueble','header' => 'ID_INM'),
+			array('name' => 'cliente_id_cliente','header' => 'ID_CLI'),
+			array('name' => 'fecha_ini','header' => 'Fecha'),
+			array('class' => 'booster.widgets.TbToggleColumn',
+				'toggleAction' => 'clienteInmueble/toggle',
+				'name' => 'visito',
+				'header' => 'Visita'
+			),
+	    ))
+    );
 ?>
-
-<h1>Cliente Inmuebles</h1>
-
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>
