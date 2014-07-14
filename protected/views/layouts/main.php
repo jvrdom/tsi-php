@@ -76,6 +76,7 @@
                                  )
                               ),
                               array('label'=>'Consultas', 'url'=>array('/busqueda'),'visible' => Yii::app()->user->checkAccess('Agente')),
+                              array('label'=>'Agenda', 'url'=>array('/clienteInmueble'),'visible' => Yii::app()->user->checkAccess('Agente')),
                               array(
                                  'label' =>'Gestión de Portada',
                                  'visible' => Yii::app()->user->checkAccess('Agente'), 
