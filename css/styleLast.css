@@ -70,3 +70,12 @@
 #cliente-form {
     visibility:hidden;
 }
+
+.div-hipoteca {
+    padding-bottom: 4%;
+    background-color: mintcream;
+}
+
+.group-hipoteca {
+    margin-left: 2%;
+}

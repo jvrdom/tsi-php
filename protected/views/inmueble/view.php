@@ -1,10 +1,10 @@
-<?php
+<!--<?php
 
 $this->menu=array(
-array('label'=>'Update Inmueble','url'=>array('update','id'=>$model->id_inmueble)),
-array('label'=>'Delete Inmueble','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->id_inmueble),'confirm'=>'Are you sure you want to delete this item?')),
+//array('label'=>'Update Inmueble','url'=>array('update','id'=>$model->id_inmueble)),
+//array('label'=>'Delete Inmueble','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->id_inmueble),'confirm'=>'Are you sure you want to delete this item?')),
 );
-?>
+?>-->
 <div class="row">
    <div class="col-md-7">
       <div class="row">
@@ -25,36 +25,32 @@ array('label'=>'Delete Inmueble','url'=>'#','linkOptions'=>array('submit'=>array
            ),
          ))); ?>
      </div> 
-      
-     <div class="row">
-
+     <br> 
+     <div class="row div-hipoteca">
       <form class="form-inline" role="form">
-
-        <div class="form-group" >
-          <label class="col-sm-3 control-label" for="TestForm_textField">Pago Mensual Hipoteca: </label>
+        <fieldset>
+          <legend>Pago Mensual Hipoteca: </legend>  
+        <div class="form-group group-hipoteca" >
           <input class="form-control" placeholder="Interes %" name="interes" id="interes" type="text">
           <input class="form-control" placeholder="Cantidad de Meses" name="meses" id="meses" type="text">
           <input class="form-control" placeholder="precio" name="precio" id="precio" value="<?php echo $model->precio?>" type="hidden">
-        
-          <!--<button class="btn btn-primary" id="yw9" type="submit" name="yt3"> Calcular </button>-->
           <?php   
-          echo CHtml::ajaxLink(
-          'Calcular',      // the link body (it will NOT be HTML-encoded.)
-          array('ajax/cuotaHipotecaMensual'), // the URL for the AJAX request. If empty, it is assumed to be the current URL.
-          array(
-              'type'=>'POST',
-              'data' => array('interes' => 'js:$("#interes").val()', 'meses' => 'js:$("#meses").val()', 'precio' => 'js:$("#precio").val()'),
-              'update'=>'#req_resultado'
-          ),
-          array('class' => 'btn btn-primary')
-          );
-      
-          //echo '<div id="req_res">...</div>';
-         ?>
-          <label class="col-sm-6 control-label" for="TestForm_textField">Cuota Mensual: </label>
-           <?php echo '<div id="req_resultado">...</div>';?> 
+            echo CHtml::ajaxLink(
+            'Calcular',      // the link body (it will NOT be HTML-encoded.)
+              array('ajax/cuotaHipotecaMensual'), // the URL for the AJAX request. If empty, it is assumed to be the current URL.
+              array(
+                  'type'=>'POST',
+                  'data' => array('interes' => 'js:$("#interes").val()', 'meses' => 'js:$("#meses").val()', 'precio' => 'js:$("#precio").val()'),
+                  'update'=>'#req_resultado'
+              ),
+              array('class' => 'btn btn-primary')
+            );
+          ?>
+          <div class="form-control" >
+            <?php echo '<div id="req_resultado">...</div>';?> 
+          </div>  
         </div>
-
+        </fieldset>
       </form>
      </div> <!--end form hipoteca-->
    </div>
