@@ -84,7 +84,13 @@
                                     array('label' => 'Administración', 'url'=>array('/portada/altaPortada')),
                                  )
                               ),
-                              array('label'=>'Buscar Inmuebles', 'url'=>array('inmueble/buscar'), 'visible'=>Yii::app()->user->isGuest),
+                              array(
+                                'label'=>'Buscar Inmuebles', 
+                                'items' => array(
+                                  array('label' => 'Busqueda', 'url'=>array('inmueble/buscar')),
+                                  array('label' => 'Mapa', 'url'=>array('inmueble/mapa')),
+                                )
+                              ),
                               array('label'=>'Login', 'url'=>array('site/login'), 'visible'=>Yii::app()->user->isGuest),
                               array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('site/logout'), 'visible'=>!Yii::app()->user->isGuest),
                             ),

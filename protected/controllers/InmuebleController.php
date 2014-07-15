@@ -40,7 +40,7 @@ public function accessRules()
 {
 return array(
 array('allow',  // allow all users to perform 'index', 'buscar' and 'view' actions
-'actions'=>array('index','view','buscar'),
+'actions'=>array('index','view','buscar','mapa'),
 'users'=>array('*'),
 ),
 array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -273,6 +273,21 @@ public function actionBuscar(){
                                          'cantCasa' => $cantCasa,
                                          'result' => $result,
                                          ));
+}
+
+public function actionMapa() {
+   $dataProvider=new CActiveDataProvider('Inmueble');
+   $prueba = array();
+   foreach ($dataProvider->getData() as $key => $value) {
+      //array_push($prueba, $value['direccion']->latlong);
+      $prueba[] = array( 'id_inmueble' => $value['id_inmueble'],
+                         'nombre' => $value['nombre'],
+                         'latlong' => $value['direccion']->latlong,
+                         'tipo' => $value['tipoInmuebleIdTipoInmueble']->nombre
+      );
+   }
+
+   $this->render('search_inmueble_map', array('inmuebles' => $prueba ));
 }
 
 /**
